@@ -1,6 +1,6 @@
 # Eureka
 
-![GitHub repo size](https://img.shields.io/github/license/totoi690/eureka?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/totoi690/eureka?style=for-the-badge)
 ![Open issues](https://img.shields.io/github/issues/totoi690/eureka?style=for-the-badge)
 ![Github repo size](https://img.shields.io/github/repo-size/totoi690/eureka?style=for-the-badge)
 
@@ -14,7 +14,7 @@
 
 ## 🌐 Link
 
-EM BREVE!
+[CLIQUE AQUI PARA ACESSAR O SITE](https://eurekabr.vercel.app/)
 
 ## 🤝 Desenvolvedores
 
