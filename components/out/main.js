@@ -1,3 +1,7 @@
+import Image from 'next/image'
+import Illustration from "/public/illustrations/study.svg"
+import Share from "/public/icons/share.svg"
+
 export default function Main () {
     return (
         <div className="my-10 lg:my-5 flex flex-col gap-10 lg:gap-0">
@@ -8,7 +12,7 @@ export default function Main () {
                         <p>Dúvidas</p>
                     </div>
                     <div className="flex flex-row align-middle gap-3">
-                        <img src="/icons/share.svg" alt="Share icon" />
+                        <Image src={Share} alt="Share icon" />
                         <div className="text-black font-semibold lg:text-xl">
                             Compartilhe seu conhecimento  
                             <p className="hidden lg:block"></p> 
@@ -17,7 +21,7 @@ export default function Main () {
                     </div>
                 </div>
                 <div className="hidden md:block z-10 md:w-1/2">
-                    <img src="/illustrations/study.svg" alt="Study Illustration" className=""/>
+                    <Image src={Illustration} alt="Study Illustration"/>
                 </div>
             </div>
             <div className="-m-3 mt-2 lg:m-0 lg:bg-light-dark lg:rounded-full">
