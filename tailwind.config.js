@@ -3,21 +3,26 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
+      transparent: 'transparent',
       'white': {
-        DEFAULT: "#FFFFFF",
+        DEFAULT: "var(--white)",
+      },
+      'grey': {
+        DEFAULT: "var(--def-grey)",
+        dark: "var(--dark-grey)",
       },
       'light': {
-        DEFAULT: "#F8F9FB",
-        dark: "#ECEEF8",
-        darker: "#E2E4EE"
+        DEFAULT: "var(--def-light)",
+        dark: "var(--dark-light)",
+        darker: "var(--darker-light)"
       },
       'blue': {
-        light: "#799DE8",
-        DEFAULT: "#4361EE",
-        dark: "#0D248C",
+        light: "var(--light-blue)",
+        DEFAULT: "var(--def-blue)",
+        dark: "var(--dark-blue)",
       },
       'yellow': {
-        DEFAULT: "#FFCF2D",
+        DEFAULT: "var(--def-yellow)",
       }
     },
     fontFamily: {

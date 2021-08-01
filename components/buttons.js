@@ -1,16 +1,19 @@
-export const BtnCinza = function (props) {
+export default function Btn (props) {
+    let tipo;
+    switch (props.type) {
+        case "blue":
+            tipo = "bg-blue border-2 text-white hover:bg-blue-dark"
+            break
+        case "grey":
+            tipo = "bg-light border-light-darker text-blue-dark hover:bg-light-dark"
+            break
+        default:
+            tipo = "bg-blue border-2 text-white hover:bg-blue-dark"
+            break
+    }
     return (
-        <button className="py-2 px-8 font-body font-extrabold bg-light rounded-lg
-        border-2 border-light-darker text-blue-dark text-lg hover:bg-light-dark" onClick={() => props.action}>
-            {props.label}
-        </button>
-    )
-}
-
-export const BtnAzul = function (props) {
-    return (
-        <button className="py-2 px-8 font-body font-extrabold bg-blue rounded-lg
-        border-2 text-white text-lg hover:bg-blue-dark" onClick={() => props.action}>
+        <button className={`py-2 px-8 font-body font-extrabold rounded-xl border-2 cursor-pointer
+        ${tipo}`} onClick={() => props.action}>
             {props.label}
         </button>
     )

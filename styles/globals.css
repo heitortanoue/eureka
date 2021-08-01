@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --def-blue: #4361EE;
+    --light-blue: #799DE8;
+    --dark-blue: #0D248C;
+    --white: #FFFFFF;
+    --def-light: #F8F9FB;
+    --dark-light: #ECEEF8;
+    --darker-light: #E2E4EE;
+    --def-yellow: #FFCF2D;
+    --def-grey: #B7B8C3;
+    --dark-grey: #464E74;
+}
+
+.fbg-blue {
+    background: var(--def-blue);
+}
+
+.fbg-blue:hover {
+    background: var(--dark-blue);
+}
