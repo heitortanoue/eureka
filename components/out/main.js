@@ -27,7 +27,7 @@ export default function Main () {
             <div className="-m-3 mt-2 lg:m-0 lg:bg-light-dark lg:rounded-full">
                 <div className="bg-light-darker rounded-full m-2 lg:w-5/12">
                     <form action="get" className="flex align-middle">
-                        <button type="submit" className="fbg-blue rounded-full cursor-pointer text-white w-14 h-14 flex-0">
+                        <button type="submit" className="fbg-blue rounded-full cursor-pointer text-white w-14 h-14 flex-0 text-xl">
                             <i className="fa fa-search"></i>
                         </button>
                         <input type="text" placeholder="Qual a sua pergunta?" className="p-3 flex-1 bg-light-darker rounded-full outline-none"/>
