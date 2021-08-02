@@ -10,7 +10,7 @@ export default function textBox () {
                 </div>
             </div>
             <div className="flex gap-3">
-                <div className="w-10 h-10 bg-yellow rounded-full text-2xl flex">
+                <div className="w-10 h-10 bg-yellow rounded-full text-xl flex">
                     <i className="fa fa-comments mx-auto my-auto"></i>
                 </div>
                 <div className="flex flex-col gap-1 flex-1">
@@ -24,7 +24,7 @@ export default function textBox () {
                 </div>
             </div>
             <div className="flex gap-3">
-                <div className="w-10 h-10 bg-yellow rounded-full text-2xl flex">
+                <div className="w-10 h-10 bg-yellow rounded-full text-xl flex">
                     <i className="fa fa-wifi mx-auto my-auto"></i>
                 </div>
                 <div className="flex flex-col gap-1 flex-1">
