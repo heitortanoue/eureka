@@ -1,23 +1,59 @@
 import Btn from "../buttons"
 import Image from 'next/image'
-import LogoBranca from '/public/logos/eureka_transparente_branco.png'
+import Link from "next/link"
+import IconLamp from '/public/logos/icon.png'
 import LogoAzul from '/public/logos/eureka_transparente.png'
+import {useState, useEffect} from 'react'
 
 export default function Header () {
+    const [isOpen, setOpen] = useState(false)
+    const [onTop, setScroll] = useState(true)
+    const handleScroll = (e) => {
+        const top = window.pageYOffset === 0;
+        top ? setScroll(true) : setScroll(false)
+        console.log("CHECANDO" + window.pageYOffset )
+    }
+
+    useEffect(() => {
+        let interval = setInterval(() => setScroll(window.scrollY), 50);
+        return () => clearInterval(interval);
+      });
+
     return (
-        <div className="flex flex-col gap-7 md:flex-row align-middle justify-between md:container mx-auto md:px-10 md:py-10">
-            <div className= "flex justify-center p-0 bg-blue md:bg-transparent py-4 md:p-0">
-                <div className="w-48 md:hidden">
-                    <Image unsized="true" src={LogoBranca} alt="Logo Eureka" className="md:hidden"/>
-                </div>                
-                <div className="w-48 hidden md:block">
-                    <Image unsized="true" src={LogoAzul} alt="Logo Eureka" className="md:hidden"/>
+        <>
+            <div className={`sticky top-0 md:static flex gap-7 flex-row z-50 md:bg-white md:shadow-none
+            align-middle justify-between items-center container p-5 mx-auto md:p-10 transition-all duration-150
+           ${onTop || isOpen ? "bg-light shadow-sm" : "bg-white"}`} onScroll={(e) => {handleScroll(e)}}>
+                <div className= "flex justify-center">
+                    <Link href="/">
+                        <div className="w-12 md:hidden">
+                            <Image unsized="true" src={IconLamp} alt="Logo Eureka"/>
+                        </div>
+                    </Link>  
+                    <Link href="/">           
+                        <div className="w-48 hidden md:block cursor-pointer">
+                            <Image unsized="true" src={LogoAzul} alt="Logo Eureka"/>
+                        </div>
+                    </Link>  
+                </div>
+                <div className="justify-center gap-5 hidden md:flex">
+                    <Btn type="grey" redirect="/login">Login</Btn>
+                    <Btn type="blue" redirect="/cadastro">Pergunte</Btn>
+                </div>
+                <div className="text-3xl mr-2 md:hidden" onClick={() => {setOpen(!isOpen)}}>
+                    <i className={isOpen ? "fas fa-times" : "fas fa-bars"}></i>
                 </div>
             </div>
-            <div className="flex justify-center gap-5">
-                <Btn label={"Login"} type="grey"/>
-                <Btn label={"Pergunte"} type="blue"/>
+            <div className={`z-40 ${isOpen ? "fixed" : "hidden"} w-full h-full bg-white transition-all
+            transition-150 p-20`}>
+                <div className="font-bold text-blue-dark text-center text-xl mb-5">
+                    Entre para a melhor Comunidade de dúvidas de exatas do país!
+                </div>
+                <div className="justify-center gap-5 flex">
+                    <Btn type="grey" redirect="/login">Login</Btn>
+                    <Btn type="blue" redirect="/cadastro">Pergunte</Btn>
+                </div>
             </div>
-        </div>
+        </>
     )
 }

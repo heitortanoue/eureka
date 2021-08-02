@@ -14,7 +14,7 @@ export default function Home() {
     <div className="font-body">
       <div className="mb-32">
         <Header/>
-        <div className="container mx-auto px-5 lg:px-10 flex flex-col gap-20 mt-8 lg:mt-0">
+        <div className="container mx-auto px-5 lg:px-10 flex flex-col gap-20 mt-5 lg:mt-0">
           <Main/>
           <TextBox/>
           <UserFeedback/>

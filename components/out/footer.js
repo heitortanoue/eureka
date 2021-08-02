@@ -9,15 +9,15 @@ export default function Footer () {
             subpaginas: [
                 {
                     nome: "Quem Somos",
-                    link: ""
+                    link: "/"
                 },
                 {
                     nome: "Contato",
-                    link: ""
+                    link: "/"
                 },
                 {
                     nome: "Blog",
-                    link: ""
+                    link: "/"
                 },
             ]
         },
@@ -26,15 +26,15 @@ export default function Footer () {
             subpaginas: [
                 {
                     nome: "FAQ",
-                    link: "",
+                    link: "/",
                 },
                 {
                     nome: "Política de Privacidade",
-                    link: ""
+                    link: "/"
                 },
                 {
                     nome: "Termos de Uso",
-                    link: ""
+                    link: "/"
                 }
             ]
         }
@@ -59,7 +59,7 @@ export default function Footer () {
                                 <p className="font-bold mb-1 text-lg">{secao.nome}</p>
                                 {
                                     secao.subpaginas.map((subp) => 
-                                        <Link href={subp.link} key={subp.nome}><p className="hover:underline cursor-pointer">{subp.nome}</p></Link>
+                                        <p className="hover:underline cursor-pointer" key={subp.nome}><Link href={subp.link}>{subp.nome}</Link></p>
                                     )
                                 }
                             </div>

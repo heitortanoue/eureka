@@ -1,6 +1,7 @@
 import Image from 'next/image'
-import Illustration from "/public/illustrations/study.svg"
 import Share from "/public/icons/share.svg"
+import Btn from "/components/buttons"
+import Link from "next/link"
 
 export default function Main () {
     return (
@@ -19,12 +20,16 @@ export default function Main () {
                              {" "}com outras pessoas!
                         </div>
                     </div>
+                    <div className="flex mt-3 justify-center gap-5 md:hidden">
+                        <Btn type="grey" redirect="/login">Login</Btn>
+                        <Btn type="blue" redirect="/cadastro">Pergunte</Btn>
+                    </div>
                 </div>
-                <div className="hidden md:block z-10 md:w-1/2">
-                    <Image src={Illustration} alt="Study Illustration"/>
+                <div className="hidden md:flex z-10 md:w-7/12 justify-end relative">
+                    <Image width="1000" height="800" src={"/illustrations/study.svg"} alt="Study Illustration"/>
                 </div>
             </div>
-            <div className="-m-3 mt-2 lg:m-0 lg:bg-light-dark lg:rounded-full">
+            <div className="-m-3 mt-1 lg:m-0 lg:bg-light-dark lg:rounded-full">
                 <div className="bg-light-darker rounded-full m-1 lg:w-5/12">
                     <form action="get" className="flex align-middle">
                         <button type="submit" className="fbg-blue rounded-full cursor-pointer text-white w-14 h-14 flex-0 text-xl">
