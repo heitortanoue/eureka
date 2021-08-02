@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { useState } from 'react'
 
-export default function userFeedback () {
+export default function UserFeedback () {
     const [index, setIndex] = useState(0)
     const feedbacks = [
         {

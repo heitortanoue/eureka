@@ -45,11 +45,11 @@ export default function Footer () {
             <div className="bg-blue py-5 md:py-10">
                 <div className="container mx-auto p-5 lg:px-10 md:flex md:gap-20">
                     <div className="w-7/12 md:w-1/6 mx-auto ">
-                        <Image src={LogoBranca}/>
+                        <Image src={LogoBranca} alt="Logo Eureka"/>
                         <div className="flex justify-evenly text-2xl mt-2">
-                            <Link href=""><i className="fab fa-facebook-square cursor-pointer"></i></Link>
-                            <Link href=""><i className="fab fa-instagram cursor-pointer"></i></Link>
-                            <Link href=""><i className="fab fa-twitter cursor-pointer"></i></Link>
+                            <Link href="https://www.facebook.com/"><i className="fab fa-facebook-square cursor-pointer"></i></Link>
+                            <Link href="https://www.instagram.com/"><i className="fab fa-instagram cursor-pointer"></i></Link>
+                            <Link href="https://twitter.com/"><i className="fab fa-twitter cursor-pointer"></i></Link>
                         </div>
                     </div>
                     <div className="flex flex-1 md:gap-20 mt-8 md:m-0 justify-around md:justify-start">
@@ -59,7 +59,7 @@ export default function Footer () {
                                 <p className="font-bold mb-1 text-lg">{secao.nome}</p>
                                 {
                                     secao.subpaginas.map((subp) => 
-                                        <Link href={subp.link}><p className="hover:underline cursor-pointer">{subp.nome}</p></Link>
+                                        <Link href={subp.link} key={subp.nome}><p className="hover:underline cursor-pointer">{subp.nome}</p></Link>
                                     )
                                 }
                             </div>
