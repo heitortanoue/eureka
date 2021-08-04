@@ -4,6 +4,7 @@ import Image from "next/image"
 import IconLamp from "/public/logos/icon.png"
 import Head from "next/head"
 import Link from "next/link"
+import axios from "axios"
 
 export default function Cadastro () {
     const [nome, setNome] = useState()
@@ -29,12 +30,18 @@ export default function Cadastro () {
                 email: email,
                 senha: senha,
                 nome: nome,
-                nomeUsuario: nomeUsuario,
+                username: nomeUsuario,
                 faculdade: faculdade,
                 dataNasc: dataNasc
             }
         }
-        console.log(data)
+        axios.post('/api/controllers/cadastroController', data)
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     }
 
     return (
