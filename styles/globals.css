@@ -22,3 +22,78 @@
 .fbg-blue:hover {
     background: var(--dark-blue);
 }
+
+.bg-outro_cinza {
+    background-color: #ECF1F8;
+}
+
+.text-4_5xl {
+    font-size: 2.75rem
+}
+
+.inputfield {
+    width: 100%;
+    height: 3rem;
+    border-width: 2px;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    outline: none;
+    border-radius: 1rem;
+    background-color: var(--dark-light);
+    border-color: var(--dark-light);
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+
+.inputfield:focus {
+    border-color: var(--light-blue)
+}
+
+.button {
+    font-family: Nunito;
+    font-weight: 800;
+    border-radius: 0.75rem;
+    border-width: 2px;
+    cursor: pointer;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+.sqr_button {
+    font-family: Nunito;
+    font-weight: 800;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 1rem;
+    border-width: 2px;
+    cursor: pointer;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+.blue_button {
+    border-color: var(--def-blue);
+    color: var(--white);
+    background-color: var(--def-blue);
+}
+
+.blue_button:hover {
+    background-color: var(--dark-blue);
+}
+
+.grey_button {
+    border-color: var(--darker-light);
+    color: var(--dark-blue);
+    background-color: var(--def-light);
+}
+
+.grey_button:hover {
+    background-color: var(--dark-light);
+}

@@ -14,7 +14,7 @@ export default function UserFeedback () {
             nome: "Usuário 2",
             faculdade: "Faculdade 2",
             texto: "Esse é o texto do usuário 2",
-            foto: "https://avatars.githubusercontent.com/u/68477006?v=4",
+            foto: "https://avatars.githubusercontent.com/u/84605336?v=4",
         },
         {
             nome: "Usuário 3",

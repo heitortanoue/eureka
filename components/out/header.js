@@ -1,4 +1,3 @@
-import Btn from "../buttons"
 import Image from 'next/image'
 import Link from "next/link"
 import IconLamp from '/public/logos/icon.png'
@@ -11,7 +10,6 @@ export default function Header () {
     const handleScroll = (e) => {
         const top = window.pageYOffset === 0;
         top ? setScroll(true) : setScroll(false)
-        console.log("CHECANDO" + window.pageYOffset )
     }
 
     useEffect(() => {
@@ -37,8 +35,8 @@ export default function Header () {
                     </Link>  
                 </div>
                 <div className="justify-center gap-5 hidden md:flex">
-                    <Btn type="grey" redirect="/login">Login</Btn>
-                    <Btn type="blue" redirect="/cadastro">Pergunte</Btn>
+                    <Link href={{pathname: "/cadastro", query: {type: "login"}}}><button className="button grey_button">Login</button></Link>
+                    <Link href={{pathname: "/cadastro", query: {type: "cadastro"}}}><button className="button blue_button">Cadastro</button></Link>
                 </div>
                 <div className="text-3xl mr-2 md:hidden" onClick={() => {setOpen(!isOpen)}}>
                     <i className={isOpen ? "fas fa-times" : "fas fa-bars"}></i>
@@ -50,8 +48,8 @@ export default function Header () {
                     Entre para a melhor Comunidade de dúvidas de exatas do país!
                 </div>
                 <div className="justify-center gap-5 flex">
-                    <Btn type="grey" redirect="/login">Login</Btn>
-                    <Btn type="blue" redirect="/cadastro">Pergunte</Btn>
+                    <Link href={{pathname: "/cadastro", query: {type: "login"}}}><button className="button grey_button">Login</button></Link>
+                    <Link href={{pathname: "/cadastro", query: {type: "cadastro"}}}><button className="button blue_button">Cadastro</button></Link>
                 </div>
             </div>
         </>

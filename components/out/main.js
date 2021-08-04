@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Share from "/public/icons/share.svg"
-import Btn from "/components/buttons"
-import Link from "next/link"
+import Link from 'next/link'
 
 export default function Main () {
     return (
@@ -21,8 +20,8 @@ export default function Main () {
                         </div>
                     </div>
                     <div className="flex mt-3 justify-center gap-5 md:hidden">
-                        <Btn type="grey" redirect="/login">Login</Btn>
-                        <Btn type="blue" redirect="/cadastro">Pergunte</Btn>
+                        <Link href={{pathname: "/cadastro", query: {type: "login"}}}><button className="button grey_button">Login</button></Link>
+                        <Link href={{pathname: "/cadastro", query: {type: "cadastro"}}}><button className="button blue_button">Cadastro</button></Link>
                     </div>
                 </div>
                 <div className="hidden md:flex z-10 md:w-7/12 justify-end relative">
