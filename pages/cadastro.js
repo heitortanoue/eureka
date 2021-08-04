@@ -83,7 +83,7 @@ export default function Cadastro () {
                                 <div className="font-semibold ml-3">Nome de Usuário</div>
                                 <input type="text" name="nome" className="inputfield" onChange={(e)=>{setNomeUsuario(e.target.value)}} />
                             </div>
-                            <div className="flex gap-5 justify-between">
+                            <div className="flex gap-5 justify-between flex-col md:flex-row">
                                 <div className="w-full">
                                     <div className="font-semibold ml-3">Universidade</div>
                                     <input type="text" name="nome" className="inputfield" onChange={(e)=>{setFaculdade(e.target.value)}} />
