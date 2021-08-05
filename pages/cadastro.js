@@ -63,6 +63,7 @@ export default function Cadastro () {
             .catch(function (error) {
               console.log(error);
             });
+            //COMENTARIO
         }
     }
 
