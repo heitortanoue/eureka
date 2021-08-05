@@ -5,6 +5,9 @@ import IconLamp from "/public/logos/icon.png"
 import Head from "next/head"
 import Link from "next/link"
 import axios from "axios"
+import { UserContext } from "/utils/contexts/userContext"
+import { useContext } from "react"
+import { setCookie } from "../utils/cookie"
 
 export default function Cadastro () {
     const [nome, setNome] = useState()
@@ -13,9 +16,11 @@ export default function Cadastro () {
     const [nomeUsuario, setNomeUsuario] = useState()
     const [faculdade, setFaculdade] = useState()
     const [dataNasc, setDataNasc] = useState()
+    const [keepConnect, setKeepConnect] = useState()
 
     const router = useRouter()
     const [isLogin, setLogin] = useState(router.query.type == "login" ? true : false)
+    const userContext = useContext(UserContext)
 
     const handleSubmit = (e) => { 
         e.preventDefault()
@@ -23,11 +28,18 @@ export default function Cadastro () {
         if (isLogin) {
             data = {
                 email: email,
-                senha: senha
+                senha: senha,
             }
             axios.post('/api/usuarioLogin', data)
             .then(function (response) {
-              console.log(response);
+                console.log(response);
+                console.log(JSON.stringify(response.data));
+                if (response.status == 200) {
+                    userContext[1](response.data.user)
+                    if (keepConnect) {
+                        setCookie("token", response.data.user.token, 15)
+                    }
+                }
             })
             .catch(function (error) {
               console.log(error);
@@ -43,7 +55,10 @@ export default function Cadastro () {
             }
             axios.post('/api/usuarioCadastro', data)
             .then(function (response) {
-              console.log(response);
+                console.log(response);
+                if (response.status == 200) {
+                    userContext[1](response.data.user)
+                }
             })
             .catch(function (error) {
               console.log(error);
@@ -128,7 +143,7 @@ export default function Cadastro () {
                         :
                         <div className="flex flex-col gap-3">
                             <div className="mx-auto flex items-center gap-2">
-                                <input type="checkbox" className="w-4 h-4"/> Mantenha-me conectado
+                                <input onChange={(e)=>{setKeepConnect(e.target.value)}} type="checkbox" className="w-4 h-4"/> Mantenha-me conectado
                             </div>
                             <button onClick={(e) => handleSubmit(e)} className="button blue_button" type="submit">Entrar</button>
                             <div className="mx-auto">
