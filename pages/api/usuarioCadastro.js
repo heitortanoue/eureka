@@ -1,9 +1,10 @@
 import { connectToDatabase } from './mongoUtil';
+import token from '../../utils/tokenGenerator';
 var bcrypt = require('bcryptjs');
 
 //Função para inserir usuário
 export default async (request, response) => {
-    const { email, senha, nome, username, faculdade, dataNasc } = await request.body
+    const { email, senha, nome, username, faculdade, dataNasc} = await request.body
     const {db} = await connectToDatabase();
     const collection = db.collection('usuario');
     const salt = bcrypt.genSaltSync(10);
@@ -12,8 +13,7 @@ export default async (request, response) => {
     //VERIFICAÇÃO DE EMAIL
     const countEmail = await collection.findOne({email: email}, {});
     if (countEmail) {
-        console.log("Email já cadastrado!")
-        return response.status(400).json({resultado: `Email já cadastrado!` })
+        return response.status(400).json({result: `Email já cadastrado!` })
     }
 
     let data = {}
@@ -23,7 +23,8 @@ export default async (request, response) => {
     data.username = username;
     data.faculdade = faculdade;
     data.dataNasc = dataNasc;
+    data.token = token;
     await collection.insertOne(data);
        
-    return response.status(201).json({resultado: `Operação realizada com sucesso!` })
+    return response.status(201).json({result: `Cadastro realizado com sucesso!` })
 }
