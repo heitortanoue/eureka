@@ -3,9 +3,30 @@ import Main from "/components/out/main"
 import TextBox from "../components/out/textbox"
 import UserFeedback from "../components/out/userfeedback"
 import Footer from "../components/out/footer"
+import Container from "../components/global/container"
 import Head from "next/head"
+import { useEffect, useContext } from "react"
+import { useRouter } from "next/router"
+import { getCookie } from "../utils/cookie"
+import axios from "axios"
+import { UserContext } from "/utils/contexts/userContext"
 
 export default function Home() {
+  const router = useRouter()
+  const userContext = useContext(UserContext)
+
+  useEffect(() => {
+    const token = getCookie("token")
+    if (token) {
+      axios.post("/api/usuarioLogin", {token: token})
+      .then(function (response) {
+        userContext[1](response.data.user)
+        console.log(response);
+      })
+      router.push("/inicio")
+    }
+  }, [])
+
   return (
     <>
     <Head>
@@ -14,11 +35,11 @@ export default function Home() {
     <div className="font-body">
       <div className="mb-32">
         <Header/>
-        <div className="container mx-auto px-5 lg:px-10 flex flex-col gap-20 mt-5 lg:mt-0">
+        <Container>
           <Main/>
           <TextBox/>
           <UserFeedback/>
-        </div>
+        </Container>
       </div>
       <Footer/>
     </div>
