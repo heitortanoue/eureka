@@ -1,4 +1,6 @@
 import { MongoClient } from 'mongodb'
+import dotenv from 'dotenv'
+dotenv.config({ path: '.env.local' })
 
 const MONGODB_URI = process.env.MONGODB_URI
 const MONGODB_DB = process.env.MONGODB_DB

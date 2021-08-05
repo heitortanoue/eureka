@@ -25,6 +25,13 @@ export default function Cadastro () {
                 email: email,
                 senha: senha
             }
+            axios.post('/api/usuarioLogin', data)
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
         } else {
             data = {
                 email: email,
@@ -34,14 +41,14 @@ export default function Cadastro () {
                 faculdade: faculdade,
                 dataNasc: dataNasc
             }
+            axios.post('/api/usuarioCadastro', data)
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
         }
-        axios.post('/api/usuarioCadastro', data)
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
     }
 
     return (
