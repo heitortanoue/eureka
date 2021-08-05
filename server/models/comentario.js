@@ -24,7 +24,7 @@ const comentarioSchema = new mongoose.Schema({
     },
     data:{
         type:Date,
-        defaul: Date.now
+        default: Date.now
     }
 
 });

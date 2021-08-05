@@ -35,7 +35,7 @@ export default function Cadastro () {
                 dataNasc: dataNasc
             }
         }
-        axios.post('/api/controllers/cadastroController', data)
+        axios.post('/api/connectToMongo', data)
           .then(function (response) {
             console.log(response);
           })
