@@ -26,5 +26,5 @@ export default async (request, response) => {
     data.token = token;
     await collection.insertOne(data);
        
-    return response.status(201).json({result: `Cadastro realizado com sucesso!` })
+    return response.status(200).json({result: `Cadastro realizado com sucesso!` })
 }

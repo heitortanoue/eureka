@@ -21,7 +21,6 @@ export default function Home() {
       axios.post("/api/usuarioLogin", {token: token})
       .then(function (response) {
         userContext[1](response.data.user)
-        console.log(response);
       })
       router.push("/inicio")
     }
