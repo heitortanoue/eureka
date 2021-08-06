@@ -91,6 +91,12 @@
     right: 0;
 }
 
+.animateRight {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
 .button {
     font-family: Nunito;
     font-weight: 800;
