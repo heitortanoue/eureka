@@ -22,10 +22,10 @@ export default async (request, response) => {
             if(bcrypt.compareSync(senha, hash)){
                 return  response.status(200).json({result:`Logado com sucesso!`, user: user}) 
             }else{
-                return response.status(401).json({result: `Senha incorreta` })
+                return response.status(400).json({result: `Senha incorreta` })
             }      
         }else{
-            return response.status(402).json({result: `Email não está cadastrado` })
+            return response.status(400).json({result: `Email não cadastrado` })
         }
     }
 }

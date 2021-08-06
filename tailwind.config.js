@@ -23,6 +23,16 @@ module.exports = {
       },
       'yellow': {
         DEFAULT: "var(--def-yellow)",
+      },
+      'red': {
+        light: "var(--light-red)",
+        DEFAULT: "var(--def-red)",
+        dark: "var(--dark-red)"
+      },
+      'green': {
+        light: "var(--light-green)",
+        DEFAULT: "var(--def-green)",
+        dark: "var(--dark-green)"
       }
     },
     fontFamily: {
