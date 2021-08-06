@@ -1,13 +1,14 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { useRouter } from "next/router"
 import Image from "next/image"
 import IconLamp from "/public/logos/icon.png"
 import Head from "next/head"
 import Link from "next/link"
 import axios from "axios"
-import { UserContext } from "/utils/contexts/userContext"
-import { useContext, useEffect } from "react"
-import { getCookie, setCookie } from "../utils/cookie"
+import { setCookie } from "../utils/cookie"
+import RedirectWhenLogged from "../utils/redirectWhenLogged"
+import {UserContext} from "/utils/contexts/userContext"
+import nProgress from "nprogress"
 
 export default function Cadastro () {
     // DADOS PARA CADASTRO E LOGIN
@@ -22,23 +23,13 @@ export default function Cadastro () {
 
     const [error, setError] = useState(false)
     const [seePassword, setSeePassword] = useState(false)
+    const USERCONTEXT = useContext(UserContext)
 
     const router = useRouter()
     const [isLogin, setLogin] = useState(router.query.type == "login" ? true : false)
-    const userContext = useContext(UserContext)
-
-    useEffect(() => {
-        const token = getCookie("token")
-        if (token) {
-          axios.post("/api/usuarioLogin", {token: token})
-          .then(function (response) {
-            userContext[1](response.data.user)
-          })
-          router.push("/inicio")
-        }
-      }, [])
 
     const checkFieldAndSubmit = (e) => {
+        nProgress.start()
         let inputs, res = true
         if (isLogin) {
             inputs = [email, senha]
@@ -57,11 +48,13 @@ export default function Cadastro () {
             if (!el) {
                 setError("Preencha todos os campos!")
                 res = false
+                nProgress.done()
                 return;
             }
         })      
         if (res) {
             handleSubmit(e)
+            nProgress.done()
         }
     }
 
@@ -81,21 +74,23 @@ export default function Cadastro () {
         axios.post(`/api/usuario${isLogin ? "Login" : "Cadastro"}`, data)
         .then(function (response) {
             if (response.status == 200) {
-                userContext[1](response.data.user)
                 if (keepConnect) {
                     // COOKIE COM TOKEN PARA MANTER CONECTADO
                     setCookie("token", response.data.user.token, 15)
-                    router.push("/inicio")
                 }
+                USERCONTEXT[1](response.data.user)
             }
         })
         .catch(function (err) {
-          setError(err.response.data.result)
+            if (err.response) {
+                setError(err.response.data.result)
+            }
         });
     }
 
     return (
-        <>
+        <>  
+            <RedirectWhenLogged/>
             <Head>
                 <title>Login/Cadastro | Eureka</title>
             </Head>
