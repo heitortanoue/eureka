@@ -102,7 +102,7 @@ export default function Cadastro () {
                         src={`/illustrations/${isLogin ? "library" : "exam"}.svg`} alt="Study Illustration"/>
                     </div>
                 </div>
-                <div className={`flex flex-col justify-between h-screen lg:w-5/12
+                <div className={`flex flex-col justify-between h-screen transition-all
                 font-body container mx-auto p-5 lg:p-10 gap-8 lg:m-0 ${isLogin ? "lg:w-5/12" : "lg:w-8/12"}`}>
                     <div className="flex justify-between text-xl items-center">
                         <Link href="/"><button className="sqr_button blue_button"><i className="fas fa-chevron-left"></i></button></Link>
@@ -124,41 +124,47 @@ export default function Cadastro () {
                                 <div className="font-semibold ml-3">Email</div>
                                 <input type="email" className="inputfield" onChange={(e)=>{setEmail(e.target.value)}} />
                             </div>
-                            <div>
-                                <div className="font-semibold ml-3">Senha</div>
-                                <div className="relative">
-                                    <input type={seePassword ? "text" : "password"} className="inputfield" onChange={(e)=>{setSenha(e.target.value)}} />
-                                    <i className={`p-2 cursor-pointer far fa-eye${!seePassword ? "-slash" : ""} text-xl posIconOlho`}
-                                    onClick={() => {setSeePassword(!seePassword)}}></i>
+                            <div className="lg:flex justify-between gap-5">
+                                <div className="flex-1">
+                                    <div className="font-semibold ml-3">Senha</div>
+                                    <div className="relative">
+                                        <input type={seePassword ? "text" : "password"} className="inputfield" onChange={(e)=>{setSenha(e.target.value)}} />
+                                        <i className={`p-2 cursor-pointer far fa-eye${!seePassword ? "-slash" : ""} text-xl posIconOlho`}
+                                        onClick={() => {setSeePassword(!seePassword)}}></i>
+                                    </div>
                                 </div>
+                                {/*FIM DA PARTE DO LOGIN*/}
+                                {!isLogin ?
+                                <div className="flex-1">
+                                    <div className="font-semibold ml-3">Confirme sua senha</div>
+                                    <div className="relative">
+                                        <input type={seePassword ? "text" : "password"} 
+                                        className={`inputfield ${senha ? (confirmaSenha == senha ? "inputfieldGreen" : "inputfieldRed") : ''}`} 
+                                        onChange={(e)=>{setConfirmaSenha(e.target.value)}} />
+                                        {senha ? <i className={`far fa-${confirmaSenha == senha ? "check" : "times"}-circle
+                                        text-2xl posIconSenha text-${confirmaSenha == senha ? "green" : "red"}-dark`}></i> : null}
+                                    </div>
+                                </div>
+                                : null}
                             </div>
-                            {/*FIM DA PARTE DO LOGIN*/}
                             {!isLogin ?
                             <>
-                            <div>
-                                <div className="font-semibold ml-3">Confirme sua senha</div>
-                                <div className="relative">
-                                    <input type={seePassword ? "text" : "password"} 
-                                    className={`inputfield ${senha ? (confirmaSenha == senha ? "inputfieldGreen" : "inputfieldRed") : ''}`} 
-                                    onChange={(e)=>{setConfirmaSenha(e.target.value)}} />
-                                    {senha ? <i className={`far fa-${confirmaSenha == senha ? "check" : "times"}-circle
-                                    text-2xl posIconSenha text-${confirmaSenha == senha ? "green" : "red"}-dark`}></i> : null}
+                            <div className="flex gap-5 justify-between flex-col md:flex-row">
+                                <div className="flex-1">
+                                    <div className="font-semibold ml-3">Nome completo</div>
+                                    <input type="text" className="inputfield" onChange={(e)=>{setNome(e.target.value)}} />
+                                </div>
+                                <div className="flex-1">
+                                    <div className="font-semibold ml-3">Nome de Usuário</div>
+                                    <input type="text" className="inputfield" onChange={(e)=>{setNomeUsuario(e.target.value)}} />
                                 </div>
                             </div>
-                            <div>
-                                <div className="font-semibold ml-3">Nome completo</div>
-                                <input type="text" className="inputfield" onChange={(e)=>{setNome(e.target.value)}} />
-                            </div>
-                            <div>
-                                <div className="font-semibold ml-3">Nome de Usuário</div>
-                                <input type="text" className="inputfield" onChange={(e)=>{setNomeUsuario(e.target.value)}} />
-                            </div>
                             <div className="flex gap-5 justify-between flex-col md:flex-row">
-                                <div className="w-full">
+                                <div className="flex-1">
                                     <div className="font-semibold ml-3">Universidade</div>
                                     <input type="text" className="inputfield" onChange={(e)=>{setFaculdade(e.target.value)}} />
                                 </div>
-                                <div>
+                                <div className="flex-1">
                                     <div className="font-semibold ml-3">Data de Nascimento</div>
                                     <input type="date" className="inputfield" onChange={(e)=>{setDataNasc(e.target.value)}} />
                                 </div>
