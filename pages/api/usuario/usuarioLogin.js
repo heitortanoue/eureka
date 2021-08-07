@@ -1,5 +1,4 @@
-import { connectToDatabase } from './mongoUtil';
-import { setCookie } from '../../utils/cookie';
+import { connectToDatabase } from '../connect/mongoUtil';
 var bcrypt = require('bcryptjs');
 
 //FUNÇÃO PARA REALIZAR O LOGIN

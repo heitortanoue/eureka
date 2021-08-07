@@ -15,6 +15,7 @@
     "crypto-js": "^4.1.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "moment": "^2.29.1",
     "mongodb": "^4.1.0",
     "mongoose": "^5.13.5",
     "nanoid": "^3.1.23",

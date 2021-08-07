@@ -1,9 +1,13 @@
 import IconLamp from "/public/logos/icon.png"
 import Image from "next/image"
+import {UserContext} from "/utils/contexts/userContext"
+import { useContext } from "react"
+import UserImage from "../global/userImage"
 
 export default function Header () {
+    const USERCONTEXT = useContext(UserContext)
     return (
-        <div className="p-3 flex h-20 justify-between gap-3 items-center rounded-2borders shadow-md sticky top-0 mb-3 bg-white z-50">
+        <div className="p-3 flex h-20 justify-between gap-3 items-center rounded-2borders shadow-md sticky top-0 bg-white z-40">
             <div className="w-11 h-11 mb-2">
                 <Image unsized="true" src={IconLamp} alt="Logo Eureka"/>
             </div>
@@ -15,9 +19,8 @@ export default function Header () {
                 <input type="text" placeholder="Qual a sua pergunta?" className="p-2 flex-1 bg-light-darker rounded-full outline-none"/>
                 </form>
             </div>
-            <div className="w-11 h-11 relative">
-                <Image layout="fill" objectFit="contain" src={`https://avatars.githubusercontent.com/u/68477006?v=4`} 
-                className="mx-auto my-auto rounded-full" alt="Foto User"/>
+            <div className="w-11 h-11 relative text-4xl my-auto">
+                {USERCONTEXT[0] ? <UserImage src={USERCONTEXT[0].foto}/> : null}
             </div>
         </div>
     )

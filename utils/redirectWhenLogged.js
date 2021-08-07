@@ -14,10 +14,10 @@ export default function RedirectWhenLogged () {
             .then(function (response) {
                 userContext[1](response.data.user)
             })
-            router.push("/inicio")
+            router.push("/app/")
         }
         if (userContext[0]) {
-            router.push("/inicio")
+            router.push("/app/")
         }
       }, [userContext[0]])
     

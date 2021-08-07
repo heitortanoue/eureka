@@ -1,5 +1,5 @@
-import { connectToDatabase } from './mongoUtil';
-import token from '../../utils/tokenGenerator';
+import { connectToDatabase } from '../connect/mongoUtil';
+import token from '../../../utils/tokenGenerator';
 var bcrypt = require('bcryptjs');
 
 //Função para inserir usuário
