@@ -70,4 +70,4 @@ export default function Inicio ({ questions }) {
 //         props: { questions },
 //         revalidate: 10
 //    }
-}
+//}
