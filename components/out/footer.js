@@ -41,7 +41,7 @@ export default function Footer () {
     ]
 
     return (
-        <div className="text-white text-sm">
+        <div className="text-white text-sm font-body">
             <div className="bg-blue py-5 md:py-10">
                 <div className="container mx-auto p-5 lg:px-10 md:flex md:gap-20">
                     <div className="w-7/12 md:w-1/6 mx-auto">

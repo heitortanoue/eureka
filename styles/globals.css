@@ -79,6 +79,10 @@
     border-color: var(--light-blue)
 }
 
+.rounded-2borders {
+    border-radius: 0 0 20px 20px;
+}
+
 .posIconSenha {
     position: absolute;
     top: 8px;
@@ -91,11 +95,6 @@
     right: 0;
 }
 
-.animateRight {
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-}
 
 .button {
     font-family: Nunito;
