@@ -3,7 +3,6 @@ import Main from "/components/out/main"
 import TextBox from "../components/out/textbox"
 import UserFeedback from "../components/out/userfeedback"
 import Footer from "../components/out/footer"
-import Container from "../components/global/container"
 import Head from "next/head"
 
 export default function Home() {
@@ -15,11 +14,11 @@ export default function Home() {
     <div className="font-body">
       <div className="mb-32">
         <Header/>
-        <Container>
+        <div className={`font-body container mx-auto px-5 lg:px-10 flex flex-col gap-20 p-5 md:p-10`}>
           <Main/>
           <TextBox/>
           <UserFeedback/>
-        </Container>
+        </div>
       </div>
       <Footer/>
     </div>
