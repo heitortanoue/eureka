@@ -71,14 +71,16 @@ export default function Cadastro () {
                 dataNasc: dataNasc
             }
         }
-        axios.post(`/api/usuario${isLogin ? "Login" : "Cadastro"}`, data)
+        axios.post(`/api/usuario/usuario${isLogin ? "Login" : "Cadastro"}`, data)
         .then(function (response) {
             if (response.status == 200) {
                 if (keepConnect) {
                     // COOKIE COM TOKEN PARA MANTER CONECTADO
                     setCookie("token", response.data.user.token, 15)
                 }
+                sessionStorage.setItem("user", JSON.stringify(response.data.user))
                 USERCONTEXT[1](response.data.user)
+                router.push("/app/")
             }
         })
         .catch(function (err) {
