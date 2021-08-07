@@ -45,6 +45,6 @@ const userSchema = new mongoose.Schema({
 
 const usuario = mongoose.model('usuario', userSchema );
 
-module.exports = usuario;
+export default usuario;
 
 /// Load models - importar model const usuario = require('./models/usuario');
