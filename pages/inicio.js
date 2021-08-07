@@ -64,10 +64,10 @@ export default function Inicio ({ questions }) {
     )
 }
 
-export async function getStaticProps () {
-    const questions = await getMoreQuestions(5, 10)
-    return {
-         props: { questions },
-         revalidate: 10
-    }
+//export async function getStaticProps () {
+//    const questions = await getMoreQuestions(5, 10)
+//    return {
+//         props: { questions },
+//         revalidate: 10
+//    }
 }
