@@ -7,7 +7,7 @@ export default function BottomNavbar ({children, onChange, value}) {
 
     return (
         <>
-            <div className="rounded-2borders bg-light-darker lg:hidden fixed top-0 h-body pl-4 overflow-y-scroll mb-24 w-full">
+            <div className="rounded-2borders bg-light-darker lg:hidden fixed top-0 h-body px-4 overflow-y-scroll mb-24 w-full">
                 {children}
             </div>
             <div className="hidden lg:block bg-light-darker pl-14 py-10 ml-52 min-h-screen">

@@ -15,6 +15,11 @@ export default async (request, response) => {
     if (countEmail) {
         return response.status(400).json({result: `Email já cadastrado!` })
     }
+    //VERIFICAÇÃO DE usuario
+    const countUsuario = await collection.findOne({username: username}, {});
+    if (countUsuario) {
+        return response.status(400).json({result: `Username já cadastrado!` })
+    }
 
     let data = {}
     data.email = email;
@@ -23,6 +28,7 @@ export default async (request, response) => {
     data.username = username;
     data.faculdade = faculdade;
     data.dataNasc = dataNasc;
+    data.materiasFav = [];
     data.token = token;
     await collection.insertOne(data);
        
