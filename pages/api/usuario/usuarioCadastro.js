@@ -28,6 +28,7 @@ export default async (request, response) => {
     data.username = username;
     data.faculdade = faculdade;
     data.dataNasc = dataNasc;
+    data.materiasFav = [];
     data.token = token;
     await collection.insertOne(data);
        
