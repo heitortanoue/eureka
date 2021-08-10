@@ -15,6 +15,7 @@ export default async (request, response) => {
     data.qtd_denuncia = 0;
     data.id_user = user;
     data.id_pergunta = id_pergunta;
+    data.users_like = []
 
     await collection.insertOne(data);
 

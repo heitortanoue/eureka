@@ -87,7 +87,6 @@ export default function Cadastro () {
             }
         })
         .catch(function (err) {
-            console.log(err)
             if (err.response) {
                 setError(err.response.data.result)
             }

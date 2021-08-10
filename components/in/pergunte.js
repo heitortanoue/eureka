@@ -3,27 +3,9 @@ import { useState, useContext } from "react"
 import {UserContext} from "/utils/contexts/userContext"
 import Error from "/components/in/error"
 import { useRouter } from "next/router"
+import materias from "../../utils/data/materias"
 
 export default function Pergunte (props) {
-    const materias = [
-        ["calculo", "Cálculo"],
-        ["fisica", "Física"],
-        ["alglin ga", "Álgebra Linear e Geometria Analítica"],
-        ["probabilidadeestatistica", "Probabilidade e Estatística"],
-        ["quimica", "Química"],
-        ["calculonumerico", "Cálculo Numérico"],
-        ["resistenciadosmateriais", "Resistência dos Materiais"],
-        ["eletromagnetismo", "Eletromagnetismo"],
-        ["fenomenostransporte", "FenTrans"],
-        ["mecanicadosfluidos", "MecFlu"],
-        ["transferenciadecalor", "TransCal"],
-        ["eletrica", "Elétrica"],
-        ["operacoesunitarias", "Operações Unitárias"],
-        ["termodinamica", "Termodinâmica"],
-        ["cienciadosmateriais", "Ciência dos Materiais"],
-        ["sistemasdecontrole", "Sistemas de Controle"], 
-        ["programacao", "Programação"]
-    ]
 
     const [texto, setTexto] = useState("")
     const [materia, setMateria] = useState()
@@ -96,7 +78,7 @@ export default function Pergunte (props) {
                             <option value="" disabled>Escolha a matéria</option>
                             {materias.map(materia => {
                                 return(
-                                    <option className="text-base text-black" key={materia[0]} value={materia[0]}>{materia[1]}</option>
+                                    <option className="text-base text-black" key={materia.dados[0]} value={materia.dados[0]}>{materia.dados[1]}</option>
                                 )
                             })}
                         </select>

@@ -1,11 +1,27 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import timeFromPost from "../../../utils/functions/timeFromPost"
 import UserImage from "/components/in/profile/userImage"
 
 export default function Resposta ({ answer, user, resps }) {
     const [resp, setResp] = useState("")
     const [fetchResp, setFetchResp] = useState(resps)
+    const [liked, setLiked] = useState(answer.curtiu)
+    const [likeNumber, setLikeNumber] = useState(answer.qtd_reacao)
+
+    const manageReaction = () => {
+        let data = {
+            id_user: user._id,
+            id_comentario: answer._id,
+        }
+        axios.post("/api/reacao/manageLikeComen", data)
+        .then (function (response) {
+            setLiked(response.data.res)
+            response.data.res ? setLikeNumber(likeNumber + 1) : setLikeNumber(likeNumber - 1)
+        })
+        .then (function (error) {
+        })
+    }
 
     const submitResp = () => {
         const data = {
@@ -44,6 +60,10 @@ export default function Resposta ({ answer, user, resps }) {
                 </div>  
             </div>
             <div className="mt-4 text-lg">{answer.texto}</div>
+            <div className="flex justify-end items-center cursor-pointer" onClick={() => {manageReaction()}}>
+                <i className={`fas fa-lightbulb text-2xl ${liked ? "text-yellow animate-bounce-once" : "text-grey"}`}></i>
+                <div className="ml-1 text-lg">{likeNumber}</div>
+            </div>
             <hr className="border-2 border-light-dark mt-4"/>
             <div className="flex-col mt-3 gap-2 flex">
                 {
@@ -51,8 +71,10 @@ export default function Resposta ({ answer, user, resps }) {
                     fetchResp.map(el => {
                         return (
                             <div className="flex items-center gap-3" key={el.texto}>
-                                <div className="relative w-6 h-6 p-1">
-                                    <UserImage src={el.foto} size={"3xl"}/>
+                                <div className="w-7 h-7">
+                                    <div className="relative w-6 h-6 flex">
+                                        <UserImage src={el.foto} size={"2xl"}/>
+                                    </div>                                   
                                 </div>
                                 {el.texto}
                             </div>
@@ -61,8 +83,10 @@ export default function Resposta ({ answer, user, resps }) {
                     : null
                 }
                 <div className="flex items-center gap-3">
-                    <div className="relative w-6 h-6 p-1">
-                        <UserImage src={answer.foto} size={"3xl"}/>
+                    <div className="w-8 h-8">
+                        <div className="relative flex w-7 h-7">
+                            <UserImage src={user.foto} size={"3xl"}/>
+                        </div>
                     </div>
                     <input type="text" value={resp} onChange={(e) => setResp(e.target.value)} className="inputfieldWhite h-8 text-sm" placeholder="Comente aqui!"/>
                     <button type="submit" className="h-9 py-1 px-4 bg-blue hover:bg-blue-dark transition-all

@@ -1,10 +1,23 @@
 import timeFromPost from "../../../utils/functions/timeFromPost"
 import UserImage from "/components/in/profile/userImage"
 import Link from "next/link"
+import materias from "../../../utils/data/materias"
 
 export default function Pergunta ({quest, full}) {
+    function findMateria(element) {
+        return element.dados[0] == quest.materia
+    }
+    const indMateria = materias.findIndex(findMateria)
 
     return (
+        <>
+        {full && quest ?
+        <div className={`whitespace-nowrap py-2 px-4 rounded-full flex font-bold text-2xl  
+        ${materias[indMateria].cor[1] == 0 ? "text-black" : "text-white"}`} 
+        style={{backgroundColor: materias[indMateria].cor[0]}}>
+            {materias[indMateria].dados[1]}
+        </div> 
+        : null}
         <div className="w-full bg-white px-7 py-4 flex flex-col text-black rounded-3xl">
             <div className="flex gap-3 items-center">
                 <div className="relative w-10 h-10">
@@ -34,10 +47,13 @@ export default function Pergunta ({quest, full}) {
                                 <div className="font-bold text-lg line-clamp-3 max-h-20 leading-snug hover:underline cursor-pointer">
                                     {quest.texto}
                                 </div>
-                            </Link>                
-                            <div className="text-blue font-semibold text-sm">
-                                {"#" + quest.materia}
+                            </Link>
+                            <div className="w-min">
+                            <div className={`whitespace-nowrap py-1 px-2 rounded-full font-bold text-xs ${materias[indMateria].cor[1] == 0 ? "text-black" : "text-white"}`} style={{backgroundColor: materias[indMateria].cor[0]}}>
+                                {materias[indMateria].dados[1]}
                             </div> 
+                            </div>                
+
                         </>
                         : null}
                 </div>  
@@ -53,7 +69,17 @@ export default function Pergunta ({quest, full}) {
                 </div>
             </>
             :
-            <div className="flex justify-end items-center">
+            <div className="flex justify-between items-center mt-2">
+                <div className="flex items-center text-grey">
+                    {
+                        quest.qtd_respostas > 0 ?
+                        <div className="flex gap-2">
+                            <i className="fas fa-comments"></i>
+                            <div className="">{quest.qtd_respostas}</div>
+                        </div>
+                        : null
+                    }
+                </div>
                 <button className="button answer_button justify-between text-sm">
                     <i className="fas fa-comment-alt"></i>
                     <div>Responda</div>
@@ -61,5 +87,6 @@ export default function Pergunta ({quest, full}) {
             </div>
             }
         </div>
+        </>
     )
 }

@@ -14,6 +14,7 @@ export default async (request, response) => {
     data.id_user = user;
     data.date = date;
     data.qtd_denuncia = 0;
+    data.qtd_resposta = 0;
 
     const res = await collection.insertOne(data);
     const id = await res.insertedId.toString()

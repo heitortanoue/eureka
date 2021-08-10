@@ -6,11 +6,12 @@ import Head from "next/head";
 import SearchField from "../../../components/global/searchField";
 import Resposta from "../../../components/in/perguntas/resposta";
 import { UserContext } from "/utils/contexts/userContext"
+import { useRouter } from "next/router";
 
 export const getStaticPaths = async () => {
     const {db} = await connectToDatabase()
     const colPerguntas = db.collection('pergunta');
-    const perguntas = await colPerguntas.find({}, {_id: 1}).toArray();
+    let perguntas = await colPerguntas.find({}).sort({_id:-1}).limit(20).toArray();
     const paths = perguntas.map(quest => {
         return {
             params: { id: quest._id.toString() }
@@ -42,6 +43,8 @@ export const getStaticProps = async (context) => {
     for (const quest of comentarios) {
         const obj_id = ObjectId(quest.id_user)
         const obj = await colUsuarios.findOne({_id: obj_id}, {username: 1, foto: 1})
+        const curtiu = await colComentario.findOne({_id: quest._id}, {"pessoas_curtiram": 1})
+        await curtiu.pessoas_curtiram.indexOf(quest.id_user) == -1 ? quest["curtiu"] = false : quest["curtiu"] = true
         quest["username"] = await obj.username
         quest["foto"] = await obj.foto
 
@@ -68,36 +71,92 @@ export default function PaginaPergunta ({ questionJSON, answersJSON, respsJSON }
     const [comments, setComments] = useState([])
     const [resps, setResps] = useState([])
     const USERCONTEXT = useContext(UserContext)
+    const router = useRouter()
+
     useEffect(() => {
         setQuestion(JSON.parse(questionJSON))
         setComments(JSON.parse(answersJSON))
         setResps(JSON.parse(respsJSON))
     }, [])
+
     return (
         <>
             <Head>
                 <title>{question.texto}</title>
             </Head>
+            {
+
+            }
             <Container>
             <div className="w-full flex flex-col gap-5 pb-10 lg:pb-0">
                 <SearchField/>
-                <div className="p-4 rounded-full flex bg-red">
-                    <div className="mx-auto text-3xl font-bold text-white">{question.materia}</div>
-                </div>
-                <Pergunta quest={question} full={true}/>
-                { comments.length > 0 ?
+                {
+                    router.isFallback ?
                     <>
-                    <div className="font-bold text-blue text-lg">Respostas ({comments.length})</div>
-                    {comments.map((com, ind) => {
-                        return (
-                            <div key={com._id}>
-                                <Resposta answer={com} user={USERCONTEXT[0]} resps={resps[ind]}/>
+                        <div className="w-full bg-white px-7 py-4 flex flex-col text-black rounded-3xl">
+                            <div className="animate-pulse">
+                            <div className="flex gap-3 items-center">
+                                <div className="relative w-10 h-10 rounded-full bg-light-darker"></div>
+                                <div className="flex-1 flex flex-col gap-1">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex gap-3 items-center">
+                                                <div className="bg-light-darker h-3 w-40 rounded-full"></div>
+                                                <div className="bg-light-darker w-20 h-3 rounded-full"></div> 
+                                            </div>                   
+                                            <i className="w-6 h-6 rounded-full bg-light-darker"></i>
+                                        </div>
+                                </div>  
                             </div>
-                        )
-                    })}
+                            <div className="mt-4 bg-light-darker w-full h-32 rounded-xl"></div>
+                                <div className={`flex md:justify-end items-end w-full mt-4`}>
+                                    <div className="button answer_button h-10 w-full md:w-80 flex justify-center text-base">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="ml-10 bg-white px-7 py-4 flex flex-col text-black rounded-3xl">
+                            <div className="animate-pulse">
+                            <div className="flex gap-3 items-center">
+                                <div className="relative w-10 h-10 rounded-full bg-light-darker"></div>
+                                <div className="flex-1 flex flex-col gap-1">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex gap-3 items-center">
+                                                <div className="bg-light-darker h-3 w-40 rounded-full"></div>
+                                                <div className="bg-light-darker w-20 h-3 rounded-full"></div> 
+                                            </div>                   
+                                            <i className="w-6 h-6 rounded-full bg-light-darker"></i>
+                                        </div>
+                                </div>  
+                            </div>
+                            <div className="mt-4 bg-light-darker w-full h-32 rounded-xl"></div>
+                            <hr className="border-2 border-light-darker my-4"/>
+                            <div className="flex items-center gap-3">
+                                <div className="w-8 h-8">
+                                    <div className="relative w-7 h-7 flex bg-light-darker rounded-full"></div>                                   
+                                </div>
+                                <div className="w-full h-3 bg-light-darker"></div>
+                            </div>
+                            </div>
+                        </div>
                     </>
-                    : 
-                    <div className="bg-white text-black p-3 px-5 rounded-full">Não há respostas ainda! Seja o primeiro a responder!</div>    
+                    :
+                    <>
+                    <Pergunta quest={question} full={true}/>
+                    { comments.length > 0 ?
+                        <>
+                        <div className="font-bold text-blue text-lg">Respostas ({comments.length})</div>
+                        {comments.map((com, ind) => {
+                            return (
+                                <div key={com._id}>
+                                    <Resposta answer={com} user={USERCONTEXT[0]} resps={resps[ind]}/>
+                                </div>
+                            )
+                        })}
+                        </>
+                        : 
+                        <div className="bg-white text-black p-3 px-5 rounded-full">Não há respostas ainda! Seja o primeiro a responder!</div>    
+                    }
+                    </>
                 }
             </div>
             </Container>
