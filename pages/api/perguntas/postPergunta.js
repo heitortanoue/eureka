@@ -16,8 +16,8 @@ export default async (request, response) => {
     data.id_user = user;
     data.date = date;
 
-    await collection.insertOne(data);
+    const res = await collection.insertOne(data);
+    const id = await res.insertedId.toString()
 
-    return response.status(201).json({result: "Pergunta postada com sucesso!" })
-
+    return response.status(200).json({result: "Pergunta postada com sucesso!", id_question: id})
 }
