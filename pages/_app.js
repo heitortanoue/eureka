@@ -28,7 +28,9 @@ function MyApp({ Component, pageProps }) {
 
    return (
       <UserContext.Provider value={[USER, setUSER]}>
-         <Component {...pageProps} />
+         <div className="font-body text-black">
+            <Component {...pageProps} />
+         </div>
       </UserContext.Provider>
    )
 }

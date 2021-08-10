@@ -1,4 +1,4 @@
-import { setCookie } from "../cookie"
+import { setCookie } from "../../utils/cookie"
 import {useRouter} from "next/router"
 import { useContext } from "react"
 import { UserContext } from "/utils/contexts/userContext"
@@ -15,6 +15,6 @@ export default function Loggout () {
     }
 
     return (
-        <button className="button grey_button" onClick={() => manageLogout()}>LogOut</button>
+        <i onClick={() => manageLogout()} className="fas fa-sign-out-alt text-2xl cursor-pointer hover:text-red transition-all"></i>
     )
 }

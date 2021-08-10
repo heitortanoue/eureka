@@ -9,6 +9,7 @@ import { setCookie } from "../utils/cookie"
 import RedirectWhenLogged from "../utils/redirectWhenLogged"
 import {UserContext} from "/utils/contexts/userContext"
 import nProgress from "nprogress"
+import Error from "../components/in/error"
 
 export default function Cadastro () {
     // DADOS PARA CADASTRO E LOGIN
@@ -22,6 +23,7 @@ export default function Cadastro () {
     const [keepConnect, setKeepConnect] = useState()
 
     const [error, setError] = useState(false)
+    const [sucess, setSucess] = useState(false)
     const [seePassword, setSeePassword] = useState(false)
     const USERCONTEXT = useContext(UserContext)
 
@@ -74,6 +76,7 @@ export default function Cadastro () {
         axios.post(`/api/usuario/usuario${isLogin ? "Login" : "Cadastro"}`, data)
         .then(function (response) {
             if (response.status == 200) {
+                setSucess(true)
                 if (keepConnect) {
                     // COOKIE COM TOKEN PARA MANTER CONECTADO
                     setCookie("token", response.data.user.token, 15)
@@ -84,6 +87,7 @@ export default function Cadastro () {
             }
         })
         .catch(function (err) {
+            console.log(err)
             if (err.response) {
                 setError(err.response.data.result)
             }
@@ -117,10 +121,7 @@ export default function Cadastro () {
                             {isLogin ? "Login" : "Cadastro"}
                         </div>
                         <div className="flex flex-col gap-3">
-                            {error ? <div className={`bg-red-light flex gap-3 p-2 border-2 border-red rounded-xl items-center mb-1`}>
-                                <i className="far fa-times-circle text-4xl text-red-dark"></i>
-                                {error}
-                            </div> : null}
+                            <Error error={error} sucess={sucess}/>
                             {/*PARTE DO LOGIN*/}
                             <div>
                                 <div className="font-semibold ml-3">Email</div>
@@ -191,7 +192,7 @@ export default function Cadastro () {
                         </div>
                         :
                         <div className="flex flex-col gap-3">
-                            <div className="mx-auto flex items-center gap-2">
+                            <div className="mx-auto flex items-center gap-2 cursor-pointer">
                                 <input onChange={(e)=>{setKeepConnect(e.target.value)}} type="checkbox" className="w-4 h-4"/> Mantenha-me conectado
                             </div>
                             <button onClick={(e) => checkFieldAndSubmit(e)} className="button blue_button" type="submit">Entrar</button>
