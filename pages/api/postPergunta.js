@@ -1,4 +1,4 @@
-import { connectToDatabase } from './mongoUtil';
+import { connectToDatabase } from './connect/mongoUtil';
 
 
 //Função de inserir a pergunta do BDD
