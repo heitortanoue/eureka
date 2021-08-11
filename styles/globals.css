@@ -27,6 +27,28 @@
     background: var(--def-blue);
 }
 
+@media (max-width: 1024px) {
+    .min-h-64 {
+        min-height: 16rem;
+    }
+}
+
+.red-icon {
+    font-size: 1.1rem;
+    color: var(--def-grey);
+    border-radius: 9999px;
+    padding: 0.5rem;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    cursor: pointer;
+}
+
+.red-icon:hover {
+    background-color: var(--def-red);
+    color: var(--white)
+}
+
 .fbg-blue:hover {
     background: var(--dark-blue);
 }

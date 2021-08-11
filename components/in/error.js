@@ -9,7 +9,10 @@ export default function Error ({error, sucess}) {
             sucess ?
             <div className={`bg-green-light flex gap-3 p-2 border-2 border-green rounded-xl items-center mb-1`}>
                 <i className="far fa-check-circle text-4xl text-green-dark"></i>
-                Operação concluída! Você será redirecionado(a) em breve
+                <div>
+                Operação concluída! Você será redirecionado(a) em breve.
+                Caso o redirecionamento não ocorra, <strong>recarregue a página</strong>
+                </div>
             </div>
             : null}
         </>

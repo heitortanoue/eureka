@@ -2,12 +2,23 @@ import timeFromPost from "../../../utils/functions/timeFromPost"
 import UserImage from "/components/in/profile/userImage"
 import Link from "next/link"
 import materias from "../../../utils/data/materias"
+import axios from "axios"
+import { useRouter } from "next/router"
 
-export default function Pergunta ({quest, full}) {
+export default function Pergunta ({quest, full, showAnswering, user}) {
     function findMateria(element) {
         return element.dados[0] == quest.materia
     }
     const indMateria = materias.findIndex(findMateria)
+    const router = useRouter()
+    const delQuestion = () => {
+        axios.post("/api/perguntas/deletarPergunta", {id: quest._id})
+        .then(function (response) {
+            if (response.status == 200) {
+                router.push("/app")
+            }
+        })
+    }
 
     return (
         <>
@@ -32,13 +43,13 @@ export default function Pergunta ({quest, full}) {
                                     {timeFromPost(quest.date)}
                                     </div> 
                                 </div>
-                                {full ?                     
-                                <div className="text-blue font-semibold text-sm">
-                                    {"#" + quest.materia}
-                                </div> 
-                                : null}
                             </div>
-                            {full ? <i className="fas fa-flag 2xl text-grey rounded-full hover:bg-red hover:text-white p-2 transition-all cursor-pointer"></i> : null}
+                            {full ?
+                            <div className="flex gap-2">
+                            <i className="fas fa-flag red-icon"></i>
+                             {user && quest.id_user == user._id.toString() ? <i className="fas fa-trash-alt red-icon" onClick={() => {delQuestion()}}></i> : null} 
+                            </div>
+                            : null}
                         </div>
                         
                         {!full ?
@@ -62,10 +73,11 @@ export default function Pergunta ({quest, full}) {
             <>
                 <div className="mt-4 text-lg">{quest.texto}</div>
                 <div className={`flex md:justify-end items-end w-full mt-4`}>
-                    <button className="button answer_button w-full md:w-80 flex justify-center text-base">
-                        <i className="fas fa-comment-alt"></i>
-                        <div>Responda</div>
-                    </button>
+                        <button className="button answer_button w-full md:w-80 flex justify-center text-base"
+                        onClick={() => showAnswering(true)}>
+                            <i className="fas fa-comment-alt"></i>
+                            <div>Responda</div>
+                        </button>
                 </div>
             </>
             :
@@ -80,10 +92,12 @@ export default function Pergunta ({quest, full}) {
                         : null
                     }
                 </div>
-                <button className="button answer_button justify-between text-sm">
-                    <i className="fas fa-comment-alt"></i>
-                    <div>Responda</div>
-                </button>
+                <Link href={{ pathname: `/app/pergunta/${quest._id}`, query: {answer: true} }}>
+                    <button className="button answer_button justify-between text-sm">
+                        <i className="fas fa-comment-alt"></i>
+                        <div>Responda</div>
+                    </button>
+                </Link>
             </div>
             }
         </div>

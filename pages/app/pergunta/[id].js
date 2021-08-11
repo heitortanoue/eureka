@@ -7,6 +7,8 @@ import SearchField from "../../../components/global/searchField";
 import Resposta from "../../../components/in/perguntas/resposta";
 import { UserContext } from "/utils/contexts/userContext"
 import { useRouter } from "next/router";
+import Skeleton from "../../../components/in/perguntas/skeleton";
+import Responda from "../../../components/in/perguntas/responda";
 
 export const getStaticPaths = async () => {
     const {db} = await connectToDatabase()
@@ -62,7 +64,8 @@ export const getStaticProps = async (context) => {
     const comentariosJSON = await JSON.stringify(comentarios)
 
     return {
-        props: { questionJSON: perguntasJSON, answersJSON: comentariosJSON, respsJSON: respsJSON}
+        props: { questionJSON: perguntasJSON, answersJSON: comentariosJSON, respsJSON: respsJSON},
+        revalidate: 30
     }
 }
 
@@ -72,11 +75,27 @@ export default function PaginaPergunta ({ questionJSON, answersJSON, respsJSON }
     const [resps, setResps] = useState([])
     const USERCONTEXT = useContext(UserContext)
     const router = useRouter()
+    const [answering, setAnswering] = useState(router.query.answer)
+    const [qtdComment, setQtdComment] = useState(0)
+
+    function manageResponda(newValue) {
+        setAnswering(newValue);
+    }
+    function setRespostas(newValue) {
+        setComments(newValue);
+    }
+    function manageResps (newValue){
+        setResps(newValue)
+    }
+    function manageQtd (inc) {
+        inc == -1 ? setQtdComment(qtdComment - 1) : setQtdComment(qtdComment + 1)
+    }
 
     useEffect(() => {
         setQuestion(JSON.parse(questionJSON))
         setComments(JSON.parse(answersJSON))
         setResps(JSON.parse(respsJSON))
+        setQtdComment(JSON.parse(answersJSON).length)
     }, [])
 
     return (
@@ -84,75 +103,31 @@ export default function PaginaPergunta ({ questionJSON, answersJSON, respsJSON }
             <Head>
                 <title>{question.texto}</title>
             </Head>
-            {
-
-            }
+            {answering ? <Responda quest={question} user={USERCONTEXT[0]} 
+            showAnswering={manageResponda} respostas={comments} setRespostas={setRespostas}
+            resps={resps} setResps={manageResps} onQtdChange={manageQtd}/> : null}
             <Container>
             <div className="w-full flex flex-col gap-5 pb-10 lg:pb-0">
                 <SearchField/>
                 {
                     router.isFallback ?
-                    <>
-                        <div className="w-full bg-white px-7 py-4 flex flex-col text-black rounded-3xl">
-                            <div className="animate-pulse">
-                            <div className="flex gap-3 items-center">
-                                <div className="relative w-10 h-10 rounded-full bg-light-darker"></div>
-                                <div className="flex-1 flex flex-col gap-1">
-                                        <div className="flex items-center justify-between">
-                                            <div className="flex gap-3 items-center">
-                                                <div className="bg-light-darker h-3 w-40 rounded-full"></div>
-                                                <div className="bg-light-darker w-20 h-3 rounded-full"></div> 
-                                            </div>                   
-                                            <i className="w-6 h-6 rounded-full bg-light-darker"></i>
-                                        </div>
-                                </div>  
-                            </div>
-                            <div className="mt-4 bg-light-darker w-full h-32 rounded-xl"></div>
-                                <div className={`flex md:justify-end items-end w-full mt-4`}>
-                                    <div className="button answer_button h-10 w-full md:w-80 flex justify-center text-base">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="ml-10 bg-white px-7 py-4 flex flex-col text-black rounded-3xl">
-                            <div className="animate-pulse">
-                            <div className="flex gap-3 items-center">
-                                <div className="relative w-10 h-10 rounded-full bg-light-darker"></div>
-                                <div className="flex-1 flex flex-col gap-1">
-                                        <div className="flex items-center justify-between">
-                                            <div className="flex gap-3 items-center">
-                                                <div className="bg-light-darker h-3 w-40 rounded-full"></div>
-                                                <div className="bg-light-darker w-20 h-3 rounded-full"></div> 
-                                            </div>                   
-                                            <i className="w-6 h-6 rounded-full bg-light-darker"></i>
-                                        </div>
-                                </div>  
-                            </div>
-                            <div className="mt-4 bg-light-darker w-full h-32 rounded-xl"></div>
-                            <hr className="border-2 border-light-darker my-4"/>
-                            <div className="flex items-center gap-3">
-                                <div className="w-8 h-8">
-                                    <div className="relative w-7 h-7 flex bg-light-darker rounded-full"></div>                                   
-                                </div>
-                                <div className="w-full h-3 bg-light-darker"></div>
-                            </div>
-                            </div>
-                        </div>
-                    </>
+                    <Skeleton />
                     :
                     <>
-                    <Pergunta quest={question} full={true}/>
+                    <Pergunta quest={question} full={true} showAnswering={manageResponda} user={USERCONTEXT[0]}/>
                     { comments.length > 0 ?
-                        <>
-                        <div className="font-bold text-blue text-lg">Respostas ({comments.length})</div>
+                        <div>
+                        <div className="font-bold text-blue text-lg">Respostas ({qtdComment})</div>
+                        <div className="flex flex-col w-full">
                         {comments.map((com, ind) => {
                             return (
                                 <div key={com._id}>
-                                    <Resposta answer={com} user={USERCONTEXT[0]} resps={resps[ind]}/>
+                                    <Resposta answer={com} user={USERCONTEXT[0]} resps={resps[ind]} onQtdChange={manageQtd}/>
                                 </div>
                             )
                         })}
-                        </>
+                        </div>
+                        </div>
                         : 
                         <div className="bg-white text-black p-3 px-5 rounded-full">Não há respostas ainda! Seja o primeiro a responder!</div>    
                     }

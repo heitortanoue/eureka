@@ -26,7 +26,7 @@ export default function Main () {
                     </div>
                 </div>
                 <div className="hidden md:flex z-10 md:w-7/12 justify-end relative">
-                    <Image width="1000" height="800" src={"/illustrations/study.svg"} alt="Study Illustration"/>
+                    <Image width="1000" height="800" src={"/illustrations/study.svg"} alt="Study Illustration" priority/>
                 </div>
             </div>
             <div className="-m-3 mt-1 lg:m-0 lg:bg-light-dark lg:rounded-full">

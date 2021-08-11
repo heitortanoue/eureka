@@ -1,5 +1,5 @@
 import BottomNavbar from "./mainPage/bottomNavbar";
-import Pergunte from "./pergunte";
+import Pergunte from "./perguntas/pergunte";
 import SearchField from "../global/searchField";
 import Header from "./mainPage/header"
 import SideBar from "./mainPage/sideBar";
