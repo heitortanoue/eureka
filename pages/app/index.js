@@ -1,4 +1,3 @@
-import getMoreQuestions from "/server/utils/getMoreQuestions"
 import { useState, useContext } from "react"
 import { connectToDatabase } from "../api/connect/mongoUtil"
 import Pergunta from "../../components/in/perguntas/pergunta"
@@ -7,6 +6,7 @@ import Head from "next/head"
 import { UserContext } from "/utils/contexts/userContext"
 import Container from "/components/in/container"
 import SearchField from "../../components/global/searchField"
+import axios from "axios"
 
 export const getStaticProps = async () => {
     var ObjectId = require('mongodb').ObjectId; 
@@ -25,18 +25,39 @@ export const getStaticProps = async () => {
 
     const data = await JSON.stringify(perguntas)
     return {
-        props: { questions: data },
+        props: { questionsJSON: data },
         revalidate: 30
     }
  }
 
-export default function Inicio ({ questions }) {
+export default function Inicio ({ questionsJSON }) {
     const [showAsk, setShowAsk] = useState(false)
+    const [questions, setQuestions] = useState(JSON.parse(questionsJSON))
     const USERCONTEXT = useContext(UserContext)
+    const [index, setIndex] = useState(10)
+    const [mostrar, setMostrar] = useState(true)
 
     function handleChange(newValue) {
         setShowAsk(newValue);
       }
+
+    function getMoreQuestions (skip, nquest) {
+    axios.post("/api/perguntas/getPerguntas", {
+        skip: skip,
+        num_perguntas: nquest
+    })
+    .then(function (response) {
+        if (response.status == 200) {
+            setIndex(index + nquest)
+            setQuestions([...questions, ...response.data.perguntas])
+            if (response.data.perguntas.length < nquest) {
+                setMostrar(false)
+            }
+        }
+    })
+    .catch(function (error) {
+    })
+}
 
     return (
         <>  
@@ -60,7 +81,7 @@ export default function Inicio ({ questions }) {
                         </div>
                     </div>
                     <div className="flex flex-col gap-5 mb-6">
-                        {JSON.parse(questions).map(quest => {
+                        {questions.map(quest => {
                             return (
                                 <div key={quest._id}>
                                     <Pergunta quest={quest}/>
@@ -68,7 +89,11 @@ export default function Inicio ({ questions }) {
                             )
                         })}
                     </div>
-                </div>
+                    { mostrar ?
+                    <div onClick={() => getMoreQuestions(index, 10)} className="w-full bg-white rounded-full font-semibold cursor-pointer 
+                    text-blue hover:bg-blue hover:text-white text-center p-2 text-lg transition-all">MOSTRAR MAIS
+                    </div> : null }
+                    </div> 
             </Container>
         </>
     )

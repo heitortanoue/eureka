@@ -7,7 +7,7 @@ export default async (request, response) => {
     const collection = db.collection('usuario');
 
     if (request.body.token){
-        const user = collection.findOne({token: request.body.token}, {});
+        const user = await collection.findOne({token: request.body.token}, {});
         if (user){
             return response.status(200).json({result:`Logado com sucesso!`, user: user})
         } else {
@@ -19,7 +19,7 @@ export default async (request, response) => {
         if (user) {
             const hash = user.senha;
             if(bcrypt.compareSync(senha, hash)){
-                return  response.status(200).json({result:`Logado com sucesso!`, user: user}) 
+                return response.status(200).json({result:`Logado com sucesso!`, user: user}) 
             }else{
                 return response.status(400).json({result: `Senha incorreta` })
             }      

@@ -10,7 +10,7 @@ const materias = [
     { dados: ["fenomenostransporte", "FenTrans"], cor: ["#1CC443", 1]},
     { dados: ["mecanicadosfluidos", "MecFlu"], cor: ["#F05D23", 1]},
     { dados: ["transferenciadecalor", "TransCal"], cor: ["#DA1B2B", 1]},
-    { dados: ["eletrica", "Elétrica"], cor: ["#FFCF2D", 0]},
+    { dados: ["eletrica", "Elétrica"], cor: ["#F5E86A", 0]},
     { dados: ["operacoesunitarias", "Operações Unitárias"], cor: ["#09BC8A", 1]},
     { dados: ["termodinamica", "Termodinâmica"], cor: ["#E9310C", 1]},
     { dados: ["cienciadosmateriais", "Ciência dos Materiais"], cor: ["#9B287B", 1]},

@@ -6,6 +6,9 @@ export default async (request, response) => {
     const date = new Date();
     const {db} = await connectToDatabase();
     const collection = db.collection('comentario');
+    var ObjectId = require('mongodb').ObjectId;
+    const colPergunta = db.collection("pergunta")
+    const id_obj_pergunta = ObjectId(id_pergunta)
 
     let data = {}
     data.texto = texto;
@@ -15,10 +18,11 @@ export default async (request, response) => {
     data.qtd_denuncia = 0;
     data.id_user = user;
     data.id_pergunta = id_pergunta;
-    data.users_like = []
+    data.pessoas_curtiram = []
 
     await collection.insertOne(data);
+    await colPergunta.updateOne({_id: id_obj_pergunta}, { $inc: {"qtd_respostas" : 1} })
 
-    return response.status(201).json({result: "Comentário inserido com sucesso!" })
+    return response.status(200).json({result: "Comentário inserido com sucesso!", newComment: data})
 
 }

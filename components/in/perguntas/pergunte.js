@@ -3,7 +3,7 @@ import { useState, useContext } from "react"
 import {UserContext} from "/utils/contexts/userContext"
 import Error from "/components/in/error"
 import { useRouter } from "next/router"
-import materias from "../../utils/data/materias"
+import materias from "../../../utils/data/materias"
 
 export default function Pergunte (props) {
 
@@ -28,9 +28,9 @@ export default function Pergunte (props) {
 
         axios.post("/api/perguntas/postPergunta", data)
         .then(function (response) {
-            setSucess(true)
-            setLoading(false)
             if (response.status == 200) {
+                setSucess(true)
+                setLoading(false)
                 router.push("/app/pergunta/" + response.data.id_question)
             }
         })
@@ -63,7 +63,7 @@ export default function Pergunte (props) {
     return (
         <div className="bg-blue-op-60 flex w-full h-full fixed z-50 font-body">
             <div className="bg-white w-full my-auto md:w-2/5 mx-2 md:mx-auto rounded-3xl shadow-lg md:mt-20 flex flex-col gap-6 p-8 relative">
-                <i onClick={() => {props.onChange(!props.value)}} 
+                <i onClick={() => {props.onChange(!props.value); setTexto("")}} 
                 className="fas absolute right-5 top-3 fa-times text-lg cursor-pointer hover:text-red"></i>
                 <div className="font-bold text-xl">Tire sua dúvida</div>
                 <Error error={error} sucess={sucess}/>
@@ -71,7 +71,7 @@ export default function Pergunte (props) {
                 <>
                     <div className="w-full h-40 relative">
                         <textarea className="inputfieldWhite h-full py-3" placeholder="Escreva sua pergunta aqui!" 
-                        onInput={(e) => {setTexto(e.target.value)}}/>
+                        onInput={(e) => {setTexto(e.target.value)}} value={texto}/>
                     </div>
                     <div className="flex gap-5">
                         <select className="inputfield font-semibold" defaultValue="" onChange={(e) => {setMateria(e.target.value)}}>

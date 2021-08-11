@@ -11,11 +11,11 @@ export default async (request, response) => {
     const comment = await collection.findOne({_id: obj_id}, {"pessoas_curtiram": 1})
     if (comment.pessoas_curtiram.indexOf(id_user.toString()) != -1) {
         // TIRAR
-        await collection.update({_id: obj_id}, {'$pull': { 'pessoas_curtiram': id_user },  $inc : {'qtd_reacao' : -1}});
+        await collection.updateOne({_id: obj_id}, {'$pull': { 'pessoas_curtiram': id_user },  $inc : {'qtd_reacao' : -1}});
         res = false
     } else {
         // COLOCAR
-        await collection.update({_id: obj_id},  { '$push': { 'pessoas_curtiram': id_user },  $inc : {'qtd_reacao' : 1}});
+        await collection.updateOne({_id: obj_id},  { '$push': { 'pessoas_curtiram': id_user },  $inc : {'qtd_reacao' : 1}});
         res = true
     }
     return response.status(200).json({result: "Sucesso!", res: res});

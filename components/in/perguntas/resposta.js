@@ -3,11 +3,12 @@ import { useState } from "react"
 import timeFromPost from "../../../utils/functions/timeFromPost"
 import UserImage from "/components/in/profile/userImage"
 
-export default function Resposta ({ answer, user, resps }) {
+export default function Resposta ({ answer, user, resps, onQtdChange }) {
     const [resp, setResp] = useState("")
     const [fetchResp, setFetchResp] = useState(resps)
     const [liked, setLiked] = useState(answer.curtiu)
     const [likeNumber, setLikeNumber] = useState(answer.qtd_reacao)
+    const [deleted, setDeleted] = useState(false)
 
     const manageReaction = () => {
         let data = {
@@ -20,6 +21,16 @@ export default function Resposta ({ answer, user, resps }) {
             response.data.res ? setLikeNumber(likeNumber + 1) : setLikeNumber(likeNumber - 1)
         })
         .then (function (error) {
+        })
+    }
+
+    const delComment = () => {
+        axios.post("/api/comentario/deletarComentario", {id: answer._id})
+        .then(function (response) {
+            if (response.status == 200) {
+                setDeleted(true)
+                onQtdChange(-1)
+            }
         })
     }
 
@@ -42,7 +53,7 @@ export default function Resposta ({ answer, user, resps }) {
     }
 
     return (
-        <div className="ml-10 bg-white px-7 py-4 flex flex-col text-black rounded-3xl">
+        <div className={`ml-10 bg-white px-7 mt-4 py-4 flex flex-col text-black rounded-3xl ${deleted ? "hidden" : ""}`}>
             <div className="flex gap-3 items-center">
                 <div className="relative w-10 h-10">
                     <UserImage src={answer.foto} size={"4xl"}/>
@@ -54,8 +65,11 @@ export default function Resposta ({ answer, user, resps }) {
                                 <div className="text-cinza text-xs">
                                 {timeFromPost(answer.date)}
                                 </div> 
-                            </div>                   
-                            <i className="fas fa-flag 2xl text-grey rounded-full hover:bg-red hover:text-white p-2 transition-all cursor-pointer"></i>
+                            </div>
+                            <div className="flex gap-2">  
+                                <i className="fas fa-flag red-icon"></i>
+                                {user && answer.id_user == user._id.toString() ? <i className="fas fa-trash-alt red-icon" onClick={() => {delComment()}}></i> : null} 
+                            </div>      
                         </div>
                 </div>  
             </div>
