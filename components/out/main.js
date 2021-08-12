@@ -26,12 +26,17 @@ export default function Main () {
                     </div>
                 </div>
                 <div className="hidden md:flex z-10 md:w-7/12 justify-end relative">
-                    <Image width="1000" height="800" src={"/illustrations/study.svg"} alt="Study Illustration"/>
+                    <Image width="1000" height="800" src={"/illustrations/study.svg"} alt="Study Illustration" priority/>
                 </div>
             </div>
             <div className="-m-3 mt-1 lg:m-0 lg:bg-light-dark lg:rounded-full">
                 <div className="bg-light-darker rounded-full m-1 lg:w-5/12">
-                    <SearchField/>
+                    <form action="get" className="flex align-middle">
+                    <button type="submit" className="fbg-blue rounded-full cursor-pointer text-white w-14 h-14 flex-0 text-xl">
+                        <i className="fa fa-search"></i>
+                    </button>
+                    <input type="text" placeholder="Qual a sua pergunta?" className="p-3 flex-1 bg-light-darker rounded-full outline-none"/>
+                    </form>
                 </div>
             </div>
         </div>

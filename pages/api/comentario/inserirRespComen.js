@@ -17,6 +17,6 @@ export default async (request, response) => {
 
     await collection.insertOne(data);
 
-    return response.status(201).json({result: "Resposta do comentário publicada com sucesso!" })
+    return response.status(200).json({result: "Resposta do comentário publicada com sucesso!" })
 
 }

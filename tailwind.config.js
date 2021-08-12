@@ -7,6 +7,9 @@ module.exports = {
       'white': {
         DEFAULT: "var(--white)",
       },
+      'black': {
+        DEFAULT: "var(--black)",
+      },
       'grey': {
         DEFAULT: "var(--def-grey)",
         dark: "var(--dark-grey)",
@@ -23,6 +26,7 @@ module.exports = {
       },
       'yellow': {
         DEFAULT: "var(--def-yellow)",
+        light: "var(--light-yellow)"
       },
       'red': {
         light: "var(--light-red)",
@@ -43,5 +47,7 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+  ],
 }

@@ -5,6 +5,7 @@ export default async (request, response) => {
     const {id} = request.body
     const {db} = await connectToDatabase();
     const collectionComen = db.collection('comentario');
+<<<<<<< HEAD
 
     //deletar as resp do comen antes
     const collectionResp = db.collection('resposta_comentario');
@@ -14,5 +15,16 @@ export default async (request, response) => {
     collectionComen.remove({"_id": ObjectId(id)});
 
     return response.status(201).json({result: "Comentário deletado com sucesso!" })
+=======
+    const colPerguntas = db.collection("pergunta")
+
+    //deletar as resp do comen antes
+    const collectionResp = db.collection('resposta_comentario');
+    await collectionResp.deleteMany({"id_comentario": id});
+    //Deletar comentarios
+    const id_quest = await collectionComen.findOneAndDelete({"_id": ObjectId(id)}, {"id_pergunta" : 1});
+    await colPerguntas.updateOne({"_id" : ObjectId(id_quest.value.id_pergunta)}, { $inc : {"qtd_respostas" : -1}})
+    return response.status(200).json({result: "Comentário deletado com sucesso!" })
+>>>>>>> ff6062e2f5b41839276b294fea76473b4ed86b8b
 
 }

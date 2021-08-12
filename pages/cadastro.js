@@ -9,6 +9,7 @@ import { setCookie } from "../utils/cookie"
 import RedirectWhenLogged from "../utils/redirectWhenLogged"
 import {UserContext} from "/utils/contexts/userContext"
 import nProgress from "nprogress"
+import Error from "../components/in/error"
 
 export default function Cadastro () {
     // DADOS PARA CADASTRO E LOGIN
@@ -22,6 +23,7 @@ export default function Cadastro () {
     const [keepConnect, setKeepConnect] = useState()
 
     const [error, setError] = useState(false)
+    const [sucess, setSucess] = useState(false)
     const [seePassword, setSeePassword] = useState(false)
     const USERCONTEXT = useContext(UserContext)
 
@@ -74,6 +76,7 @@ export default function Cadastro () {
         axios.post(`/api/usuario/usuario${isLogin ? "Login" : "Cadastro"}`, data)
         .then(function (response) {
             if (response.status == 200) {
+                setSucess(true)
                 if (keepConnect) {
                     // COOKIE COM TOKEN PARA MANTER CONECTADO
                     setCookie("token", response.data.user.token, 15)
@@ -84,10 +87,17 @@ export default function Cadastro () {
             }
         })
         .catch(function (err) {
+            console.log(err)
             if (err.response) {
                 setError(err.response.data.result)
             }
         });
+    }
+
+    const checkEnter = (e) => {
+        if (e.key === 'Enter') {
+            checkFieldAndSubmit(e)
+        }
     }
 
     return (
@@ -96,15 +106,16 @@ export default function Cadastro () {
             <Head>
                 <title>Login/Cadastro | Eureka</title>
             </Head>
+            
             <div className="flex">
                 <div className={`hidden lg:flex bg-outro_cinza p-10 w-7/12 
                 ${isLogin ? "order-first w-7/12 " : "order-last w-4/12"}`}>
                     <div className="my-auto mx-auto">
-                        <Image width={isLogin ? "1000" : "560"} height={isLogin ? "800" : "630"}
+                        <Image width={isLogin ? "1000" : "560"} height={isLogin ? "800" : "630"} priority
                         src={`/illustrations/${isLogin ? "library" : "exam"}.svg`} alt="Study Illustration"/>
                     </div>
                 </div>
-                <div className={`flex flex-col justify-between h-screen transition-all
+                <div onKeyDown={(e) => checkEnter(e)} className={`flex flex-col justify-between h-screen transition-all
                 font-body container mx-auto p-5 lg:p-10 gap-8 lg:m-0 ${isLogin ? "lg:w-5/12" : "lg:w-8/12"}`}>
                     <div className="flex justify-between text-xl items-center">
                         <Link href="/"><button className="sqr_button blue_button"><i className="fas fa-chevron-left"></i></button></Link>
@@ -117,10 +128,7 @@ export default function Cadastro () {
                             {isLogin ? "Login" : "Cadastro"}
                         </div>
                         <div className="flex flex-col gap-3">
-                            {error ? <div className={`bg-red-light flex gap-3 p-2 border-2 border-red rounded-xl items-center mb-1`}>
-                                <i className="far fa-times-circle text-4xl text-red-dark"></i>
-                                {error}
-                            </div> : null}
+                            <Error error={error} sucess={sucess}/>
                             {/*PARTE DO LOGIN*/}
                             <div>
                                 <div className="font-semibold ml-3">Email</div>
@@ -178,12 +186,11 @@ export default function Cadastro () {
                             </div>
                             }
                         </div>
-
                     </div>
                     {
                         !isLogin ?
                         <div className="flex flex-col gap-3">
-                            <button onClick={(e) => checkFieldAndSubmit(e)} className="button blue_button" type="submit">Criar conta</button>
+                            <button className="button blue_button" onClick={(e) => checkFieldAndSubmit(e)} type="submit">Criar conta</button>
                             <div className="mx-auto">
                                 Já tem uma conta? 
                                 <a className="text-blue font-semibold cursor-pointer" onClick={() => {setLogin(true); setError(false)}}> Login</a>
@@ -191,10 +198,10 @@ export default function Cadastro () {
                         </div>
                         :
                         <div className="flex flex-col gap-3">
-                            <div className="mx-auto flex items-center gap-2">
+                            <div className="mx-auto flex items-center gap-2 cursor-pointer">
                                 <input onChange={(e)=>{setKeepConnect(e.target.value)}} type="checkbox" className="w-4 h-4"/> Mantenha-me conectado
                             </div>
-                            <button onClick={(e) => checkFieldAndSubmit(e)} className="button blue_button" type="submit">Entrar</button>
+                            <button className="button blue_button" onClick={(e) => checkFieldAndSubmit(e)} type="submit">Entrar</button>
                             <div className="mx-auto">
                                 Não tem uma conta? 
                                 <a className="text-blue font-semibold cursor-pointer" onClick={() => {setLogin(false); setError(false)}}> Cadastre-se</a>
@@ -202,7 +209,7 @@ export default function Cadastro () {
                         </div>
                     }
                 </div>
-            </div>
+            </div>     
         </>
     )
 }
