@@ -15,6 +15,7 @@
     "crypto-js": "^4.1.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "mailchimp-api-v3": "^1.15.0",
     "moment": "^2.29.1",
     "mongodb": "^4.1.0",
     "mongoose": "^5.13.5",

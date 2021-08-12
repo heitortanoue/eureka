@@ -16,7 +16,7 @@ export default async (request, response) => {
     data.foto = foto;
     data.id_user = id;
     data.date = date;
-    data.materiasFav = materiasFav;
+     data.qtd_resp = 0;
 
     await collection.insertOne(data);
 

@@ -5,7 +5,7 @@ export default async (request, response) => {
     const { user, texto, id_pergunta } = await request.body
     const date = new Date();
     const {db} = await connectToDatabase();
-    const collection = db.collection('comentario');
+    const collectionComen = db.collection('comentario');
 
     let data = {}
     data.texto = texto;
@@ -15,8 +15,13 @@ export default async (request, response) => {
     data.qtd_denuncia = 0;
     data.id_user = user;
     data.id_pergunta = id_pergunta;
+    data.pessoas_curtiram = [];
 
-    await collection.insertOne(data);
+    await collectionComen.insertOne(data);
+
+    //
+
+
 
     return response.status(201).json({result: "Comentário inserido com sucesso!" })
 

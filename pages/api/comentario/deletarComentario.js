@@ -4,9 +4,14 @@ export default async (request, response) => {
     var ObjectId = require('mongodb').ObjectId;
     const {id} = request.body
     const {db} = await connectToDatabase();
-    const collection = db.collection('comentario');
+    const collectionComen = db.collection('comentario');
 
-    collection.remove({"_id": ObjectId(id)});
+    //deletar as resp do comen antes
+    const collectionResp = db.collection('resposta_comentario');
+    collectionResp.remove({"id_comentario": id});
+
+    //Deletar comentarios
+    collectionComen.remove({"_id": ObjectId(id)});
 
     return response.status(201).json({result: "Comentário deletado com sucesso!" })
 
