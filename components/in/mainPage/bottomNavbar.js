@@ -20,14 +20,14 @@ export default function BottomNavbar ({children, onChange, value, showLog, user}
                         {pageName == "/app" ? <div className="h-1.5 bg-yellow w-full px-5"></div> : null}
                     </div>
                 </Link>
-                <div onClick={() => {!user ? onChange(!value) : showLog(true)}}
+                <div onClick={() => {user ? onChange(!value) : showLog(true)}}
                 className="bg-blue rounded-xl bg-blue-op-60 h-14 w-14 flex">
                     <div className="bg-blue h-10 w-10 flex rounded-xl m-auto">
                         <i className="fas fa-question text-3xl m-auto text-white"></i>
                     </div>
                 </div>
                 {user ?
-                <Link href={"/app/usuario/" + user.username}>
+                <Link href={{pathname: "/app/usuario", query: {username: user.username}}} >
                     <div className="flex flex-col items-center gap-1">
                         <i className={`fas fa-user-circle ${pageName == "/app/perfil" ? "text-black" : null}`}></i>
                         {pageName == "/app/perfil" ? <div className="h-1.5 bg-yellow w-full px-5"></div> : null}

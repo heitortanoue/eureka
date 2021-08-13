@@ -34,7 +34,7 @@ export default function Container ({children}) {
             {showChangeFav ? <DisciplinasFavoritas user={USERCONTEXT.user[0]} changeDisciplinas={setShowChangeFav} setNewDisciplinas={USERCONTEXT.disciplinas[1]} /> : null}        
             <SideBar showLog={setShowLog} onChange={setShowAsk} disciplinas={USERCONTEXT.disciplinas[0]} 
             changeDisciplinas={setShowChangeFav} user={USERCONTEXT.user[0]}/>
-            <BottomNavbar onChange={setShowAsk} showLog={setShowLog}>
+            <BottomNavbar onChange={setShowAsk} showLog={setShowLog} user={USERCONTEXT.user[0]}>
                 <Header/>
                 <div className="flex gap-5">
                     {children}

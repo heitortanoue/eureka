@@ -6,10 +6,10 @@ import materias from "../../../utils/data/materias"
 
 export default function SideBar ({onChange, disciplinas, changeDisciplinas, user, showLog}) {
     const router = useRouter()
-    const pageName = router.route
+    const pageName = router.asPath
     const paginas = [
         {nome: "Descubra", link: "/app", icon: "fas fa-grip-horizontal"},
-        {nome: "Meu Perfil", link: "/app/usuario/" + (user ? user.username : ""), icon: "fas fa-user"},
+        {nome: "Meu Perfil", link: "/app/usuario?username=" + (user ? user.username : ""), icon: "fas fa-user"},
     ]
 
     return (
