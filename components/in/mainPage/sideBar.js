@@ -2,13 +2,14 @@ import IconLamp from "/public/logos/icon.png"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import Link from "next/link"
+import materias from "../../../utils/data/materias"
 
-export default function SideBar ({onChange, user}) {
+export default function SideBar ({onChange, disciplinas, changeDisciplinas, user, showLog}) {
     const router = useRouter()
-    const pageName = router.route
+    const pageName = router.asPath
     const paginas = [
         {nome: "Descubra", link: "/app", icon: "fas fa-grip-horizontal"},
-        {nome: "Meu Perfil", link: "/app/perfil", icon: "fas fa-user"},
+        {nome: "Meu Perfil", link: "/app/usuario?username=" + (user ? user.username : ""), icon: "fas fa-user"},
     ]
 
     return (
@@ -24,7 +25,7 @@ export default function SideBar ({onChange, user}) {
                 <div className="flex flex-col gap-2">
                     <div className="rounded-full flex items-center gap-3 cursor-pointer p-2 
                     bg-blue font-semibold text-white hover:bg-blue-dark justify-center"
-                    onClick={() => {onChange(true)}}>
+                    onClick={() => {user ? onChange(true) : showLog(true)}}>
                         <i className="fas fa-question text-xl"></i>
                         <div>Tire sua dúvida</div>
                     </div>
@@ -33,13 +34,17 @@ export default function SideBar ({onChange, user}) {
                             return (
                                 <div className={`py-1 px-5 rounded-lg cursor-pointer
                                 ${pageName == pg.link ? "bg-light-dark text-black" : "text-grey hover:bg-light"}`}
+                                onClick={() => {user ? null : showLog(true)}}
                                 key={pg.nome}>
-                                    <Link href={pg.link}>
+                                    {user ? <Link href={pg.link}>
                                         <div className="flex gap-2 items-center">
                                             <i className={`text-xl ${pg.icon}`}></i>
                                             <div className="font-semibold">{pg.nome}</div>
                                         </div>
-                                    </Link>
+                                    </Link> : <div className="flex gap-2 items-center">
+                                            <i className={`text-xl ${pg.icon}`}></i>
+                                            <div className="font-semibold">{pg.nome}</div>
+                                        </div>}
                                 </div>
                             )
 
@@ -50,15 +55,32 @@ export default function SideBar ({onChange, user}) {
                 <div>
                     <div className="flex mb-2 justify-between items-center">
                         <div className="font-bold text-xs">DISCIPLINAS FAVORITAS</div>
-                        <i className="fas fa-plus text-sm"></i>
+                        <i className="fas fa-plus text-sm cursor-pointer hover:text-blue transition-all" 
+                        onClick={() => {user ? changeDisciplinas(true) : showLog(true)}}></i>
                     </div>
-                    <div className="flex flex-col gap-2">
-                    {user && user.fav_disciplinas ? 
-                        user.fav_disciplinas.map(disc => {
+                    <div className="flex flex-col text-sm h-72 overflow-y-auto">
+                    {disciplinas ? 
+                        disciplinas.sort(function(a, b){
+                            if(a.firstname < b.firstname) { return -1; }
+                            if(a.firstname > b.firstname) { return 1; }
+                            return 0;
+                        }).map(disc => {
+                            function findMateria(element) {
+                                return element.dados[0] == disc
+                            }
+                            const index = materias.findIndex(findMateria)
+                            const nome = materias[index].dados[1]
                             return (
-                                <div className="" key={disc.nome}>
-                                    {disc.nome}
+                                <div key={disc}>
+                                    <Link href={"/app/materia/" + disc}>
+                                    <div className={`flex gap-2 items-center py-2 px-3 cursor-pointer rounded-xl  
+                                    ${(router.asPath == "/app/materia/" + disc) ? "bg-light-darker font-bold" : "hover:bg-light"}`} key={disc}>
+                                        <Image priority width={20} height={20} src={"/icons/iconsDisciplinas/" + disc + ".png"}/>
+                                        <div>{nome}</div>
+                                    </div>
+                                    </Link>
                                 </div>
+
                             )
                         })
                     : <div className="text-sm">Adicione suas Disciplinas Favoritas!</div>

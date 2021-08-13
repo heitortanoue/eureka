@@ -9,7 +9,7 @@ export default async (request, response) => {
     const collectionRespComen = db.collection('resposta_comentario');
 
     //Pega todos comentários da pergunta
-    const comenPergunta = await collectionComentario.find({'id_pergunta': id}, {'_id': 1}).toArray();
+    const comenPergunta = await collectionComentario.find({'id_pergunta': id}, {projection: {_id: true}}).toArray();
 
     //Apagar resposta e dps o comentarios pergunta
     for (const comment of comenPergunta) {

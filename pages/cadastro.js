@@ -9,7 +9,7 @@ import { setCookie } from "../utils/cookie"
 import RedirectWhenLogged from "../utils/redirectWhenLogged"
 import {UserContext} from "/utils/contexts/userContext"
 import nProgress from "nprogress"
-import Error from "../components/in/error"
+import Error from "../components/in/others/error"
 
 export default function Cadastro () {
     // DADOS PARA CADASTRO E LOGIN
@@ -82,12 +82,11 @@ export default function Cadastro () {
                     setCookie("token", response.data.user.token, 15)
                 }
                 sessionStorage.setItem("user", JSON.stringify(response.data.user))
-                USERCONTEXT[1](response.data.user)
+                USERCONTEXT.user[1](response.data.user)
                 router.push("/app/")
             }
         })
         .catch(function (err) {
-            console.log(err)
             if (err.response) {
                 setError(err.response.data.result)
             }
@@ -198,9 +197,9 @@ export default function Cadastro () {
                         </div>
                         :
                         <div className="flex flex-col gap-3">
-                            <div className="mx-auto flex items-center gap-2 cursor-pointer">
+                            <label className="mx-auto flex items-center gap-2 cursor-pointer">
                                 <input onChange={(e)=>{setKeepConnect(e.target.value)}} type="checkbox" className="w-4 h-4"/> Mantenha-me conectado
-                            </div>
+                            </label>
                             <button className="button blue_button" onClick={(e) => checkFieldAndSubmit(e)} type="submit">Entrar</button>
                             <div className="mx-auto">
                                 Não tem uma conta? 

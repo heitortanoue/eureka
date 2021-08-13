@@ -1,14 +1,19 @@
 import { useState } from "react"
 import Logout from "/components/in/logout" 
 import UserImage from "/components/in/profile/userImage"
+import Link from "next/link"
+import Image from "next/image"
 
-export default function RightBar ({user}) {
+export default function RightBar ({user, results}) {
     const [atual, setAtual] = useState("Resultados")
     const abas = ["Resultados", "Notificações"]
     const temNotificacao = false
+
     return (
-        <div className="hidden lg:block">
-            <div className="lg:flex flex-col gap-4 bg-white w-72 rounded-2rborders p-5 pl-6">
+        <div className={`hidden lg:block`}>
+            <div className={`lg:flex flex-col gap-4 bg-white w-72 rounded-2rborders p-5 pl-6 ${!user ? "sticky top-8" : null}`}>
+                { user ?
+                <>
                 <div className="flex justify-around transition-all">
                     {
                         abas.map(aba => {
@@ -37,30 +42,28 @@ export default function RightBar ({user}) {
                         <div className="flex flex-col gap-2 items-center">
                             <div className="bg-light-darker rounded-lg w-full pt-1 pr-2 pl-6 flex justify-between">
                                 <div className="pb-3 pt-2">
-                                    <p className="font-bold text-2xl text-blue">+34</p>
+                                    <p className="font-bold text-2xl text-blue">+{results ? results.semanal : null}</p>
+                                    <div className="text-sm">
                                     <p>Lâmpadas</p>
-                                    <p>Recebidas</p>
+                                    <p>(Essa semana)</p>
+                                    </div>
                                 </div>
                                 <div className="relative w-1/2">
-                                    {/*<Image layout="fill" objectFit="contain" src={"/illustrations/meninalampada.png"}></Image>*/}
+                                    <Image layout="fill" objectFit="contain" src={"/illustrations/meninalampada.svg"}></Image> 
                                 </div>
                             </div>
                             <div className="bg-light-darker rounded-lg w-full pl-2 pr-6 pt-1 flex justify-between">
                                 <div className="w-1/2 relative">
-                                    {/*<Image layout="fill" objectFit="contain" src={"/illustrations/reiterno.png"}></Image> */}                            
+                                    <Image layout="fill" objectFit="contain" src={"/illustrations/reiterno.svg"}></Image>                            
                                 </div>
                                 <div className="text-right flex-1 pb-3 pt-2">
-                                    <p className="font-bold text-2xl text-blue">+14</p>
-                                    <p>Melhores</p>
-                                    <p>Respostas</p>
+                                    <p className="font-bold text-2xl text-blue">+{results ? results.vitalicio : null}</p>
+                                    <div className="text-sm">
+                                    <p>Lâmpadas</p>
+                                    <p>(Vitalício)</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="flex">
-                            <label className="switch">
-                                <input type="checkbox"/>
-                                <span className="slider round"></span>
-                            </label>
                         </div>
                     </div> : null
                 }
@@ -77,6 +80,20 @@ export default function RightBar ({user}) {
                 <div className="flex ml-auto">
                     <Logout/>
                 </div>
+                </>
+                : 
+                <div className="flex flex-col gap-4">
+                <div className="text-blue font-semibold">Faça login ou crie uma conta Eureka para mandar perguntas e respondê-las!</div>
+                <div className="flex justify-around gap-5">
+                    <Link href={{pathname: "/cadastro", query: {type: "login"}}}>
+                        <button className="bg-light-darker rounded-xl p-2 px-3 font-bold flex-1 hover:bg-grey transition-all">Login</button>
+                    </Link>
+                    <Link href={{pathname: "/cadastro", query: {type: "cadastro"}}}>
+                    <button className="bg-blue text-white p-2 px-3 rounded-xl font-bold flex-1 hover:bg-blue-dark transition-all" >Cadastro</button>
+                    </Link>
+                </div>
+            </div>
+                }
             </div>  
         </div>
     )

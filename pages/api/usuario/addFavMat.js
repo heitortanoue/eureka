@@ -7,9 +7,7 @@ export default async (request, response) => {
     const {db} = await connectToDatabase();
     const collection = db.collection('usuario');
 
-    collection.findByIdAndUpdate(obj_id, {'$set' : {
-       'materiasFav' : fav_disciplinas
-    }});
+    await collection.updateOne({'_id': obj_id}, { $set: {'fav_disciplinas' : fav_disciplinas}} );
 
-    return response.status(201).json({result: "Matérias favoritas adicionadas sucesso!"});
+    return response.status(200).json({result: "Matérias favoritas adicionadas sucesso!"});
 }

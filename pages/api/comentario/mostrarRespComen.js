@@ -11,7 +11,7 @@ export default async (request, response) => {
     const resp_comen = await colRespComen.find({id_comentario: id_Comentario}).toArray();
     for (const quest of resp_comen) {
         const obj_id = ObjectId(quest.id_user)
-        const obj = await colUsuarios.findOne({_id: obj_id}, {username: 1, foto: 1})
+        const obj = await colUsuarios.findOne({_id: obj_id}, {projection: {username: true, foto: true, _id: false}})
         quest["username"] = await obj.username
         quest["foto"] = await obj.foto
     }

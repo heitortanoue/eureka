@@ -10,7 +10,7 @@ export default function Loggout () {
     const manageLogout = () => {
         sessionStorage.clear('user')
         setCookie("token", "", -1)
-        USERCONTEXT[1]("")
+        USERCONTEXT.user[1]("")
         router.push("/")
     }
 
