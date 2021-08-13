@@ -1,7 +1,7 @@
 const materias = [
     { dados: ["calculo", "Cálculo"], cor: ["#799DE8", 1]},
     { dados: ["fisica", "Física"], cor: ["#0FA3B1", 1]},
-    { dados: ["alglin ga", "Álgebra Linear e Geometria Analítica"], cor: ["#058ED9", 1]},
+    { dados: ["alglinega", "ÁlgLin e GA"], cor: ["#058ED9", 1]},
     { dados: ["probabilidadeestatistica", "Probabilidade e Estatística"], cor: ["#7353BA", 1]},
     { dados: ["quimica", "Química"], cor: ["#3B3561", 1]},
     { dados: ["calculonumerico", "Cálculo Numérico"], cor: ["#DC6ACF", 1]},

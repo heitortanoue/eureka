@@ -18,16 +18,19 @@ Router.events.on("routeChangeError", () => {
 
 function MyApp({ Component, pageProps }) {
    const [USER, setUSER] = useState()
+   const [MATERIAS, setMATERIAS] = useState()
+   const [RESULTADOS, setRESULTADOS] = useState()
 
    useEffect(() => {
       if (sessionStorage.getItem("user")) {
         const user = JSON.parse(sessionStorage.getItem("user"))
         setUSER(user)
+        setMATERIAS(user.fav_disciplinas)
       }
     }, [])
 
    return (
-      <UserContext.Provider value={[USER, setUSER]}>
+      <UserContext.Provider value={{user: [USER, setUSER], disciplinas: [MATERIAS, setMATERIAS], resultados: [RESULTADOS, setRESULTADOS]}}>
          <div className="font-body text-black">
             <Component {...pageProps} />
          </div>

@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useState } from "react"
-import Error from "/components/in/error"
+import Error from "/components/in/others/error"
 
 export default function Responda ({ showAnswering, quest, user, respostas, setRespostas, resps, setResps, onQtdChange }) {
     const [texto, setTexto] = useState("")
@@ -32,7 +32,6 @@ export default function Responda ({ showAnswering, quest, user, respostas, setRe
                 setResps(newResps)
                 let newRespostas = respostas
                 newRespostas.push(newComment)
-                console.log(newComment, newRespostas)
                 setRespostas(newRespostas)
                 showAnswering(false)
                 onQtdChange(1)
@@ -64,7 +63,7 @@ export default function Responda ({ showAnswering, quest, user, respostas, setRe
             <div className="bg-white w-full h-full lg:h-auto my-auto lg:w-2/3 m-2 lg:mx-auto rounded-3xl 
             shadow-lg flex flex-col gap-6 p-8 relative lg:overflow-hidden overflow-y-auto">
                 <i onClick={() => {showAnswering(false)}} 
-                className="fas absolute right-5 top-3 fa-times text-lg cursor-pointer hover:text-red"></i>
+                className="fas absolute right-5 top-3 fa-times text-lg cursor-pointer hover:text-red p-2"></i>
                 <div className="font-bold text-xl">Responda e ajude <span className="text-blue">{quest.username}</span></div>
                 <Error error={error} sucess={sucess}/>
                 {!sucess ?

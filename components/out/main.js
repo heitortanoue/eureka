@@ -1,9 +1,10 @@
 import Image from 'next/image'
 import Share from "/public/icons/share.svg"
 import Link from 'next/link'
-import SearchField from '../global/searchField'
+import { useState } from 'react'
 
 export default function Main () {
+    const [textSearch, setTextSearch] = useState("")
     return (
         <div className="flex flex-col gap-10 lg:gap-0">
             <div className="flex flex-row justify-between items-center md:gap-10 lg:gap-0 lg:-mb-12">
@@ -31,11 +32,13 @@ export default function Main () {
             </div>
             <div className="-m-3 mt-1 lg:m-0 lg:bg-light-dark lg:rounded-full">
                 <div className="bg-light-darker rounded-full m-1 lg:w-5/12">
-                    <form action="get" className="flex align-middle">
+                    <form className="flex align-middle">
+                    <Link href={{ pathname: `/app/search/`, query: {texto: textSearch}}}>
                     <button type="submit" className="fbg-blue rounded-full cursor-pointer text-white w-14 h-14 flex-0 text-xl">
                         <i className="fa fa-search"></i>
                     </button>
-                    <input type="text" placeholder="Qual a sua pergunta?" className="p-3 flex-1 bg-light-darker rounded-full outline-none"/>
+                    </Link>
+                    <input type="text" placeholder="Qual a sua pergunta?" onChange={(e) => {setTextSearch(e.target.value)}} className="p-3 flex-1 bg-light-darker rounded-full outline-none"/>
                     </form>
                 </div>
             </div>

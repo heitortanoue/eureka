@@ -8,7 +8,7 @@ export default async (request, response) => {
     const collection = db.collection('comentario');
     let res
 
-    const comment = await collection.findOne({_id: obj_id}, {"pessoas_curtiram": 1})
+    const comment = await collection.findOne({_id: obj_id}, {projection: {pessoas_curtiram: true, _id: false}})
     if (comment.pessoas_curtiram.indexOf(id_user.toString()) != -1) {
         // TIRAR
         await collection.updateOne({_id: obj_id}, {'$pull': { 'pessoas_curtiram': id_user },  $inc : {'qtd_reacao' : -1}});

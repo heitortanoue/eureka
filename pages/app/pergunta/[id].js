@@ -9,6 +9,7 @@ import { UserContext } from "/utils/contexts/userContext"
 import { useRouter } from "next/router";
 import Skeleton from "../../../components/in/perguntas/skeleton";
 import Responda from "../../../components/in/perguntas/responda";
+import axios from "axios";
 
 export const getStaticPaths = async () => {
     const {db} = await connectToDatabase()
@@ -45,8 +46,6 @@ export const getStaticProps = async (context) => {
     for (const quest of comentarios) {
         const obj_id = ObjectId(quest.id_user)
         const obj = await colUsuarios.findOne({_id: obj_id}, {username: 1, foto: 1})
-        const curtiu = await colComentario.findOne({_id: quest._id}, {"pessoas_curtiram": 1})
-        await curtiu.pessoas_curtiram.indexOf(quest.id_user) == -1 ? quest["curtiu"] = false : quest["curtiu"] = true
         quest["username"] = await obj.username
         quest["foto"] = await obj.foto
 
@@ -103,7 +102,7 @@ export default function PaginaPergunta ({ questionJSON, answersJSON, respsJSON }
             <Head>
                 <title>{question.texto}</title>
             </Head>
-            {answering ? <Responda quest={question} user={USERCONTEXT[0]} 
+            {answering ? <Responda quest={question} user={USERCONTEXT.user[0]} 
             showAnswering={manageResponda} respostas={comments} setRespostas={setRespostas}
             resps={resps} setResps={manageResps} onQtdChange={manageQtd}/> : null}
             <Container>
@@ -114,7 +113,7 @@ export default function PaginaPergunta ({ questionJSON, answersJSON, respsJSON }
                     <Skeleton />
                     :
                     <>
-                    <Pergunta quest={question} full={true} showAnswering={manageResponda} user={USERCONTEXT[0]}/>
+                    <Pergunta quest={question} full={true} showAnswering={manageResponda} user={USERCONTEXT.user[0]}/>
                     { comments.length > 0 ?
                         <div>
                         <div className="font-bold text-blue text-lg">Respostas ({qtdComment})</div>
@@ -122,14 +121,17 @@ export default function PaginaPergunta ({ questionJSON, answersJSON, respsJSON }
                         {comments.map((com, ind) => {
                             return (
                                 <div key={com._id}>
-                                    <Resposta answer={com} user={USERCONTEXT[0]} resps={resps[ind]} onQtdChange={manageQtd}/>
+                                    <Resposta answer={com} user={USERCONTEXT.user[0]} resps={resps[ind]} onQtdChange={manageQtd}/>
                                 </div>
                             )
                         })}
                         </div>
                         </div>
                         : 
-                        <div className="bg-white text-black p-3 px-5 rounded-full">Não há respostas ainda! Seja o primeiro a responder!</div>    
+                        <div className="bg-white text-black p-3 px-5 rounded-full font-semibold text-center">
+                            Não há respostas ainda! 
+                            {USERCONTEXT.user[0] && USERCONTEXT.user[0]._id.toString() != question.id_user ? " Seja o primeiro a responder!" : null}
+                        </div>    
                     }
                     </>
                 }

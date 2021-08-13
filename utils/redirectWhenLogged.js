@@ -5,21 +5,21 @@ import {UserContext} from "/utils/contexts/userContext"
 import { useRouter } from "next/router"
 
 export default function RedirectWhenLogged () {
-    const userContext = useContext(UserContext)
+    const USERCONTEXT = useContext(UserContext)
     const router = useRouter()
     useEffect(() => {
         const token = getCookie("token")
         if (token) {
             axios.post("/api/usuarioLogin", {token: token})
             .then(function (response) {
-                userContext[1](response.data.user)
-            })
-            router.push("/app/")
+                USERCONTEXT.user[1](response.data.user)
+                router.push("/app")
+            })        
         }
-        if (userContext[0]) {
-            router.push("/app/")
+        if (USERCONTEXT.user[0]) {
+            router.push("/app")
         }
-      }, [userContext[0]])
+      }, [USERCONTEXT.user[0]])
     
       return (<></>)
 }

@@ -1,9 +1,10 @@
 import axios from "axios"
 import { useState, useContext } from "react"
 import {UserContext} from "/utils/contexts/userContext"
-import Error from "/components/in/error"
+import Error from "/components/in/others/error"
 import { useRouter } from "next/router"
 import materias from "../../../utils/data/materias"
+import BannerDisciplina from "../others/bannerDisciplina"
 
 export default function Pergunte (props) {
 
@@ -23,7 +24,7 @@ export default function Pergunte (props) {
             texto: texto,
             materia: materia,
             foto: null,
-            user: USERCONTEXT[0]._id
+            user: USERCONTEXT.user[0]._id
         }
 
         axios.post("/api/perguntas/postPergunta", data)
@@ -84,7 +85,7 @@ export default function Pergunte (props) {
                         </select>
                     </div>
                     <div className="flex gap-4 items-center">
-                        <button onClick={() => {validate()}} className="button blue_button">PERGUNTE</button>
+                        <button onClick={() => {validate()}} className="button blue_button" type="submit">PERGUNTE</button>
                         <div className={`${loading ? "block" : "hidden"} loader ease-linear rounded-full border-light-darker h-8 w-8`}/>
                     </div>
                 </>           
