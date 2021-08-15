@@ -4,7 +4,7 @@ var bcrypt = require('bcryptjs');
 
 //Função para inserir usuário
 export default async (request, response) => {
-    const { email, senha, nome, username, faculdade, dataNasc} = await request.body
+    const { email, senha, nome, username, faculdade, dataNasc, curso } = await request.body
     const {db} = await connectToDatabase();
     const collection = db.collection('usuario');
     const salt = bcrypt.genSaltSync(10);
@@ -30,7 +30,9 @@ export default async (request, response) => {
     data.dataNasc = dataNasc;
     data.fav_disciplinas = [];
     data.token = token;
+    data.bio = ""
+    data.curso = curso
     await collection.insertOne(data);
        
-    return response.status(200).json({result: `Cadastro realizado com sucesso!` })
+    return response.status(200).json({result: `Cadastro realizado com sucesso!`, user: data})
 }

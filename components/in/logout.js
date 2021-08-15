@@ -15,6 +15,6 @@ export default function Loggout () {
     }
 
     return (
-        <i onClick={() => manageLogout()} className="fas fa-sign-out-alt text-2xl cursor-pointer hover:text-red transition-all"></i>
+        <i onClick={() => manageLogout()} className="fas fa-sign-out-alt p-1 text-2xl cursor-pointer hover:text-red transition-all"></i>
     )
 }

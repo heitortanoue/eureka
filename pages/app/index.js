@@ -54,13 +54,25 @@ export default function Inicio ({ questionsJSON }) {
             { showDisc ? 
                 <DisciplinasFavoritas user={USERCONTEXT.user[0]} changeDisciplinas={manageDisc} setNewDisciplinas={USERCONTEXT.disciplinas[1]} />
              : null}
-            <Container>
+            <Container showHeader={true}>
                 <div className="flex flex-col gap-6 flex-1">
                     <div className="block lg:hidden font-extrabold text-blue-dark text-4xl">
                         Descubra
                     </div>
                     <Banner/>
                     <SearchField/>
+                    {!USERCONTEXT.user[0] ?
+                    <div className="lg:hidden flex flex-col gap-4 px-8">
+                        <div className="text-blue font-semibold">Faça login ou crie uma conta Eureka para mandar perguntas e respondê-las!</div>
+                        <div className="flex justify-around gap-5">
+                            <Link href={{pathname: "/cadastro", query: {type: "login"}}}>
+                                <button className="bg-white rounded-xl p-2 px-3 font-bold flex-1 hover:bg-grey transition-all">Login</button>
+                            </Link>
+                            <Link href={{pathname: "/cadastro", query: {type: "cadastro"}}}>
+                                <button className="bg-blue text-white p-2 px-3 rounded-xl font-bold flex-1 hover:bg-blue-dark transition-all" >Cadastro</button>
+                            </Link>
+                        </div>
+                    </div> : null}
                     { USERCONTEXT.user[0] ?
                     <div className="flex lg:hidden gap-2 items-center overflow-x-auto w-scrollMaterias">
                         { USERCONTEXT.disciplinas[0] ?

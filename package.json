@@ -16,6 +16,7 @@
     "crypto-js": "^4.1.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "mongodb": "^4.1.0",
     "mongoose": "^5.13.5",
@@ -24,7 +25,8 @@
     "nprogress": "^0.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "tailwind": "^4.0.0"
+    "tailwind": "^4.0.0",
+    "ws": "^8.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.3.1",

@@ -44,14 +44,16 @@ export default function Pergunta ({quest, full, showAnswering, user}) {
         : null}
         <div className="w-full bg-white px-7 py-4 flex flex-col text-black rounded-3xl">
             <div className="flex gap-3">
-                <div className="relative w-10 h-10">
+                <Link href={"/app/usuario?username=" + quest.username}>
+                <div className="relative w-10 h-10 cursor-pointer">
                     <UserImage src={quest.foto} size={"4xl"}/>
                 </div>
+                </Link>
                 <div className="flex-1 flex flex-col gap-1">
                         <div className="flex items-center justify-between">
                             <div className="flex flex-col">
                                 <div className="flex gap-3 items-center">
-                                    <div className="text-blue font-bold">{quest.username}</div>
+                                    <Link href={"/app/usuario?username=" + quest.username}><div className="text-blue hover:underline font-bold cursor-pointer">{quest.username}</div></Link>
                                     <div className="text-cinza text-xs">
                                     {timeFromPost(quest.date)}
                                     </div> 

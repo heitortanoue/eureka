@@ -20,6 +20,7 @@ export default function Cadastro () {
     const [nomeUsuario, setNomeUsuario] = useState()
     const [faculdade, setFaculdade] = useState()
     const [dataNasc, setDataNasc] = useState()
+    const [curso, setCurso] = useState()
     const [keepConnect, setKeepConnect] = useState()
 
     const [error, setError] = useState(false)
@@ -31,6 +32,7 @@ export default function Cadastro () {
     const [isLogin, setLogin] = useState(router.query.type == "login" ? true : false)
 
     const checkFieldAndSubmit = (e) => {
+        setError("")
         nProgress.start()
         let inputs, res = true
         if (isLogin) {
@@ -62,28 +64,29 @@ export default function Cadastro () {
 
     const handleSubmit = (e) => { 
         e.preventDefault()
-        let data = {email: email, senha: senha}
+        let data = {email: email.trim(), senha: senha.trim()}
         if (!isLogin) {
             data = {
-                email: email,
-                senha: senha,
-                nome: nome,
-                username: nomeUsuario,
-                faculdade: faculdade,
+                email: email.trim(),
+                senha: senha.trim(),
+                nome: nome.trim(),
+                username: nomeUsuario.trim(),
+                faculdade: faculdade.trim(),
+                curso: curso.trim(),
                 dataNasc: dataNasc
             }
         }
         axios.post(`/api/usuario/usuario${isLogin ? "Login" : "Cadastro"}`, data)
         .then(function (response) {
             if (response.status == 200) {
-                setSucess(true)
+                setSucess(true) 
                 if (keepConnect) {
                     // COOKIE COM TOKEN PARA MANTER CONECTADO
                     setCookie("token", response.data.user.token, 15)
                 }
                 sessionStorage.setItem("user", JSON.stringify(response.data.user))
                 USERCONTEXT.user[1](response.data.user)
-                router.push("/app/")
+                router.push("/app")
             }
         })
         .catch(function (err) {
@@ -107,7 +110,7 @@ export default function Cadastro () {
             </Head>
             
             <div className="flex">
-                <div className={`hidden lg:flex bg-outro_cinza p-10 w-7/12 
+                <div className={`hidden xl:flex bg-outro_cinza p-10 w-7/12 
                 ${isLogin ? "order-first w-7/12 " : "order-last w-4/12"}`}>
                     <div className="my-auto mx-auto">
                         <Image width={isLogin ? "1000" : "560"} height={isLogin ? "800" : "630"} priority
@@ -115,7 +118,7 @@ export default function Cadastro () {
                     </div>
                 </div>
                 <div onKeyDown={(e) => checkEnter(e)} className={`flex flex-col justify-between h-screen transition-all
-                font-body container mx-auto p-5 lg:p-10 gap-8 lg:m-0 ${isLogin ? "lg:w-5/12" : "lg:w-8/12"}`}>
+                font-body container mx-auto p-5 xl:p-10 gap-8 xl:m-0 ${isLogin ? "xl:w-5/12" : "xl:w-8/12"}`}>
                     <div className="flex justify-between text-xl items-center">
                         <Link href="/"><button className="sqr_button blue_button"><i className="fas fa-chevron-left"></i></button></Link>
                         <div className="w-12">
@@ -129,11 +132,18 @@ export default function Cadastro () {
                         <div className="flex flex-col gap-3">
                             <Error error={error} sucess={sucess}/>
                             {/*PARTE DO LOGIN*/}
-                            <div>
-                                <div className="font-semibold ml-3">Email</div>
-                                <input type="email" className="inputfield" onChange={(e)=>{setEmail(e.target.value)}} />
+                            <div className="flex gap-2 md:gap-5 justify-between flex-col md:flex-row">
+                                <div className="flex-1">
+                                    <div className="font-semibold ml-3">Email</div>
+                                    <input type="email" className="inputfield" onChange={(e)=>{setEmail(e.target.value)}} />
+                                </div>
+                                {!isLogin ?
+                                <div className="flex-1">
+                                        <div className="font-semibold ml-3">Nome de Usuário</div>
+                                        <input type="text" className="inputfield" onChange={(e)=>{setNomeUsuario(e.target.value)}} />
+                                </div> : null}
                             </div>
-                            <div className="lg:flex justify-between gap-5">
+                            <div className="flex gap-2 md:gap-5 justify-between flex-col md:flex-row">
                                 <div className="flex-1">
                                     <div className="font-semibold ml-3">Senha</div>
                                     <div className="relative">
@@ -158,24 +168,24 @@ export default function Cadastro () {
                             </div>
                             {!isLogin ?
                             <>
-                            <div className="flex gap-5 justify-between flex-col md:flex-row">
+                            <div className="flex gap-2 md:gap-5 justify-between flex-col md:flex-row">
                                 <div className="flex-1">
                                     <div className="font-semibold ml-3">Nome completo</div>
                                     <input type="text" className="inputfield" onChange={(e)=>{setNome(e.target.value)}} />
                                 </div>
                                 <div className="flex-1">
-                                    <div className="font-semibold ml-3">Nome de Usuário</div>
-                                    <input type="text" className="inputfield" onChange={(e)=>{setNomeUsuario(e.target.value)}} />
+                                    <div className="font-semibold ml-3">Data de Nascimento</div>
+                                    <input type="date" className="inputfield" onChange={(e)=>{setDataNasc(e.target.value)}} />
                                 </div>
                             </div>
-                            <div className="flex gap-5 justify-between flex-col md:flex-row">
+                            <div className="flex gap-2 md:gap-5 justify-between flex-col md:flex-row">
                                 <div className="flex-1">
                                     <div className="font-semibold ml-3">Universidade</div>
                                     <input type="text" className="inputfield" onChange={(e)=>{setFaculdade(e.target.value)}} />
                                 </div>
                                 <div className="flex-1">
-                                    <div className="font-semibold ml-3">Data de Nascimento</div>
-                                    <input type="date" className="inputfield" onChange={(e)=>{setDataNasc(e.target.value)}} />
+                                    <div className="font-semibold ml-3">Curso</div>
+                                    <input type="text" className="inputfield" onChange={(e)=>{setCurso(e.target.value)}} />
                                 </div>
                             </div>
                             </>
@@ -188,7 +198,7 @@ export default function Cadastro () {
                     </div>
                     {
                         !isLogin ?
-                        <div className="flex flex-col gap-3">
+                        <div className="flex flex-col gap-3 pb-4 lg:p-0">
                             <button className="button blue_button" onClick={(e) => checkFieldAndSubmit(e)} type="submit">Criar conta</button>
                             <div className="mx-auto">
                                 Já tem uma conta? 

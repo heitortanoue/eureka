@@ -50,7 +50,7 @@ export default function Search ({ perguntasJSON }) {
         </Head>
         {router.isFallback ?
         <Skeleton /> :
-        <Container>
+        <Container showHeader={true}>
         <div className="flex flex-col gap-6 flex-1">
             <SearchField/>
             <div>

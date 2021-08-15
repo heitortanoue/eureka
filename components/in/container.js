@@ -9,7 +9,7 @@ import DisciplinasFavoritas from "./profile/disciplinasFavoritas";
 import NotLogged from "./others/notLogged"
 import axios from "axios";
 
-export default function Container ({children}) {
+export default function Container ({children, showHeader, hideRightBar}) {
     const [showAsk, setShowAsk] = useState(false)
     const [showChangeFav, setShowChangeFav] = useState(false)
     const [showLog, setShowLog] = useState(false)
@@ -35,10 +35,10 @@ export default function Container ({children}) {
             <SideBar showLog={setShowLog} onChange={setShowAsk} disciplinas={USERCONTEXT.disciplinas[0]} 
             changeDisciplinas={setShowChangeFav} user={USERCONTEXT.user[0]}/>
             <BottomNavbar onChange={setShowAsk} showLog={setShowLog} user={USERCONTEXT.user[0]}>
-                <Header/>
+                {showHeader ? <Header/> : null}
                 <div className="flex gap-5">
                     {children}
-                    <RightBar user={USERCONTEXT.user[0]} results={USERCONTEXT.resultados[0]}/>
+                    {!hideRightBar ? <RightBar user={USERCONTEXT.user[0]} results={USERCONTEXT.resultados[0]}/> : null}
                 </div>
             </BottomNavbar>
         </div>
