@@ -65,7 +65,7 @@ export default function PaginaMateria ({ questionJSON, nome }) {
             <Head>
                 <title>Eureka | {nomeBonito}</title>
             </Head>
-            <Container>
+            <Container showHeader={true}>
                 <div className="flex flex-col gap-6 flex-1">
                     <div className="block lg:hidden font-extrabold text-blue-dark text-4xl">
                         Perguntas

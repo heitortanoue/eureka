@@ -103,9 +103,11 @@ export default function Resposta ({ answer, user, resps, onQtdChange }) {
             </div>
             <div className="mt-4 text-lg">{answer.texto}</div>
             <DeleteConfirm setConf={manageDelete} showDel={showDelete} setDel={manageShowDelete}/>
-            {!showDelete ? <div className="flex justify-end items-center cursor-pointer" onClick={() => {manageReaction()}}>
+            {!showDelete ? <div className="flex justify-end">
+                <div onClick={() => {user && answer.id_user == user._id.toString() ? null : manageReaction()}} className={`flex items-center ${user && answer.id_user == user._id.toString() ? null : "cursor-pointer"}`}>
                 <i className={`fas fa-lightbulb text-2xl ${liked ? "text-yellow animate-bounce-once" : "text-grey"}`}></i>
                 <div className="ml-1 text-lg">{likeNumber}</div>
+                </div>
             </div> : null}
             <hr className="border-2 border-light-dark mt-4"/>
             <div className="flex-col mt-3 gap-2 flex">

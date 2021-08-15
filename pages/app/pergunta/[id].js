@@ -105,7 +105,7 @@ export default function PaginaPergunta ({ questionJSON, answersJSON, respsJSON }
             {answering ? <Responda quest={question} user={USERCONTEXT.user[0]} 
             showAnswering={manageResponda} respostas={comments} setRespostas={setRespostas}
             resps={resps} setResps={manageResps} onQtdChange={manageQtd}/> : null}
-            <Container>
+            <Container showHeader={true}>
             <div className="w-full flex flex-col gap-5 pb-10 lg:pb-0">
                 <SearchField/>
                 {

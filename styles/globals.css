@@ -4,7 +4,7 @@
 
 :root {
     --def-blue: #4361EE;
-    --light-blue: #799DE8;
+    --light-blue: #66B0F0;
     --dark-blue: #0D248C;
     --white: #FFFFFF;
     --black: #181925;
@@ -34,7 +34,7 @@
 }
 
 .w-scrollMaterias {
-    width: calc(100vw - 2rem);
+    width: calc(100vw - 2.5rem);
 }
 
 .red-icon {
@@ -118,6 +118,10 @@
 
 .rounded-2lborders {
     border-radius: 0 40px 40px 0;
+}
+
+.rounded-2tborders {
+    border-radius: 40px 40px 0 0;
 }
 
 .h-body {

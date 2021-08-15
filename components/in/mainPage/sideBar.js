@@ -59,7 +59,7 @@ export default function SideBar ({onChange, disciplinas, changeDisciplinas, user
                         onClick={() => {user ? changeDisciplinas(true) : showLog(true)}}></i>
                     </div>
                     <div className="flex flex-col text-sm h-72 overflow-y-auto">
-                    {disciplinas ? 
+                    {disciplinas && disciplinas.length > 0 ? 
                         disciplinas.sort(function(a, b){
                             if(a.firstname < b.firstname) { return -1; }
                             if(a.firstname > b.firstname) { return 1; }
@@ -74,7 +74,7 @@ export default function SideBar ({onChange, disciplinas, changeDisciplinas, user
                                 <div key={disc}>
                                     <Link href={"/app/materia/" + disc}>
                                     <div className={`flex gap-2 items-center py-2 px-3 cursor-pointer rounded-xl  
-                                    ${(router.asPath == "/app/materia/" + disc) ? "bg-light-darker font-bold" : "hover:bg-light"}`} key={disc}>
+                                    ${(router.asPath == "/app/materia/" + disc) ? "bg-light-darker font-bold text-blue" : "hover:bg-light"}`} key={disc}>
                                         <Image priority width={20} height={20} src={"/icons/iconsDisciplinas/" + disc + ".png"}/>
                                         <div>{nome}</div>
                                     </div>
