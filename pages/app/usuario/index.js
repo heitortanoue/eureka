@@ -183,7 +183,7 @@ export default function PgUsuario ({ usuarioJSON, perguntasJSON, respostasJSON }
                             </div>
                           </div>  
                         </div>
-                        <Link href={"/app/pergunta/" + ans.id_pergunta}><div className="mt-2 text-lg cursor-pointer hover:underline">{ans.texto}</div></Link>
+                        <Link passHref href={"/app/pergunta/" + ans.id_pergunta}><div className="mt-2 text-lg cursor-pointer hover:underline">{ans.texto}</div></Link>
                         <div className="flex justify-end items-center">
                           <i className={`fas fa-lightbulb text-2xl text-yellow`}></i>
                           <div className="ml-1 text-lg">{ans.qtd_reacao}</div>

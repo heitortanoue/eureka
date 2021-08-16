@@ -6,7 +6,7 @@ export default function SearchField () {
     return (
         <div className="bg-white rounded-full">
         <form className="flex align-middle">
-            <Link href={{ pathname: `/app/search/`, query: {texto: texto}}}>
+            <Link href={{ pathname: `/app/search/`, query: {texto: texto}}} passHref>
                 <button type="submit" className="fbg-blue rounded-full cursor-pointer text-white w-10 h-10 flex-0 text-lg">
                     <i className="fa fa-search"></i>
                 </button>

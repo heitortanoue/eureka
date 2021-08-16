@@ -1,6 +1,6 @@
 import { connectToDatabase } from '../connect/mongoUtil';
 
-export default manageLikeComen = async (request, response) => {
+const manageLikeComen = async (request, response) => {
     var ObjectId = require('mongodb').ObjectId;
     const {id_comentario, id_user} = await request.body;
     const obj_id = ObjectId(id_comentario);
@@ -20,3 +20,5 @@ export default manageLikeComen = async (request, response) => {
     }
     return response.status(200).json({result: "Sucesso!", res: res});
 }
+
+export default manageLikeComen

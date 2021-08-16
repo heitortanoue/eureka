@@ -7,10 +7,10 @@ export default function NotLogged ({showLog}) {
                 className="fas absolute right-5 top-3 fa-times text-lg cursor-pointer hover:text-red"></i>
                 <div className="text-blue font-semibold">Faça login ou crie uma conta Eureka para mandar perguntas e respondê-las!</div>
                 <div className="flex justify-around gap-5">
-                    <Link href={{pathname: "/cadastro", query: {type: "login"}}}>
+                    <Link passHref href={{pathname: "/cadastro", query: {type: "login"}}}>
                         <button className="bg-light-darker rounded-xl p-2 px-3 font-bold flex-1 hover:bg-grey transition-all">Login</button>
                     </Link>
-                    <Link href={{pathname: "/cadastro", query: {type: "cadastro"}}}>
+                    <Link passHref href={{pathname: "/cadastro", query: {type: "cadastro"}}}>
                     <button className="bg-blue text-white p-2 px-3 rounded-xl font-bold flex-1 hover:bg-blue-dark transition-all" >Cadastro</button>
                     </Link>
                 </div>

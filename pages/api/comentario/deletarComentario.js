@@ -1,6 +1,6 @@
 import { connectToDatabase } from '../connect/mongoUtil';
 
-export default deletarComentario = async (request, response) => {
+const deletarComentario = async (request, response) => {
     var ObjectId = require('mongodb').ObjectId;
     const {id} = request.body
     const {db} = await connectToDatabase();
@@ -16,3 +16,5 @@ export default deletarComentario = async (request, response) => {
     return response.status(200).json({result: "Comentário deletado com sucesso!" })
 
 }
+
+export default deletarComentario

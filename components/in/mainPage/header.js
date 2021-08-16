@@ -6,7 +6,7 @@ export default function Header () {
         <div className="lg:hidden flex h-20 justify-end gap-3 items-center 
         top-0 z-40">
             <div className="w-11 h-11 mb-2">
-                <Image unsized="true" src={IconLamp} alt="Logo Eureka"/>
+                <Image alt="Logo Eureka" unsized="true" src={IconLamp} alt="Logo Eureka"/>
             </div>
         </div>
     )

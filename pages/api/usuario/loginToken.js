@@ -1,6 +1,6 @@
 import { connectToDatabase } from '../connect/mongoUtil';
 
-export default loginToken =  async (request, response) => {
+const loginToken =  async (request, response) => {
     const {db} = await connectToDatabase();
     const collection = db.collection('usuario');
     const { token } = await request.body
@@ -10,5 +10,6 @@ export default loginToken =  async (request, response) => {
     } else {
         return response.status(400).json({result: `Erro no Login!` })
     }
-
 }
+
+export default loginToken

@@ -65,10 +65,10 @@ export default function Inicio ({ questionsJSON }) {
                     <div className="lg:hidden flex flex-col gap-4 px-8">
                         <div className="text-blue font-semibold">Faça login ou crie uma conta Eureka para mandar perguntas e respondê-las!</div>
                         <div className="flex justify-around gap-5">
-                            <Link href={{pathname: "/cadastro", query: {type: "login"}}}>
+                            <Link passHref href={{pathname: "/cadastro", query: {type: "login"}}}>
                                 <button className="bg-white rounded-xl p-2 px-3 font-bold flex-1 hover:bg-grey transition-all">Login</button>
                             </Link>
-                            <Link href={{pathname: "/cadastro", query: {type: "cadastro"}}}>
+                            <Link passHref href={{pathname: "/cadastro", query: {type: "cadastro"}}}>
                                 <button className="bg-blue text-white p-2 px-3 rounded-xl font-bold flex-1 hover:bg-blue-dark transition-all" >Cadastro</button>
                             </Link>
                         </div>
@@ -88,7 +88,7 @@ export default function Inicio ({ questionsJSON }) {
                                 const nome = materias[index].dados[1]
                                 return (
                                     <div key={disc}>
-                                    <Link href={"/app/materia/" + disc}>
+                                    <Link passHref href={"/app/materia/" + disc}>
                                     <div className="bg-yellow-light rounded-full p-3 font-semibold w-auto whitespace-nowrap cursor-pointer">
                                         {nome}
                                     </div>

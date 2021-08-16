@@ -49,12 +49,12 @@ export default function RightBar ({user, results}) {
                                     </div>
                                 </div>
                                 <div className="relative w-1/2">
-                                    <Image layout="fill" objectFit="contain" src={"/illustrations/meninalampada.svg"}></Image> 
+                                    <Image alt="Menina com lâmpada" layout="fill" objectFit="contain" src={"/illustrations/meninalampada.svg"}></Image> 
                                 </div>
                             </div>
                             <div className="bg-light-darker rounded-lg w-full pl-2 pr-6 pt-1 flex justify-between">
                                 <div className="w-1/2 relative">
-                                    <Image layout="fill" objectFit="contain" src={"/illustrations/reiterno.svg"}></Image>                            
+                                    <Image alt="Menino rei" layout="fill" objectFit="contain" src={"/illustrations/reiterno.svg"}></Image>                            
                                 </div>
                                 <div className="text-right flex-1 pb-3 pt-2">
                                     <p className="font-bold text-2xl text-blue">+{results ? results.vitalicio : null}</p>
@@ -85,10 +85,10 @@ export default function RightBar ({user, results}) {
                 <div className="flex flex-col gap-4">
                 <div className="text-blue font-semibold">Faça login ou crie uma conta Eureka para mandar perguntas e respondê-las!</div>
                 <div className="flex justify-around gap-5">
-                    <Link href={{pathname: "/cadastro", query: {type: "login"}}}>
+                    <Link href={{pathname: "/cadastro", query: {type: "login"}}} passHref>
                         <button className="bg-light-darker rounded-xl p-2 px-3 font-bold flex-1 hover:bg-grey transition-all">Login</button>
                     </Link>
-                    <Link href={{pathname: "/cadastro", query: {type: "cadastro"}}}>
+                    <Link href={{pathname: "/cadastro", query: {type: "cadastro"}}} passHref>
                     <button className="bg-blue text-white p-2 px-3 rounded-xl font-bold flex-1 hover:bg-blue-dark transition-all" >Cadastro</button>
                     </Link>
                 </div>

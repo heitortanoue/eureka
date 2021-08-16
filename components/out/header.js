@@ -23,20 +23,20 @@ export default function Header () {
             align-middle justify-between items-center container p-5 mx-auto md:p-10 transition-all duration-150
            ${onTop || isOpen ? "bg-light shadow-sm" : "bg-white"}`} onScroll={(e) => {handleScroll(e)}}>
                 <div className= "flex justify-center">
-                    <Link href="/">
+                    <Link href="/" passHref>
                         <div className="w-12 md:hidden">
                             <Image unsized="true" src={IconLamp} alt="Logo Eureka"/>
                         </div>
                     </Link>  
-                    <Link href="/">           
+                    <Link href="/" passHref>           
                         <div className="w-48 hidden md:block cursor-pointer">
                             <Image unsized="true" src={LogoAzul} alt="Logo Eureka"/>
                         </div>
                     </Link>  
                 </div>
                 <div className="justify-center gap-5 hidden md:flex">
-                    <Link href={{pathname: "/cadastro", query: {type: "login"}}}><button className="button grey_button">Login</button></Link>
-                    <Link href={{pathname: "/cadastro", query: {type: "cadastro"}}}><button className="button blue_button">Cadastro</button></Link>
+                    <Link passHref href={{pathname: "/cadastro", query: {type: "login"}}}><button className="button grey_button">Login</button></Link>
+                    <Link passHref href={{pathname: "/cadastro", query: {type: "cadastro"}}}><button className="button blue_button">Cadastro</button></Link>
                 </div>
                 <div className="text-3xl mr-2 md:hidden" onClick={() => {setOpen(!isOpen)}}>
                     <i className={isOpen ? "fas fa-times" : "fas fa-bars"}></i>
@@ -48,8 +48,8 @@ export default function Header () {
                     Entre para a melhor Comunidade de dúvidas de exatas do país!
                 </div>
                 <div className="justify-center gap-5 flex">
-                    <Link href={{pathname: "/cadastro", query: {type: "login"}}}><button className="button grey_button">Login</button></Link>
-                    <Link href={{pathname: "/cadastro", query: {type: "cadastro"}}}><button className="button blue_button">Cadastro</button></Link>
+                    <Link passHref href={{pathname: "/cadastro", query: {type: "login"}}}><button className="button grey_button">Login</button></Link>
+                    <Link passHref href={{pathname: "/cadastro", query: {type: "cadastro"}}}><button className="button blue_button">Cadastro</button></Link>
                 </div>
             </div>
         </>

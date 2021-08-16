@@ -14,7 +14,7 @@ export default function BottomNavbar ({children, onChange, value, showLog, user}
                 {children}
             </div>
             <div className="fixed lg:hidden bg-white bottom-0 h-20 w-full flex justify-around items-center text-4xl mx-auto text-grey">
-                <Link href="/app">
+                <Link href="/app" passHref>
                     <div className="flex flex-col items-center">
                         <i className={`fas fa-grip-horizontal ${pageName == "/app" ? "text-black" : null}`}></i>
                         {pageName == "/app" ? <div className="h-1.5 bg-yellow w-full px-5"></div> : null}
@@ -27,7 +27,7 @@ export default function BottomNavbar ({children, onChange, value, showLog, user}
                     </div>
                 </div>
                 {user ?
-                <Link href={{pathname: "/app/usuario", query: {username: user.username}}} >
+                <Link href={{pathname: "/app/usuario", query: {username: user.username}}} passHref>
                     <div className="flex flex-col items-center gap-1">
                         <i className={`fas fa-user-circle ${pageName == "/app/perfil" ? "text-black" : null}`}></i>
                         {pageName == "/app/perfil" ? <div className="h-1.5 bg-yellow w-full px-5"></div> : null}

@@ -13,7 +13,7 @@ export default function Banner () {
             </div>
             <div className="flex-1 h-full w-5/12">
                 <div className="h-full max-w-lg relative ml-auto hidden xl:block">
-                    <Image layout="fill" objectFit="cover" objectPosition="bottom" src={Party}></Image>
+                    <Image alt="Ilustração" layout="fill" objectFit="cover" objectPosition="bottom" src={Party}></Image>
                 </div>
             </div>
         </div>
