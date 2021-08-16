@@ -11,6 +11,7 @@ class MyDocument extends Document {
       <Html>
         <Head>
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-S61R6RF1FM"></script>
+        <script data-ad-client="ca-pub-7491489288772829" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
           <script
             dangerouslySetInnerHTML={{
               __html: `            window.dataLayer = window.dataLayer || [];
