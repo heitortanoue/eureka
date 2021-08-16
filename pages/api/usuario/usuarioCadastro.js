@@ -3,7 +3,7 @@ import token from '../../../utils/tokenGenerator';
 var bcrypt = require('bcryptjs');
 
 //Função para inserir usuário
-export default async (request, response) => {
+export default usuarioCadastro = async (request, response) => {
     const { email, senha, nome, username, faculdade, dataNasc, curso } = await request.body
     const {db} = await connectToDatabase();
     const collection = db.collection('usuario');

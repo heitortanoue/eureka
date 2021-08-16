@@ -1,6 +1,6 @@
 import { connectToDatabase } from '../connect/mongoUtil';
 
-export default async (request, response) => {
+export default deletarComentario = async (request, response) => {
     var ObjectId = require('mongodb').ObjectId;
     const {id} = request.body
     const {db} = await connectToDatabase();

@@ -1,6 +1,6 @@
 import { connectToDatabase } from '../connect/mongoUtil';
 
-export default async (request, response) => {
+export default filtroPergunta = async (request, response) => {
     var ObjectId = require('mongodb').ObjectId;
     const {frase, skip, num_perguntas} = await request.body;
     const {db} = await connectToDatabase();

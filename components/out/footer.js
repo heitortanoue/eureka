@@ -49,8 +49,8 @@ export default function Footer () {
                         <Image src={LogoBranca} alt="Logo Eureka" width={300} height={50}/>
                         </div>
                         <div className="flex justify-evenly text-2xl mt-2 w-full">
-                            <a target="_blank" href="https://www.facebook.com/eureka.app.br"><i className="fab fa-facebook-square cursor-pointer"></i></a>
-                            <a target="_blank" href="https://instagram.com/eureka.app.br"><i className="fab fa-instagram cursor-pointer"></i></a>
+                            <a target="_blank" rel="noreferrer" href="https://www.facebook.com/eureka.app.br"><i className="fab fa-facebook-square cursor-pointer"></i></a>
+                            <a target="_blank" rel="noreferrer" href="https://instagram.com/eureka.app.br"><i className="fab fa-instagram cursor-pointer"></i></a>
                         </div>
                     </div>
                     <div className="flex md:gap-20 mt-8 md:m-0 justify-around md:justify-start">

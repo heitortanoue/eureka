@@ -6,7 +6,7 @@ const user = 'eureka.contato@outlook.com';
 const pass = process.env.SENHA_OUTLOOK
 
 //Nodemailer
-export default async (request, response) => {
+export default sendConfirmation = async (request, response) => {
     const {email_usuario} = request.body
     const transporter = nodemailer.createTransport({
         host: "smtp-mail.outlook.com",  
