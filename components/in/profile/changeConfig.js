@@ -28,8 +28,8 @@ export default function ChangeProfile ({ user, closeChangeConfig }) {
 
     return (
         <div className="bg-blue-op-60 flex w-full h-full fixed z-50 font-body">
-        <div className="bg-white w-full md:h-auto my-auto md:w-5/12 m-2 md:mx-auto rounded-3xl 
-            shadow-lg flex flex-col gap-6 p-8 relative md:overflow-hidden overflow-y-auto">
+        <div className="bg-white w-full xl:h-auto my-auto xl:w-5/12 m-2 xl:mx-auto rounded-3xl 
+            shadow-lg flex flex-col gap-6 p-8 relative xl:overflow-hidden overflow-y-auto">
             <i onClick={() => {closeChangeConfig(false)}} 
             className="fas absolute right-5 top-3 fa-times text-lg cursor-pointer hover:text-red p-2"></i>
             <div className="font-bold text-xl">Edite sua senha</div>

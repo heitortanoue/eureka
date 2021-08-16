@@ -27,11 +27,11 @@ export default function ChangeProfile ({ user, closeChangeProfile, changeUser })
             if (response.status == 200) {
                 setLoading(false)
                 closeChangeProfile(false)
-                let newUser = user
-                newUser.faculdade = faculdade.trim()
-                newUser.curso = curso.trim()
-                newUser.bio = bio.trim()
-                newUser.foto = user.foto
+                const newUser = Object.assign({}, user);
+                newUser["faculdade"] = faculdade.trim()
+                newUser["curso"] = curso.trim()
+                newUser["bio"] = bio.trim()
+                newUser["foto"] = user.foto
                 changeUser(newUser)
             }
         })
@@ -60,8 +60,8 @@ export default function ChangeProfile ({ user, closeChangeProfile, changeUser })
             </div>
             <div className="w-full h-full lg:h-40 relative">
                 Bio
-                <div className="relative">
-                    <textarea className="inputfieldWhite h-full min-h-64 py-3" placeholder="Escreva algo sobre você" 
+                <div className="relative h-full">
+                    <textarea className="inputfieldWhite h-full min-h-64 min-h-all-32 py-3" placeholder="Escreva algo sobre você" 
                     onInput={(e) => {setBio(e.target.value)}} value={bio}/>
                     <div className={`absolute bottom-3 right-4 ${bio.length <= 200 ? "text-grey" : "text-red"} font-bold`}>{200 - bio.length}</div>
                 </div>

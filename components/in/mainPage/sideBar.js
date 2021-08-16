@@ -75,7 +75,7 @@ export default function SideBar ({onChange, disciplinas, changeDisciplinas, user
                                     <Link href={"/app/materia/" + disc}>
                                     <div className={`flex gap-2 items-center py-2 px-3 cursor-pointer rounded-xl  
                                     ${(router.asPath == "/app/materia/" + disc) ? "bg-light-darker font-bold text-blue" : "hover:bg-light"}`} key={disc}>
-                                        <Image priority width={20} height={20} src={"/icons/iconsDisciplinas/" + disc + ".png"}/>
+                                        <Image priority width={20} height={20} src={"/icons/iconsDisciplinas/" + disc + ".png"} className={(router.asPath == "/app/materia/" + disc) ? "turn-blue" : ""}/>
                                         <div>{nome}</div>
                                     </div>
                                     </Link>

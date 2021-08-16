@@ -1,7 +1,7 @@
 import { connectToDatabase } from '../connect/mongoUtil';
 
 //Função de inserir a pergunta do BDD
-export default async (request, response) => {
+export default postPergunta = async (request, response) => {
     const { user, texto, materia, foto } = await request.body
     const date = new Date();
     const {db} = await connectToDatabase();

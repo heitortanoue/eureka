@@ -1,6 +1,6 @@
 import { connectToDatabase } from '../connect/mongoUtil';
 
-export default async (request, response) => {
+export default mostrarRespComen = async (request, response) => {
     var ObjectId = require('mongodb').ObjectId;
     const {id_Comentario} = await request.body;
     const {db} = await connectToDatabase();

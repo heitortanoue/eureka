@@ -5,22 +5,26 @@ export default function UserFeedback () {
     const [index, setIndex] = useState(0)
     const feedbacks = [
         {
-            nome: "Usuário 1",
-            faculdade: "Faculdade 1",
-            texto: "“Nossa, muito legal essa plataforma que o Toi e a Bia criaram! Achei muito incrível, vou usar muito, todos os dias! Por aqui consegui resolver a minha prova inteira de Cálculo I e de Física I, obrigado!”",
-            foto: "https://avatars.githubusercontent.com/u/68477006?v=4",
+            nome: "Pedro Torrente",
+            faculdade: "Engenharia de Computação (USP São Carlos)",
+            texto: `Amo essa plataforma para estudar! 
+            Antigamente eu sofria pra achar as respostas dos exercícios da faculdade, mas
+            o Eureka conseguiu colocar tudo em um só lugar! 
+            Além de ser um ambiente muito interativo, tem uma comunidade sempre pronta pra ajudar. 
+            Lugar perfeito para qualquer futuro engenheiro!”`,
+            foto: "https://avatars.githubusercontent.com/u/83795403?v=4",
         },
         {
-            nome: "Usuário 2",
-            faculdade: "Faculdade 2",
+            nome: "Bruna Lomes",
+            faculdade: "Engenharia Física (UFSCar)",
             texto: "Esse é o texto do usuário 2",
             foto: "https://avatars.githubusercontent.com/u/84605336?v=4",
         },
         {
-            nome: "Usuário 3",
-            faculdade: "Faculdade 3",
+            nome: "Beatriz Cardoso",
+            faculdade: "Engenharia de Computação (USP São Carlos)",
             texto: "Esse é o texto do usuário 3",
-            foto: "https://avatars.githubusercontent.com/u/68477006?v=4",
+            foto: "https://avatars.githubusercontent.com/u/81369929?v=4",
         },
     ]
     const changeIndex = (num) => {

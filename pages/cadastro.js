@@ -10,6 +10,7 @@ import RedirectWhenLogged from "../utils/redirectWhenLogged"
 import {UserContext} from "/utils/contexts/userContext"
 import nProgress from "nprogress"
 import Error from "../components/in/others/error"
+import ForgotPassword from "../components/out/forgotPassword"
 
 export default function Cadastro () {
     // DADOS PARA CADASTRO E LOGIN
@@ -26,6 +27,7 @@ export default function Cadastro () {
     const [error, setError] = useState(false)
     const [sucess, setSucess] = useState(false)
     const [seePassword, setSeePassword] = useState(false)
+    const [showForgot, setShowForgot] = useState(false)
     const USERCONTEXT = useContext(UserContext)
 
     const router = useRouter()
@@ -60,6 +62,11 @@ export default function Cadastro () {
             handleSubmit(e)
             nProgress.done()
         }
+    }
+
+    const sendEmail = (e) => {
+        e.preventDefault()
+        axios.post("/api/emails/sendConfirmation", {user_email: email})
     }
 
     const handleSubmit = (e) => { 
@@ -108,7 +115,7 @@ export default function Cadastro () {
             <Head>
                 <title>Login/Cadastro | Eureka</title>
             </Head>
-            
+            {showForgot ? <ForgotPassword setShow={setShowForgot}/> : null}
             <div className="flex">
                 <div className={`hidden xl:flex bg-outro_cinza p-10 w-7/12 
                 ${isLogin ? "order-first w-7/12 " : "order-last w-4/12"}`}>
@@ -190,7 +197,7 @@ export default function Cadastro () {
                             </div>
                             </>
                             : 
-                            <div className="font-semibold ml-3 text-blue cursor-pointer">
+                            <div className="font-semibold ml-3 text-blue cursor-pointer" onClick={() => {setShowForgot(true)}}>
                                 Esqueci minha senha
                             </div>
                             }

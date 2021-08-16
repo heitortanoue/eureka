@@ -75,9 +75,11 @@ export default function Pergunta ({quest, full, showAnswering, user}) {
                                 </div>
                             </Link>
                             <div className="w-min">
-                            <div className={`whitespace-nowrap py-1 px-2 rounded-full font-bold text-xs ${materias[indMateria].cor[1] == 0 ? "text-black" : "text-white"}`} style={{backgroundColor: materias[indMateria].cor[0]}}>
-                                {materias[indMateria].dados[1]}
-                            </div> 
+                            <Link href={`/app/materia/${materias[indMateria].dados[0]}`}>
+                                <div className={`cursor-pointer whitespace-nowrap py-1 px-2 rounded-full font-bold text-xs transition-all ${materias[indMateria].cor[1] == 0 ? "text-black hover:text-white" : "text-white hover:text-black"}`} style={{backgroundColor: materias[indMateria].cor[0]}}>
+                                    {materias[indMateria].dados[1]}
+                                </div> 
+                            </Link>
                             </div>                
 
                         </>
@@ -102,10 +104,12 @@ export default function Pergunta ({quest, full, showAnswering, user}) {
                 <div className="flex items-center text-grey">
                     {
                         quest.qtd_respostas > 0 ?
-                        <div className="flex gap-2">
+                        <Link href={`/app/pergunta/${quest._id}`}>
+                        <div className="flex gap-2 cursor-pointer">
                             <i className="fas fa-comments"></i>
                             <div className="">{quest.qtd_respostas}</div>
                         </div>
+                        </Link>
                         : null
                     }
                 </div>

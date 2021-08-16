@@ -1,7 +1,7 @@
 import { connectToDatabase } from '../connect/mongoUtil';
 import moment from 'moment';
 
-export default async (request, response) => {
+export default resultados = async (request, response) => {
     const {id_user} = await request.body;
     const {db} = await connectToDatabase();
     const collection = db.collection('comentario');

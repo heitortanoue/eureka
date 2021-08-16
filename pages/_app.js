@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }) {
 
    return (
       <UserContext.Provider value={{user: [USER, setUSER], disciplinas: [MATERIAS, setMATERIAS], resultados: [RESULTADOS, setRESULTADOS]}}>
-         <div className="font-body text-black">
+         <div className="font-body text-black flex flex-col h-screen">
             <Component {...pageProps} />
          </div>
       </UserContext.Provider>

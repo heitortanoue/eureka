@@ -1,7 +1,7 @@
 import { connectToDatabase } from '../connect/mongoUtil';
 var bcrypt = require('bcryptjs');
 
-export default async (request, response) => {
+export default changePassword = async (request, response) => {
     var ObjectId = require('mongodb').ObjectId;
     const {id_user, oldSenha, newSenha } = await request.body;
     const obj_id = ObjectId(id_user);

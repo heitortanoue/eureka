@@ -11,17 +11,13 @@ export default function Home() {
     <Head>
       <title>Eureka</title>
     </Head>
-    <div className="font-body">
-      <div className="mb-32">
         <Header/>
         <div className={`font-body container mx-auto px-5 lg:px-10 flex flex-col gap-20 p-5 md:p-10`}>
           <Main/>
           <TextBox/>
           <UserFeedback/>
         </div>
-      </div>
       <Footer/>
-    </div>
     </>
   )
 }
