@@ -4,7 +4,6 @@ import {UserContext} from "/utils/contexts/userContext"
 import Error from "/components/in/others/error"
 import { useRouter } from "next/router"
 import materias from "../../../utils/data/materias"
-import BannerDisciplina from "../others/bannerDisciplina"
 
 export default function Pergunte (props) {
 
@@ -63,16 +62,18 @@ export default function Pergunte (props) {
 
     return (
         <div className="bg-blue-op-60 flex w-full h-full fixed z-50 font-body">
-            <div className="bg-white w-full my-auto md:w-2/5 mx-2 md:mx-auto rounded-3xl shadow-lg md:mt-20 flex flex-col gap-6 p-8 relative">
+            <div className="bg-white w-full h-full my-auto lg:w-2/3 m-2 lg:mx-auto rounded-3xl 
+            shadow-lg flex flex-col gap-6 p-8 relative lg:overflow-hidden overflow-y-auto lg:h-2/3">
                 <i onClick={() => {props.onChange(!props.value); setTexto("")}} 
                 className="fas absolute right-5 top-3 fa-times text-lg cursor-pointer hover:text-red"></i>
                 <div className="font-bold text-xl">Tire sua dúvida</div>
                 <Error error={error} sucess={sucess}/>
                 {!sucess ?
                 <>
-                    <div className="w-full h-40 relative">
+                    <div className="w-full h-full relative">
                         <textarea className="inputfieldWhite h-full py-3" placeholder="Escreva sua pergunta aqui!" 
                         onInput={(e) => {setTexto(e.target.value)}} value={texto}/>
+                        <div className={`absolute bottom-3 right-4 ${texto.length <= 2000 ? "text-grey" : "text-red"} font-bold`}>{2000 - texto.length}</div>
                     </div>
                     <div className="flex gap-5">
                         <select className="inputfield font-semibold" defaultValue="" onChange={(e) => {setMateria(e.target.value)}}>

@@ -60,8 +60,8 @@ export default function Responda ({ showAnswering, quest, user, respostas, setRe
 
     return (
         <div className="bg-blue-op-60 flex w-full h-full fixed z-50 font-body">
-            <div className="bg-white w-full h-full lg:h-auto my-auto lg:w-2/3 m-2 lg:mx-auto rounded-3xl 
-            shadow-lg flex flex-col gap-6 p-8 relative lg:overflow-hidden overflow-y-auto">
+            <div className="bg-white w-full h-full my-auto lg:w-2/3 m-2 lg:mx-auto rounded-3xl 
+            shadow-lg flex flex-col gap-6 p-8 relative lg:overflow-hidden overflow-y-auto lg:h-2/3">
                 <i onClick={() => {showAnswering(false)}} 
                 className="fas absolute right-5 top-3 fa-times text-lg cursor-pointer hover:text-red p-2"></i>
                 <div className="font-bold text-xl">Responda e ajude <span className="text-blue">{quest.username}</span></div>
@@ -72,9 +72,10 @@ export default function Responda ({ showAnswering, quest, user, respostas, setRe
                         <div className="text-blue mb-1 font-bold text-lg">Enunciado:</div>
                         <div className="">{quest.texto}</div>
                     </div>
-                    <div className="w-full h-full lg:h-40 relative">
+                    <div className="w-full h-full relative">
                         <textarea className="inputfieldWhite h-full min-h-64 py-3" placeholder="Escreva sua resposta aqui!" 
                         onInput={(e) => {setTexto(e.target.value)}}/>
+                        <div className={`absolute bottom-3 right-4 ${texto.length <= 2000 ? "text-grey" : "text-red"} font-bold`}>{2000 - texto.length}</div>
                     </div>
                     <div className="flex gap-4 items-center">
                         <button onClick={() => {validate()}} className="button blue_button">RESPONDA</button>

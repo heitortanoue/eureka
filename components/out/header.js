@@ -43,7 +43,7 @@ export default function Header () {
                 </div>
             </div>
             <div className={`z-40 ${isOpen ? "fixed" : "hidden"} w-full h-full bg-white transition-all
-            transition-150 p-20`}>
+            transition-150 p-20 mt-20`}>
                 <div className="font-bold text-blue-dark text-center text-xl mb-5">
                     Entre para a melhor Comunidade de dúvidas de exatas do país!
                 </div>

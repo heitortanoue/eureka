@@ -9,15 +9,15 @@ export default function Footer () {
             subpaginas: [
                 {
                     nome: "Quem Somos",
-                    link: "/"
+                    link: "/quemsomos"
                 },
                 {
                     nome: "Contato",
-                    link: "/"
+                    link: "/contato"
                 },
                 {
                     nome: "Blog",
-                    link: "/"
+                    link: "/blog"
                 },
             ]
         },
@@ -26,15 +26,15 @@ export default function Footer () {
             subpaginas: [
                 {
                     nome: "FAQ",
-                    link: "/",
+                    link: "/faq",
                 },
                 {
                     nome: "Política de Privacidade",
-                    link: "/"
+                    link: "/politicadeprivacidade"
                 },
                 {
                     nome: "Termos de Uso",
-                    link: "/"
+                    link: "/termosdeuso"
                 }
             ]
         }
@@ -42,17 +42,18 @@ export default function Footer () {
 
     return (
         <div className="text-white text-sm font-body">
-            <div className="bg-blue py-5 md:py-10">
-                <div className="container mx-auto p-5 lg:px-10 md:flex md:gap-20">
-                    <div className="w-7/12 md:w-1/6 mx-auto">
-                        <Image src={LogoBranca} alt="Logo Eureka"/>
-                        <div className="flex justify-evenly text-2xl mt-2">
-                            <Link href="https://www.facebook.com/"><i className="fab fa-facebook-square cursor-pointer"></i></Link>
-                            <Link href="https://www.instagram.com/"><i className="fab fa-instagram cursor-pointer"></i></Link>
-                            <Link href="https://twitter.com/"><i className="fab fa-twitter cursor-pointer"></i></Link>
+            <div className="bg-blue py-5 md:py-10 md:flex justify-center">
+                <div className="mx-auto p-5 lg:px-10 md:flex md:gap-20 md:mx-auto">
+                    <div className="flex flex-col items-center">
+                        <div className="relative">
+                        <Image src={LogoBranca} alt="Logo Eureka" width={300} height={50}/>
+                        </div>
+                        <div className="flex justify-evenly text-2xl mt-2 w-full">
+                            <a target="_blank" href="https://www.facebook.com/eureka.app.br"><i className="fab fa-facebook-square cursor-pointer"></i></a>
+                            <a target="_blank" href="https://instagram.com/eureka.app.br"><i className="fab fa-instagram cursor-pointer"></i></a>
                         </div>
                     </div>
-                    <div className="flex flex-1 md:gap-20 mt-8 md:m-0 justify-around md:justify-start">
+                    <div className="flex md:gap-20 mt-8 md:m-0 justify-around md:justify-start">
                     {
                         paginas.map((secao) => 
                             <div key={secao.nome}>

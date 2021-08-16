@@ -38,7 +38,9 @@ export default function Resposta ({ answer, user, resps, onQtdChange }) {
         })
     }
 
-    const submitResp = () => {
+    const submitResp = (e) => {
+        e.preventDefault()
+        if (resp.length > 200) {return}
         const data = {
             user: user._id,
             texto: resp,
@@ -115,7 +117,7 @@ export default function Resposta ({ answer, user, resps, onQtdChange }) {
                     fetchResp.length > 0 ?
                     fetchResp.map(el => {
                         return (
-                            <div className="flex items-center gap-3" key={el.texto}>
+                            <div className="flex items-center gap-3 break-all" key={el.texto}>
                                 <div className="w-7 h-7">
                                     <div className="relative w-6 h-6 flex">
                                         <UserImage src={el.foto} size={"2xl"}/>
@@ -134,9 +136,12 @@ export default function Resposta ({ answer, user, resps, onQtdChange }) {
                             <UserImage src={user.foto} size={"3xl"}/>
                         </div>
                     </div>
-                    <input type="text" value={resp} onChange={(e) => setResp(e.target.value)} className="inputfieldWhite h-8 text-sm" placeholder="Comente aqui!"/>
+                    <div className="relative w-full">
+                        <input type="text" value={resp} onChange={(e) => setResp(e.target.value)} className="inputfieldWhite h-8 text-sm pr-5" placeholder="Comente aqui!"/>
+                        <div className={`absolute bottom-1.5 right-2 ${resp.length <= 200 ? "text-grey" : "text-red"} font-bold bg-light-darker pl-2 text-sm`}>{200 - resp.length}</div>
+                    </div>
                     <button type="submit" className="h-9 py-1 px-4 bg-blue hover:bg-blue-dark transition-all
-                     text-white font-bold rounded-lg" onClick={() => submitResp()}>Enviar</button>
+                     text-white font-bold rounded-lg" onClick={(e) => submitResp(e)}>Enviar</button>
                 </form> : null}
             </div>
         </div>

@@ -29,8 +29,12 @@
 
 @media (max-width: 1024px) {
     .min-h-64 {
-        min-height: 16rem;
+        min-height: 18rem;
     }
+}
+
+.min-h-all-32 {
+    min-height: 10rem;
 }
 
 .w-scrollMaterias {
@@ -122,6 +126,10 @@
 
 .rounded-2tborders {
     border-radius: 40px 40px 0 0;
+}
+
+.turn-blue {
+    filter: invert(33%) sepia(45%) saturate(2599%) hue-rotate(215deg) brightness(95%) contrast(96%);
 }
 
 .h-body {
