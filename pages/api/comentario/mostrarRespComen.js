@@ -1,6 +1,6 @@
 import { connectToDatabase } from '../connect/mongoUtil';
 
-export default mostrarRespComen = async (request, response) => {
+const mostrarRespComen = async (request, response) => {
     var ObjectId = require('mongodb').ObjectId;
     const {id_Comentario} = await request.body;
     const {db} = await connectToDatabase();
@@ -17,6 +17,6 @@ export default mostrarRespComen = async (request, response) => {
     }
 
     return response.status(201).json({result: "Respostas do comentário geradas com sucesso!", resp_comen : resp_comen });
-
-
 }
+
+export default mostrarRespComen

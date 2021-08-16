@@ -41,4 +41,6 @@
 
 ## 📞 Contato
 
-EM BREVE!
+<a target="_blank" href="https://www.facebook.com/eureka.app.br">Facebook</a>
+<a target="_blank" href="https://instagram.com/eureka.app.br">Instagram</a>
+**Email:** eureka.contato@outlook.com

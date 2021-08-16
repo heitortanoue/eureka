@@ -16,7 +16,7 @@ export default function SideBar ({onChange, disciplinas, changeDisciplinas, user
         <div className="hidden fixed left-0 h-full w-60 bg-white p-5 lg:flex flex-col justify-between z-40 rounded-2lborders">
             <div className="flex flex-col gap-5">
                 <div className="flex items-center justify-between w-full">
-                    <Link href="/app">
+                    <Link href="/app" passHref>
                         <div className="w-9 cursor-pointer">
                             <Image unsized="true" src={IconLamp} alt="Logo Eureka"/>
                         </div>
@@ -36,7 +36,7 @@ export default function SideBar ({onChange, disciplinas, changeDisciplinas, user
                                 ${pageName == pg.link ? "bg-light-dark text-black" : "text-grey hover:bg-light"}`}
                                 onClick={() => {user ? null : showLog(true)}}
                                 key={pg.nome}>
-                                    {user ? <Link href={pg.link}>
+                                    {user ? <Link href={pg.link} passHref>
                                         <div className="flex gap-2 items-center">
                                             <i className={`text-xl ${pg.icon}`}></i>
                                             <div className="font-semibold">{pg.nome}</div>
@@ -72,10 +72,10 @@ export default function SideBar ({onChange, disciplinas, changeDisciplinas, user
                             const nome = materias[index].dados[1]
                             return (
                                 <div key={disc}>
-                                    <Link href={"/app/materia/" + disc}>
+                                    <Link href={"/app/materia/" + disc} passHref>
                                     <div className={`flex gap-2 items-center py-2 px-3 cursor-pointer rounded-xl  
                                     ${(router.asPath == "/app/materia/" + disc) ? "bg-light-darker font-bold text-blue" : "hover:bg-light"}`} key={disc}>
-                                        <Image priority width={20} height={20} src={"/icons/iconsDisciplinas/" + disc + ".png"} className={(router.asPath == "/app/materia/" + disc) ? "turn-blue" : ""}/>
+                                        <Image alt="Ícone matéria" priority width={20} height={20} src={"/icons/iconsDisciplinas/" + disc + ".png"} className={(router.asPath == "/app/materia/" + disc) ? "turn-blue" : ""}/>
                                         <div>{nome}</div>
                                     </div>
                                     </Link>

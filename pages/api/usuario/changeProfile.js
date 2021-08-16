@@ -1,6 +1,6 @@
 import { connectToDatabase } from '../connect/mongoUtil';
 
-export default changeProfile = async (request, response) => {
+const changeProfile = async (request, response) => {
     var ObjectId = require('mongodb').ObjectId;
     const {faculdade, curso, foto, bio, id_user} = await request.body
     const obj_id = ObjectId(id_user);
@@ -11,3 +11,5 @@ export default changeProfile = async (request, response) => {
 
     return response.status(200).json({result: "Perfil editado com sucesso!"});
 }
+
+export default changeProfile

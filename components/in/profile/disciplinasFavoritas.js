@@ -56,7 +56,7 @@ export default function DisciplinasFavoritas ({ user, changeDisciplinas, setNewD
                                     {set ? <i className="fas fa-check-circle text-green-dark absolute z-50 right-0 text-xl -top-2"></i> : null}
                                     <div className="flex items-center p-2 gap-2 transition-all filter inverter border-2 border-light-darker hover:border-yellow rounded-xl font-semibold" 
                                     key={materia.dados[0]}>
-                                        <div className="relative"><Image priority width={24} height={24} src={`/icons/iconsDisciplinas/${materia.dados[0]}.png`}/></div>
+                                        <div className="relative"><Image alt="ícone matéria" priority width={24} height={24} src={`/icons/iconsDisciplinas/${materia.dados[0]}.png`}/></div>
                                         <div>{materia.dados[1]}</div>
                                     </div>
                                 </div>

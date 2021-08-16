@@ -127,7 +127,7 @@ export default function Cadastro () {
                 <div onKeyDown={(e) => checkEnter(e)} className={`flex flex-col justify-between h-screen transition-all
                 font-body container mx-auto p-5 xl:p-10 gap-8 xl:m-0 ${isLogin ? "xl:w-5/12" : "xl:w-8/12"}`}>
                     <div className="flex justify-between text-xl items-center">
-                        <Link href="/"><button className="sqr_button blue_button"><i className="fas fa-chevron-left"></i></button></Link>
+                        <Link passHref href="/"><button className="sqr_button blue_button"><i className="fas fa-chevron-left"></i></button></Link>
                         <div className="w-12">
                             <Image unsized="true" src={IconLamp} alt="Logo Eureka"/>
                         </div>

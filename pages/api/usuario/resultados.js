@@ -1,7 +1,7 @@
 import { connectToDatabase } from '../connect/mongoUtil';
 import moment from 'moment';
 
-export default resultados = async (request, response) => {
+const resultados = async (request, response) => {
     const {id_user} = await request.body;
     const {db} = await connectToDatabase();
     const collection = db.collection('comentario');
@@ -26,3 +26,5 @@ export default resultados = async (request, response) => {
 
     return response.status(200).json({result: "Quantidade vitalicia gerada sucesso!", res : {vitalicio : vitalicio, semanal: semanal} });
 }
+
+export default resultados

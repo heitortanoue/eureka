@@ -1,7 +1,7 @@
 import { connectToDatabase } from '../connect/mongoUtil';
 
 //Função de inserir a pergunta do BDD
-export default inserirRespComen = async (request, response) => {
+const inserirRespComen = async (request, response) => {
     const { user, texto, id_comentario } = await request.body
     const date = new Date();
     const {db} = await connectToDatabase();
@@ -20,3 +20,5 @@ export default inserirRespComen = async (request, response) => {
     return response.status(200).json({result: "Resposta do comentário publicada com sucesso!" })
 
 }
+
+export default inserirRespComen

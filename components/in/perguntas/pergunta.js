@@ -44,7 +44,7 @@ export default function Pergunta ({quest, full, showAnswering, user}) {
         : null}
         <div className="w-full bg-white px-7 py-4 flex flex-col text-black rounded-3xl">
             <div className="flex gap-3">
-                <Link href={"/app/usuario?username=" + quest.username}>
+                <Link passHref href={"/app/usuario?username=" + quest.username}>
                 <div className="relative w-10 h-10 cursor-pointer">
                     <UserImage src={quest.foto} size={"4xl"}/>
                 </div>
@@ -53,7 +53,7 @@ export default function Pergunta ({quest, full, showAnswering, user}) {
                         <div className="flex items-center justify-between">
                             <div className="flex flex-col">
                                 <div className="flex gap-3 items-center">
-                                    <Link href={"/app/usuario?username=" + quest.username}><div className="text-blue hover:underline font-bold cursor-pointer">{quest.username}</div></Link>
+                                    <Link passHref href={"/app/usuario?username=" + quest.username}><div className="text-blue hover:underline font-bold cursor-pointer">{quest.username}</div></Link>
                                     <div className="text-cinza text-xs">
                                     {timeFromPost(quest.date)}
                                     </div> 
@@ -69,13 +69,13 @@ export default function Pergunta ({quest, full, showAnswering, user}) {
                         
                         {!full ?
                         <>
-                            <Link href={`/app/pergunta/${quest._id}`}>
+                            <Link passHref href={`/app/pergunta/${quest._id}`}>
                                 <div className="font-bold text-lg line-clamp-3 max-h-20 leading-snug hover:underline cursor-pointer">
                                     {quest.texto}
                                 </div>
                             </Link>
                             <div className="w-min">
-                            <Link href={`/app/materia/${materias[indMateria].dados[0]}`}>
+                            <Link passHref href={`/app/materia/${materias[indMateria].dados[0]}`}>
                                 <div className={`cursor-pointer whitespace-nowrap py-1 px-2 rounded-full font-bold text-xs transition-all ${materias[indMateria].cor[1] == 0 ? "text-black hover:text-white" : "text-white hover:text-black"}`} style={{backgroundColor: materias[indMateria].cor[0]}}>
                                     {materias[indMateria].dados[1]}
                                 </div> 
@@ -104,7 +104,7 @@ export default function Pergunta ({quest, full, showAnswering, user}) {
                 <div className="flex items-center text-grey">
                     {
                         quest.qtd_respostas > 0 ?
-                        <Link href={`/app/pergunta/${quest._id}`}>
+                        <Link passHref href={`/app/pergunta/${quest._id}`}>
                         <div className="flex gap-2 cursor-pointer">
                             <i className="fas fa-comments"></i>
                             <div className="">{quest.qtd_respostas}</div>
@@ -114,7 +114,7 @@ export default function Pergunta ({quest, full, showAnswering, user}) {
                     }
                 </div>
                 {user && quest.id_user != user._id.toString() ?
-                <Link href={{ pathname: `/app/pergunta/${quest._id}`, query: {answer: true} }}>
+                <Link passHref href={{ pathname: `/app/pergunta/${quest._id}`, query: {answer: true} }}>
                     <button className="button answer_button justify-between text-sm">
                         <i className="fas fa-comment-alt"></i>
                         <div>Responda</div>

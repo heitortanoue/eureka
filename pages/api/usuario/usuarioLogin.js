@@ -2,7 +2,7 @@ import { connectToDatabase } from '../connect/mongoUtil';
 var bcrypt = require('bcryptjs');
 
 //FUNÇÃO PARA REALIZAR O LOGIN
-export default usuarioLogin = async (request, response) => {
+const usuarioLogin = async (request, response) => {
     const {db} = await connectToDatabase();
     const collection = db.collection('usuario');
 
@@ -19,3 +19,5 @@ export default usuarioLogin = async (request, response) => {
         return response.status(400).json({result: `Email não cadastrado` })
     }
 }
+
+export default usuarioLogin

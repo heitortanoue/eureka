@@ -1,6 +1,6 @@
 import { connectToDatabase } from '../connect/mongoUtil';
 
-export default addFavMat = async (request, response) => {
+const addFavMat = async (request, response) => {
     var ObjectId = require('mongodb').ObjectId;
     const {id_user, fav_disciplinas } = await request.body;
     const obj_id = ObjectId(id_user);
@@ -11,3 +11,5 @@ export default addFavMat = async (request, response) => {
 
     return response.status(200).json({result: "Matérias favoritas adicionadas sucesso!"});
 }
+
+export default addFavMat

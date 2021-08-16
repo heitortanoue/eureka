@@ -1,8 +1,7 @@
 import { connectToDatabase } from './connect/mongoUtil';
 
-
 //Função de inserir a pergunta do BDD
-export default async (request, response) => {
+const postPergunta = async (request, response) => {
     const { id, texto, assunto, materia, foto, materiasFav} = await request.body
     const date = new Date;
     const {db} = await connectToDatabase();
@@ -21,5 +20,6 @@ export default async (request, response) => {
     await collection.insertOne(data);
 
     return response.status(201).json({result: `Pergunta postada com sucesso!` })
-
 }
+
+export default postPergunta

@@ -1,6 +1,6 @@
 import { connectToDatabase } from '../connect/mongoUtil';
 
-export default deletarPergunta = async (request, response) => {
+const deletarPergunta = async (request, response) => {
     var ObjectId = require('mongodb').ObjectId;
     const {id} = request.body
     const {db} = await connectToDatabase();
@@ -22,5 +22,6 @@ export default deletarPergunta = async (request, response) => {
     collection.deleteOne({"_id": ObjectId(id)});
 
     return response.status(200).json({result: "Pergunta deletada com sucesso!" })
-
 }
+
+export default deletarPergunta

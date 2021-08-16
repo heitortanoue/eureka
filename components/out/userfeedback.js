@@ -47,7 +47,7 @@ export default function UserFeedback () {
     }
 
     return (
-        <div>
+        <div className="mb-16">
             <div className="text-center font-extrabold text-2xl text-blue-dark mb-5">
                 Agilize seu aprendizado (e o de outros...)
             </div>
