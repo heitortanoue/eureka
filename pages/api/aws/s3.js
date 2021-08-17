@@ -3,10 +3,10 @@ import aws from 'aws-sdk'
 const crypto = require('crypto');
 dotenv.config()
 
-const region = "sa-east-1"
-const bucketName = "eureka-app"
-const accessKeyId = "AKIAUMUMRC633A6U4LPV"
-const secretAccessKey = "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"
+const region = process.env.AWS_BUCKET_REGION
+const bucketName = process.env.AWS_BUCKET_NAME
+const accessKeyId = process.env.AWS_BUCKET_ACCESS_KEY
+const secretAccessKey = process.env.AWS_BUCKET_SECRET_KEY
 
 const s3 = new aws.S3({
   region,
