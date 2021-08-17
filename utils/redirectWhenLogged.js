@@ -1,7 +1,7 @@
 import { useEffect, useContext } from "react"
 import { getCookie } from "./cookie"
 import axios from "axios"
-import {UserContext} from "/utils/contexts/userContext"
+import { UserContext } from "/utils/contexts/userContext"
 import { useRouter } from "next/router"
 
 export default function RedirectWhenLogged ({ setLoader }) {

@@ -34,7 +34,7 @@ export default function PgUsuario ({ usuarioJSON, perguntasJSON, respostasJSON }
         setAnswers(JSON.parse(respostasJSON))
         setIsMyProfile(USERCONTEXT.user[0].username == usuario.username)
       }
-    }, [router.asPath, USERCONTEXT.user[0]])
+    }, [router.asPath, USERCONTEXT.user[0], USERCONTEXT.user, perguntasJSON, respostasJSON, usuarioJSON])
 
     const abas = ["Perguntas", "Respostas"]
     return (
@@ -43,7 +43,7 @@ export default function PgUsuario ({ usuarioJSON, perguntasJSON, respostasJSON }
           <title>Eureka | {user.username}</title>
         </Head>
         {showChangeProfile && user && isMyProfile ? <ChangeProfile user={user} changeUser={setUser} closeChangeProfile={setShowChangeProfile}/> : null}
-        {showChangeConfig && user && isMyProfile ? <ChangeConfig user={user} closeChangeConfig={setShowChangeConfig}/> : null}
+        {showChangeConfig && user && isMyProfile ? <ChangeConfig user={user} setUser={USERCONTEXT.user[1]} closeChangeConfig={setShowChangeConfig}/> : null}
         <Container hideRightBar={isMyProfile}>
           <div className="-mx-4 flex flex-col flex-1 lg:flex-row lg:mr-6 lg:ml-0 lg:gap-6 lg:items-start">
             <div className={`flex flex-col p-5 gap-5 items-center lg:justify-between bg-gradient-to-t from-blue to-blue-light lg:sticky lg:top-5

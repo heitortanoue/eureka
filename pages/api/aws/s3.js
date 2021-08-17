@@ -1,33 +1,35 @@
-const S3 = require('aws-sdk/clients/s3')
-const fs = require("fs")
 import dotenv from 'dotenv'
-dotenv.config({ path: '.env.local' })
+import aws from 'aws-sdk'
+const crypto = require('crypto');
+dotenv.config()
 
-const bucketName = process.env.AWS_BUCKET_NAME
-const region = process.env.AWS_BUCKET_REGION
-const accessKeyId = process.env.AWS_BUCKET_ACCESS_KEY
-const secretAccessKey = process.env.AWS_BUCKET_SECRET_KEY
+const region = "sa-east-1"
+const bucketName = "eureka-app"
+const accessKeyId = "AKIAUMUMRC633A6U4LPV"
+const secretAccessKey = "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"
 
-const s3 = new S3({
-    region, accessKeyId, secretAccessKey
+const s3 = new aws.S3({
+  region,
+  accessKeyId,
+  secretAccessKey,
+  signatureVersion: 'v4',
+  ContentType: 'multipart/form-data'
 })
 
-export function uploadFile(file) {
-    const fileStream = fs.createReadStream(file.path)
-    const uploadParams = {
+const generateUploadURL = async (request, response) => {
+    const { link_foto } = await request.body
+    let imageName = link_foto
+    if (!link_foto) {
+      imageName = crypto.randomBytes(16).toString('hex');
+    }
+    const params = ({
         Bucket: bucketName,
-        Body: fileStream,
-        Key: file.filename
-    }
-    return s3.upload(uploadParams).promise()  
+        Key: `imgPerfil/${imageName}`,
+        Expires: 60,
+    })
+    
+    const uploadURL = await s3.getSignedUrlPromise('putObject', params)
+    return response.status(200).json({url: uploadURL})
 }
-exports.uploadFile = uploadFile
 
-function getFileStream(fileKey) {
-    const downloadParams = {
-        Key: fileKey,
-        Bucket: bucketName
-    }
-    return s3.getObject(downloadParams).createReadStream()
-}
-exports.getFileStream = getFileStream
+export default generateUploadURL

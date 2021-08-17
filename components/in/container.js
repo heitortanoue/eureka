@@ -25,7 +25,7 @@ export default function Container ({children, showHeader, hideRightBar}) {
                }
             })
         }
-    }, [USERCONTEXT.user[0]])
+    }, [USERCONTEXT.user[0], USERCONTEXT.disciplinas, USERCONTEXT.resultados, USERCONTEXT.user])
 
     return (
         <div className="h-screen">

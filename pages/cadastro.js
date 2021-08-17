@@ -28,12 +28,14 @@ export default function Cadastro () {
     const [sucess, setSucess] = useState(false)
     const [seePassword, setSeePassword] = useState(false)
     const [showForgot, setShowForgot] = useState(false)
+    const [loading, setLoading] = useState(false)
     const USERCONTEXT = useContext(UserContext)
 
     const router = useRouter()
     const [isLogin, setLogin] = useState(router.query.type == "login" ? true : false)
 
     const checkFieldAndSubmit = (e) => {
+        setLoading(true)
         setError("")
         nProgress.start()
         let inputs, res = true
@@ -44,15 +46,18 @@ export default function Cadastro () {
         }
         if (email && email.search("@") == -1) {
             setError("Verifique o endereço de email!")
+            setLoading(false)
             return;
         }
         if (senha && confirmaSenha && senha != confirmaSenha && !isLogin) {
             setError("As senhas não são iguais!")
+            setLoading(false)
             return;
         }
         inputs.map((el) => {
             if (!el) {
                 setError("Preencha todos os campos!")
+                setLoading(false)
                 res = false
                 nProgress.done()
                 return;
@@ -60,13 +65,7 @@ export default function Cadastro () {
         })      
         if (res) {
             handleSubmit(e)
-            nProgress.done()
         }
-    }
-
-    const sendEmail = (e) => {
-        e.preventDefault()
-        axios.post("/api/emails/sendConfirmation", {user_email: email})
     }
 
     const handleSubmit = (e) => { 
@@ -86,6 +85,7 @@ export default function Cadastro () {
         axios.post(`/api/usuario/usuario${isLogin ? "Login" : "Cadastro"}`, data)
         .then(function (response) {
             if (response.status == 200) {
+                setLoading(false)
                 setSucess(true) 
                 if (keepConnect) {
                     // COOKIE COM TOKEN PARA MANTER CONECTADO
@@ -98,6 +98,7 @@ export default function Cadastro () {
         })
         .catch(function (err) {
             if (err.response) {
+                setLoading(false)
                 setError(err.response.data.result)
             }
         });
@@ -206,7 +207,10 @@ export default function Cadastro () {
                     {
                         !isLogin ?
                         <div className="flex flex-col gap-3 pb-4 lg:p-0">
-                            <button className="button blue_button" onClick={(e) => checkFieldAndSubmit(e)} type="submit">Criar conta</button>
+                            <button className="button blue_button flex gap-2 items-center justify-center" onClick={(e) => checkFieldAndSubmit(e)} type="submit">
+                               <div>Criar conta</div> 
+                                <div className={`${loading ? "block" : "hidden"} loader ease-linear rounded-full border-light-darker h-6 w-6`}></div>
+                                </button>
                             <div className="mx-auto">
                                 Já tem uma conta? 
                                 <a className="text-blue font-semibold cursor-pointer" onClick={() => {setLogin(true); setError(false)}}> Login</a>
@@ -217,7 +221,10 @@ export default function Cadastro () {
                             <label className="mx-auto flex items-center gap-2 cursor-pointer">
                                 <input onChange={(e)=>{setKeepConnect(e.target.value)}} type="checkbox" className="w-4 h-4"/> Mantenha-me conectado
                             </label>
-                            <button className="button blue_button" onClick={(e) => checkFieldAndSubmit(e)} type="submit">Entrar</button>
+                            <button className="button blue_button flex gap-2 items-center justify-center" onClick={(e) => checkFieldAndSubmit(e)} type="submit">
+                                <div>Entrar</div> 
+                                <div className={`${loading ? "block" : "hidden"} loader ease-linear rounded-full border-light-darker h-6 w-6`}></div>
+                            </button>
                             <div className="mx-auto">
                                 Não tem uma conta? 
                                 <a className="text-blue font-semibold cursor-pointer" onClick={() => {setLogin(false); setError(false)}}> Cadastre-se</a>

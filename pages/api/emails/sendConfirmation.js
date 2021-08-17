@@ -1,36 +1,35 @@
 const nodemailer = require('nodemailer');
 import dotenv from 'dotenv'
 dotenv.config({ path: '.env.local' })
+const fs = require('fs')
+const path = require("path");
 
-const user = 'eureka.contato@outlook.com';
-const pass = process.env.SENHA_OUTLOOK
+const user = 'contato@eureka.app.br';
+const pass = process.env.SENHA_ZOHO
 
 //Nodemailer
 const sendConfirmation = async (request, response) => {
-    const {email_usuario} = request.body
+    const {email_usuario, template, subject} = await request.body
+    const htmlOutput = fs.readFileSync(path.resolve(__dirname, `../../../../../utils/emailTemplates/${template}.txt`), 
+{encoding:'utf8'}).replace(/\r/g, "");
     const transporter = nodemailer.createTransport({
-        host: "smtp-mail.outlook.com",  
-        port: 587,
+        host: "smtp.zoho.com",  
+        port: 465,
         tls: {
             ciphers:'SSLv3'
          },
-        secureConnection: false,
+         from: user,
+        secure: true,
         auth: {user: user, pass: pass}
     })
-        
+
     const mailOptions = {
         from: user,
         to: email_usuario, //req.body,
         replyTo: user,
-        subject:'Recuperação de senha da sua conta do Eureka',
-        html:`<div style="display: flex; flex-direction: column; align-items: center" >
-        <img src="">
-        <h2 style="font-family: candara; text-align: center">Recupe sua senha</h2>
-        <p style="font-family: candara; ">Você solicitou a recuperação de sua senha de acesso ao Eureka</p>
-        <p style="font-family: candara;">Clique no botão a seguir, ou <a href="https://eurekabr.vercel.app/"> nesse link</a>, para cadastrar a nova senha</p>
-        <a href="https://eurekabr.vercel.app/">
-        <button style="font-family: Nunito; font-weight: 800; border-radius: 0.75rem; border-width: 2px;cursor: pointer; padding-top: 0.5rem; padding-bottom: 0.5rem; padding-left: 2rem; padding-right: 2rem;transition-property: all;transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; color:white; background-color: #4361ee; border-color: #4361ee ">Recuperar senha</button></a>
-    </div>`
+        subject: subject,
+        html: htmlOutput,
+        text:`Abra o html do email para ver seu conteúdo`
     }
 
     transporter.sendMail(mailOptions, function(error, info){
@@ -41,7 +40,7 @@ const sendConfirmation = async (request, response) => {
         console.log('Message sent: ' + info.response);
     });
 
-    return response.status(200).json({result: "Email de recuperação de senha enviado com sucesso!" })
+    return response.status(200).json({result: "Email de enviado com sucesso!" })
 }
 
 export default sendConfirmation

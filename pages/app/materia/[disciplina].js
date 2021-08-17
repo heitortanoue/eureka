@@ -58,7 +58,7 @@ export default function PaginaMateria ({ questionJSON, nome }) {
         if (questions.length < 10) {
             setMostrar(false)
         }
-    }, [nome])
+    }, [nome, questionJSON, questions.length])
 
     return (
         <>  

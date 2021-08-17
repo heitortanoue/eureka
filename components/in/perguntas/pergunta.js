@@ -10,7 +10,6 @@ import BannerDisciplina from "../others/bannerDisciplina"
 
 export default function Pergunta ({quest, full, showAnswering, user}) {
     const [showDelete, setShowDelete] = useState(false)
-    const [deleteConfirm, setDeleteConfirm] = useState(false)
     function findMateria(element) {
         return element.dados[0] == quest.materia
     }
@@ -24,18 +23,9 @@ export default function Pergunta ({quest, full, showAnswering, user}) {
             }
         })
     }
-    const manageDelete = (newval) => {
-        setDeleteConfirm(newval)
-    }
     const manageShowDelete = (newval) => {
         setShowDelete(newval)
     }
-
-    useEffect(() => {
-        if (deleteConfirm) {
-            delQuestion()
-        }
-    }, [deleteConfirm])
 
     return (
         <>
@@ -89,7 +79,7 @@ export default function Pergunta ({quest, full, showAnswering, user}) {
             {full ? 
             <>
                 <div className="mt-4 text-lg">{quest.texto}</div>
-                <DeleteConfirm setConf={manageDelete} showDel={showDelete} setDel={manageShowDelete}/>
+                <DeleteConfirm setConf={delQuestion} showDel={showDelete} setDel={manageShowDelete}/>
                 {user && quest.id_user != user._id.toString() ?
                 <div className={`flex md:justify-end items-end w-full mt-4 ${showDelete ? "hidden" : ""}`}>
                         <button className="button answer_button w-full md:w-80 flex justify-center text-base"
