@@ -12,7 +12,6 @@ export default function Resposta ({ answer, user, resps, onQtdChange }) {
     const [deleted, setDeleted] = useState(false)
 
     const [showDelete, setShowDelete] = useState(false)
-    const [deleteConfirm, setDeleteConfirm] = useState(false)
 
     const manageReaction = () => {
         let data = {
@@ -58,18 +57,9 @@ export default function Resposta ({ answer, user, resps, onQtdChange }) {
         })
     }
 
-    const manageDelete = (newval) => {
-        setDeleteConfirm(newval)
-    }
     const manageShowDelete = (newval) => {
         setShowDelete(newval)
     }
-
-    useEffect(() => {
-        if (deleteConfirm) {
-            delComment()
-        }
-    }, [deleteConfirm])
 
     useEffect(() => {
         if (user) {
@@ -80,7 +70,7 @@ export default function Resposta ({ answer, user, resps, onQtdChange }) {
                 }
             })
         }
-    }, [user])
+    }, [user, answer])
 
     return (
         <div className={`ml-10 bg-white px-7 mt-4 py-4 flex flex-col text-black rounded-3xl ${deleted ? "hidden" : ""}`}>
@@ -104,7 +94,7 @@ export default function Resposta ({ answer, user, resps, onQtdChange }) {
                 </div>  
             </div>
             <div className="mt-4 text-lg">{answer.texto}</div>
-            <DeleteConfirm setConf={manageDelete} showDel={showDelete} setDel={manageShowDelete}/>
+            <DeleteConfirm setConf={delComment} showDel={showDelete} setDel={manageShowDelete}/>
             {!showDelete ? <div className="flex justify-end">
                 <div onClick={() => {user && answer.id_user == user._id.toString() ? null : manageReaction()}} className={`flex items-center ${user && answer.id_user == user._id.toString() ? null : "cursor-pointer"}`}>
                 <i className={`fas fa-lightbulb text-2xl ${liked ? "text-yellow animate-bounce-once" : "text-grey"}`}></i>

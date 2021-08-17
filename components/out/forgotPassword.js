@@ -11,7 +11,7 @@ export default function ForgotPassword ({ setShow }) {
     const sendEmail = (e) => {
         setLoading(true)
         e.preventDefault()
-        axios.post("/api/emails/sendConfirmation", {email_usuario: emailCadastro})
+        axios.post("/api/emails/sendConfirmation", {email_usuario: emailCadastro, template: "forgotPassword", subject: "Recuperação de Senha"})
         .then (function (response) {
             console.log(response)
             if (response.status == 200) {

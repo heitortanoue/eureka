@@ -9,7 +9,6 @@ import { UserContext } from "/utils/contexts/userContext"
 import { useRouter } from "next/router";
 import Skeleton from "../../../components/in/perguntas/skeleton";
 import Responda from "../../../components/in/perguntas/responda";
-import axios from "axios";
 
 export const getStaticPaths = async () => {
     const {db} = await connectToDatabase()
@@ -95,7 +94,7 @@ export default function PaginaPergunta ({ questionJSON, answersJSON, respsJSON }
         setComments(JSON.parse(answersJSON))
         setResps(JSON.parse(respsJSON))
         setQtdComment(JSON.parse(answersJSON).length)
-    }, [])
+    }, [answersJSON, questionJSON, respsJSON])
 
     return (
         <>
