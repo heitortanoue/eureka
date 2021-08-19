@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }) {
     }, [])
 
    return (
-      <UserContext.Provider value={{user: [USER, setUSER], disciplinas: [MATERIAS, setMATERIAS], resultados: [RESULTADOS, setRESULTADOS]}}>
+      <UserContext.Provider value={{user: [USER, setUSER], disciplinas: [MATERIAS, setMATERIAS]}}>
          <div className="font-body text-black flex flex-col h-screen">
             <Component {...pageProps} />
          </div>

@@ -18,14 +18,8 @@ export default function Container ({children, showHeader, hideRightBar}) {
     useEffect(() => {
         if (USERCONTEXT.user[0]) {
             USERCONTEXT.disciplinas[1](USERCONTEXT.user[0].fav_disciplinas)
-            axios.post("/api/usuario/resultados", {id_user: USERCONTEXT.user[0]._id})
-            .then(function (response) {
-               if (response.status == 200) {
-                  USERCONTEXT.resultados[1](response.data.res)
-               }
-            })
         }
-    }, [USERCONTEXT.user[0], USERCONTEXT.disciplinas, USERCONTEXT.resultados, USERCONTEXT.user])
+    }, [USERCONTEXT.user[0], USERCONTEXT.disciplinas, USERCONTEXT.user])
 
     return (
         <div className="h-screen">
@@ -38,7 +32,7 @@ export default function Container ({children, showHeader, hideRightBar}) {
                 {showHeader ? <Header/> : null}
                 <div className="flex gap-5">
                     {children}
-                    {!hideRightBar ? <RightBar user={USERCONTEXT.user[0]} results={USERCONTEXT.resultados[0]}/> : null}
+                    {!hideRightBar ? <RightBar user={USERCONTEXT.user[0]}/> : null}
                 </div>
             </BottomNavbar>
         </div>
