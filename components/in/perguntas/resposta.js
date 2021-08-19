@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import timeFromPost from "../../../utils/functions/timeFromPost"
 import UserImage from "/components/in/profile/userImage"
 import DeleteConfirm from "../others/deleteConfirm"
+import Link from "next/link"
 
 export default function Resposta ({ answer, user, resps, onQtdChange }) {
     const [resp, setResp] = useState("")
@@ -75,13 +76,17 @@ export default function Resposta ({ answer, user, resps, onQtdChange }) {
     return (
         <div className={`ml-10 bg-white px-7 mt-4 py-4 flex flex-col text-black rounded-3xl ${deleted ? "hidden" : ""}`}>
             <div className="flex gap-3 items-center">
-                <div className="relative w-10 h-10">
-                    <UserImage src={answer.foto} size={"4xl"}/>
-                </div>
+                <Link href={`/app/usuario?username=${answer.username}`} passHref>
+                    <div className="relative w-10 h-10 cursor-pointer">
+                        <UserImage src={answer.foto} size={"4xl"}/>
+                    </div>
+                </Link>
                 <div className="flex-1 flex flex-col gap-1">
                         <div className="flex items-center justify-between">
                             <div className="flex gap-3 items-center">
-                                <div className="text-blue font-bold">{answer.username}</div>
+                                <Link href={`/app/usuario?username=${answer.username}`} passHref>
+                                <div className="text-blue font-bold cursor-pointer hover:underline">{answer.username}</div>
+                                </Link>
                                 <div className="text-cinza text-xs">
                                 {timeFromPost(answer.date)}
                                 </div> 

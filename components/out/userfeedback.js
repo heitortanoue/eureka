@@ -11,19 +11,19 @@ export default function UserFeedback () {
             Antigamente eu sofria pra achar as respostas dos exercícios da faculdade, mas
             o Eureka conseguiu colocar tudo em um só lugar! 
             Além de ser um ambiente muito interativo, tem uma comunidade sempre pronta pra ajudar. 
-            Lugar perfeito para qualquer futuro engenheiro!”`,
+            Lugar perfeito para qualquer futuro engenheiro!`,
             foto: "https://avatars.githubusercontent.com/u/83795403?v=4",
         },
         {
-            nome: "Bruna Lomes",
-            faculdade: "Engenharia Física (UFSCar)",
-            texto: "Esse é o texto do usuário 2",
-            foto: "https://avatars.githubusercontent.com/u/84605336?v=4",
+            nome: "Kaio Dias",
+            faculdade: "Engenharia Agronômica (UFSCar)",
+            texto: "A minha experiência com a plataforma foi ótima. No momento em que estamos vivendo, semestres totalmente atípicos e alunos cada vez mais atarefados, uma plataforma que facilita a vida do universitário torna-se necessária, ainda mais quando estamos tratando de perguntas genéricas e específicas com respostas de credibilidade. Irei usar sempre que precisar.",
+            foto: "https://eureka-app.s3.sa-east-1.amazonaws.com/caiodias.jpg",
         },
         {
             nome: "Beatriz Cardoso",
             faculdade: "Engenharia de Computação (USP São Carlos)",
-            texto: "Esse é o texto do usuário 3",
+            texto: "O Eureka revolucionou a maneira que eu levo minha graduação, antes eu tinha diversas dúvidas e dependia muito dos professores pra sanar elas, o que costumava demorar. Agora eu só preciso postar minha dúvida no site e logo alguém já me dá a resposta para o problema! Completamente impressionada pela qualidade das respostas e do site, muito simples de usar e bem elaborado.",
             foto: "https://avatars.githubusercontent.com/u/81369929?v=4",
         },
     ]
