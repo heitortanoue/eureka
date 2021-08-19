@@ -78,7 +78,7 @@ export default function ChangeProfile ({ user, setUser, closeChangeConfig }) {
             </div>
             <div className="flex gap-4 items-center mt-4 justify-between">
                 <button onClick={() => setShowDelete(true)} className="button border-2 border-red h-full hover:bg-red hover:text-white text-red-dark">Apagar conta</button>
-                <div>
+                <div className="flex gap-3 items-center">
                     <div className={`${loading ? "block" : "hidden"} loader ease-linear rounded-full border-light-darker h-8 w-8`}/>
                     <button onClick={() => {submitProfile()}} className="button blue_button">Mudar configurações</button>  
                 </div>         

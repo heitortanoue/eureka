@@ -1,8 +1,9 @@
 import axios from "axios"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import Error from "../others/error"
 import UserImage from "./userImage"
 import imageCompression from 'browser-image-compression';
+import { UserContext } from "/utils/contexts/userContext"
 
 export default function ChangeProfile ({ user, closeChangeProfile, changeUser }) {
     const [faculdade, setFaculdade] = useState(user.faculdade)
@@ -12,6 +13,7 @@ export default function ChangeProfile ({ user, closeChangeProfile, changeUser })
     const [file, setFile] = useState(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState()
+    const USERCONTEXT = useContext(UserContext)
 
     async function onImageChange(event) {
         const imageFile = event.target.files[0];
@@ -46,11 +48,11 @@ export default function ChangeProfile ({ user, closeChangeProfile, changeUser })
             if (response.status == 200) {
                 setLoading(false)
                 closeChangeProfile(false)
-                const newUser = Object.assign({}, user);
+                const newUser = Object.assign({}, USERCONTEXT.user[0]);
                 newUser["faculdade"] = faculdade.trim()
                 newUser["curso"] = curso.trim()
                 newUser["bio"] = bio.trim()
-                newUser["foto"] = imageUrl            
+                newUser["foto"] = imageUrl
                 changeUser(newUser)
                 sessionStorage.setItem("user", JSON.stringify(newUser))
             }

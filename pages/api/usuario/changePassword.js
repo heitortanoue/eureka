@@ -11,7 +11,7 @@ const changePassword = async (request, response) => {
     
     const senha = await collection.findOne({'_id': obj_id}, {projection: { senha: true }});
 
-    if( bcrypt.compareSync(oldSenha, senha.senha) ){
+    if( bcrypt.compareSync(oldSenha, senha.senha)){
         if( bcrypt.compareSync( newSenha, senha.senha) ){
             return response.status(400).json({result: "A senha que você está tentando colocar é igual a senha atual"});
         }else{

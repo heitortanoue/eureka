@@ -14,16 +14,12 @@ export default function RedirectWhenLogged ({ setLoader }) {
             .then(function (response) {
                 if (response.status == 200) {
                     let newUser = response.data.user
-                    axios.post("/api/usuario/resultados", {id_user: USERCONTEXT.user[0]._id})
-                    .then(function (response) {
-                       if (response.status == 200) {
-                          newUser["resultados"] = response.data.res
-                          USERCONTEXT.user[1](newUser)
-                          sessionStorage.setItem("user", JSON.stringify(newUser))
-                          setLoader(false)
-                          router.push("/app")
-                       }
-                    })
+                    if (response.status == 200) {
+                        USERCONTEXT.user[1](newUser)
+                        sessionStorage.setItem("user", JSON.stringify(newUser))
+                        setLoader(false)
+                        router.push("/app")
+                    }
                 }
             })        
         }

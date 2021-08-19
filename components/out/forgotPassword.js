@@ -1,30 +1,32 @@
 import Error from "../in/others/error";
 import { useState } from "react";
-import axios from "axios";
+import {sendConfirmationEmail} from "../../utils/functions/sendConfirmationEmail";
 
 export default function ForgotPassword ({ setShow }) {
-    const [error, setError] = useState()
-    const [sucess, setSucess] = useState()
+    const [error, setError] = useState(false)
+    const [sucess, setSucess] = useState(false)
     const [emailCadastro, setEmailCadastro] = useState("")
     const [loading, setLoading] = useState(false)
 
     const sendEmail = (e) => {
+        setError(null)
         setLoading(true)
         e.preventDefault()
-        axios.post("/api/emails/sendConfirmation", {email_usuario: emailCadastro, template: "forgotPassword", subject: "Recuperação de Senha"})
-        .then (function (response) {
-            console.log(response)
-            if (response.status == 200) {
-                setLoading(false)
-                setSucess(true)
-                setShow(false)
+        sendConfirmationEmail(emailCadastro)
+        .then(function (value) {
+            console.log(value)
+            if (value) {
+                
+                if (value.status == 200) {
+                    const hash = value.hash
+                    setSucess("Email enviado! Caso não o encontre, cheque sua caixa de Spam.")
+                    console.log(hash)
+                } else {
+                    console.log(value)
+                    setError(value.result)
+                }
             }
-        })
-        .then (function (error) {
-            console.log(error)
-            if (error) {
-                setError(error.response.data.result)
-            }
+            setLoading(false)
         })
     }
 
@@ -35,8 +37,8 @@ export default function ForgotPassword ({ setShow }) {
                 <i onClick={() => {setShow(false)}} 
                 className="fas absolute right-5 top-3 fa-times text-lg cursor-pointer hover:text-red"></i>
                 <div className="font-bold text-xl">Recuperação de Senha</div>
-                <Error error={error} sucess={sucess}/>
                 <div>Um email de confirmação de identidade será enviado para o endereço de email do campo abaixo, certifique-se que o email inserido é o mesmo utilizado para o cadastro na plataforma.</div>
+                <Error error={error} sucess={sucess}/>               
                 <div className="flex-1">
                     <div className="font-semibold ml-3">Email cadastrado</div>
                     <input type="text" className="inputfield" value={emailCadastro} onChange={(e)=>{setEmailCadastro(e.target.value)}} />
