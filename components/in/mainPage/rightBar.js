@@ -1,13 +1,20 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Logout from "/components/in/logout" 
 import UserImage from "/components/in/profile/userImage"
 import Link from "next/link"
 import Image from "next/image"
 
-export default function RightBar ({user, results}) {
+export default function RightBar ({user}) {
     const [atual, setAtual] = useState("Resultados")
+    const [resultados, setResultados] = useState({vitalicio: 0, semanal: 0})
     const abas = ["Resultados", "Notificações"]
     const temNotificacao = false
+
+    useEffect(() => {
+        if (user) {
+            setResultados(user.resultados)
+        }
+    }, [user])
 
     return (
         <div className={`hidden lg:block`}>
@@ -42,7 +49,7 @@ export default function RightBar ({user, results}) {
                         <div className="flex flex-col gap-2 items-center">
                             <div className="bg-light-darker rounded-lg w-full pt-1 pr-2 pl-6 flex justify-between">
                                 <div className="pb-3 pt-2">
-                                    <p className="font-bold text-2xl text-blue">+{results ? results.semanal : null}</p>
+                                    <p className="font-bold text-2xl text-blue">+{resultados ? resultados.semanal : null}</p>
                                     <div className="text-sm">
                                     <p>Lâmpadas</p>
                                     <p>(Essa semana)</p>
@@ -57,7 +64,7 @@ export default function RightBar ({user, results}) {
                                     <Image alt="Menino rei" layout="fill" objectFit="contain" src={"/illustrations/reiterno.svg"}></Image>                            
                                 </div>
                                 <div className="text-right flex-1 pb-3 pt-2">
-                                    <p className="font-bold text-2xl text-blue">+{results ? results.vitalicio : null}</p>
+                                    <p className="font-bold text-2xl text-blue">+{resultados ? resultados.vitalicio : null}</p>
                                     <div className="text-sm">
                                     <p>Lâmpadas</p>
                                     <p>(Vitalício)</p>

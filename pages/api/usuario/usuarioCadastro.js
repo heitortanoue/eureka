@@ -32,6 +32,7 @@ const usuarioCadastro = async (request, response) => {
     data.token = token;
     data.bio = ""
     data.curso = curso
+    data.foto = null
     await collection.insertOne(data);
        
     return response.status(200).json({result: `Cadastro realizado com sucesso!`, user: data})

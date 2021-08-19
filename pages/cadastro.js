@@ -87,13 +87,21 @@ export default function Cadastro () {
             if (response.status == 200) {
                 setLoading(false)
                 setSucess(true) 
-                if (keepConnect) {
-                    // COOKIE COM TOKEN PARA MANTER CONECTADO
-                    setCookie("token", response.data.user.token, 15)
-                }
-                sessionStorage.setItem("user", JSON.stringify(response.data.user))
-                USERCONTEXT.user[1](response.data.user)
-                router.push("/app")
+                let newUser = response.data.user
+                axios.post("/api/usuario/resultados", {id_user: USERCONTEXT.user[0]._id})
+                .then(function (response) {
+                    console.log(response)
+                   if (response.status == 200) {
+                      newUser["resultados"] = response.data.res
+                      USERCONTEXT.user[1](newUser)
+                      sessionStorage.setItem("user", JSON.stringify(newUser))
+                      if (keepConnect) {
+                          // COOKIE COM TOKEN PARA MANTER CONECTADO
+                          setCookie("token", response.data.user.token, 15)
+                      }
+                      router.push("/app")
+                   }
+                })
             }
         })
         .catch(function (err) {
