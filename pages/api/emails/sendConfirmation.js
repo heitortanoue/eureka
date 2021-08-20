@@ -59,9 +59,9 @@ const sendConfirmation = async (request, response) => {
             return console.log(error);
         }
         console.log('Message sent: ' + info.response);
+        return response.status(200).json({result: "Email de enviado com sucesso!" })
     })})
 
-    return response.status(200).json({result: "Email de enviado com sucesso!" })
 }
 
 export default sendConfirmation

@@ -44,7 +44,6 @@ export default function Pergunte (props) {
                 const url = res.data.url
                 axios.put(url, file, {headers: {"Content-Type": "multipart/form-data"}})
                 .then(function (response) {
-                    console.log(response)
                 })
                 .catch(function (error) {
                     console.log(error)

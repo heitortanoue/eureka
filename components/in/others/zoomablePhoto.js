@@ -7,7 +7,7 @@ export default function ZoomablePhoto ({ src }) {
     return (
         <>
         <div className="bg-light-dark rounded-xl py-3 relative">
-        <div className="absolute bg-black-op-40 rounded-xl hover:opacity-100 opacity-0 h-full w-full top-0 left-0 transition-all flex cursor-pointer"
+        <div className="absolute bg-black-op-40 rounded-xl hover:opacity-100 opacity-0 h-full w-full top-0 left-0 transition-all z-10 flex cursor-pointer"
                 onClick={() => {setOnZoom(true)}}>
                     <i className="fas fa-search text-white text-xl mx-auto my-auto py-2 px-3 rounded-full bg-blue"></i>
                 </div>

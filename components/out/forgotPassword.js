@@ -1,6 +1,6 @@
 import Error from "../in/others/error";
 import { useState } from "react";
-import {sendConfirmationEmail} from "../../utils/functions/sendConfirmationEmail";
+import axios from "axios"
 
 export default function ForgotPassword ({ setShow }) {
     const [error, setError] = useState(false)
@@ -10,19 +10,22 @@ export default function ForgotPassword ({ setShow }) {
 
     const sendEmail = (e) => {
         setError(null)
+        setSucess(null)
         setLoading(true)
         e.preventDefault()
-        sendConfirmationEmail(emailCadastro)
-        .then(function (value) {
-            if (value) {               
-                if (value.status == 200) {
-                    const hash = value.hash
-                    setSucess("Email enviado! Caso não o encontre, cheque sua caixa de Spam.")
-                } else {
-                    setError(value.result)
-                }
+        axios.post("/api/emails/createHash", {email : emailCadastro})
+        .then(response => {
+            if (response.status == 200) {
+                axios.post("/api/emails/sendConfirmation", {email_usuario: emailCadastro, hash: response.data.hash})
+                .then (res => {
+                    if (res.status == 200) {
+                        setSucess("Email enviado! Caso não o encontre, cheque sua caixa de Spam.")
+                    }               
+                })
+            } else {
+                setLoading(false)
+                setError(response.data.result)
             }
-            setLoading(false)
         })
     }
 

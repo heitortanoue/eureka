@@ -27,7 +27,6 @@ export default function DisciplinasFavoritas ({ user, changeDisciplinas, setNewD
                 user.fav_disciplinas = selecionadas
                 sessionStorage.setItem("user", JSON.stringify(cpyUser))
             }
-            console.log(response)
         })
         .then (function (error) {
             console.log(error)
