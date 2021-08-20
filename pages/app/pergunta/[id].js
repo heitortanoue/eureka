@@ -38,7 +38,7 @@ export const getStaticProps = async (context) => {
     const obj_id_user = await ObjectId(pergunta.id_user)
     const usuario = await colUsuarios.findOne({_id: obj_id_user}, {username: 1, foto: 1})
     pergunta["username"] = await usuario.username
-    pergunta["foto"] = await usuario.foto
+    pergunta["foto_user"] = await usuario.foto
 
     let comentarios = await colComentario.find({id_pergunta: context.params.id}).toArray();
     let allResps = []
@@ -46,13 +46,13 @@ export const getStaticProps = async (context) => {
         const obj_id = ObjectId(quest.id_user)
         const obj = await colUsuarios.findOne({_id: obj_id}, {username: 1, foto: 1})
         quest["username"] = await obj.username
-        quest["foto"] = await obj.foto
+        quest["foto_user"] = await obj.foto
 
         let resp_comen = await colRespComen.find({id_comentario: quest._id.toString()}).toArray();
         for (const comen of resp_comen) {
             const obj_id_comen = ObjectId(comen.id_user)
             const obj_comen = await colUsuarios.findOne({_id: obj_id_comen}, {foto: 1})
-            comen["foto"] = await obj_comen.foto
+            comen["foto_user"] = await obj_comen.foto
         }
         allResps.push(resp_comen)
     }

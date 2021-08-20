@@ -17,14 +17,14 @@ const s3 = new aws.S3({
 })
 
 const generateUploadURL = async (request, response) => {
-    const { link_foto } = await request.body
+    const { link_foto, path } = await request.body
     let imageName = link_foto
     if (!link_foto) {
       imageName = crypto.randomBytes(16).toString('hex');
     }
     const params = ({
         Bucket: bucketName,
-        Key: `imgPerfil/${imageName}`,
+        Key: `${path}${imageName}`,
         Expires: 60,
     })
     

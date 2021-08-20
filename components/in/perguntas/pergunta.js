@@ -5,23 +5,30 @@ import materias from "../../../utils/data/materias"
 import axios from "axios"
 import { useRouter } from "next/router"
 import DeleteConfirm from "../others/deleteConfirm"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import BannerDisciplina from "../others/bannerDisciplina"
+import ZoomablePhoto from "../others/zoomablePhoto"
+import Report from "../others/report"
 
 export default function Pergunta ({quest, full, showAnswering, user}) {
     const [showDelete, setShowDelete] = useState(false)
+    const [showReport, setShowReport] = useState(false)
     function findMateria(element) {
         return element.dados[0] == quest.materia
     }
     const indMateria = materias.findIndex(findMateria)
     const router = useRouter()
-    const delQuestion = () => {
-        axios.post("/api/perguntas/deletarPergunta", {id: quest._id})
-        .then(function (response) {
-            if (response.status == 200) {
-                router.push("/app")
-            }
-        })
+    const delQuestion = async () => {
+        // axios.post("/api/aws/s3delete", {path: `imgPergunta/${quest.foto.split('/')[4]}`})
+        // .then(function (res) {
+            // console.log(res)
+            axios.post("/api/perguntas/deletarPergunta", {id: quest._id})
+            .then(function (response) {
+                if (response.status == 200) {
+                    router.push("/app")
+                }
+            })
+        // })
     }
     const manageShowDelete = (newval) => {
         setShowDelete(newval)
@@ -29,6 +36,7 @@ export default function Pergunta ({quest, full, showAnswering, user}) {
 
     return (
         <>
+        {full && showReport ? <Report setReport={setShowReport} id={quest._id} type="pergunta"/> : null}
         {full && quest ?
             <BannerDisciplina nome={quest.materia}/>
         : null}
@@ -36,7 +44,7 @@ export default function Pergunta ({quest, full, showAnswering, user}) {
             <div className="flex gap-3">
                 <Link passHref href={"/app/usuario?username=" + quest.username}>
                 <div className="relative w-10 h-10 cursor-pointer">
-                    <UserImage src={quest.foto} size={"4xl"}/>
+                    <UserImage src={quest.foto_user} size={"4xl"}/>
                 </div>
                 </Link>
                 <div className="flex-1 flex flex-col gap-1">
@@ -51,7 +59,7 @@ export default function Pergunta ({quest, full, showAnswering, user}) {
                             </div>
                             {full ?
                             <div className="flex gap-2">
-                            <i className="fas fa-flag red-icon"></i>
+                            <i className="fas fa-flag red-icon" onClick={() => {setShowReport(true)}}></i>
                              {user && quest.id_user == user._id.toString() ? <i className="fas fa-trash-alt red-icon" onClick={() => {setShowDelete(true)}}></i> : null} 
                             </div>
                             : null}
@@ -80,6 +88,12 @@ export default function Pergunta ({quest, full, showAnswering, user}) {
             <>
                 <div className="mt-4 text-lg">{quest.texto}</div>
                 <DeleteConfirm setConf={delQuestion} showDel={showDelete} setDel={manageShowDelete}/>
+                {quest.foto ?
+                <div className="my-3">
+                    <ZoomablePhoto src={quest.foto}/>
+                </div>
+
+                 : null}
                 {user && quest.id_user != user._id.toString() ?
                 <div className={`flex md:justify-end items-end w-full mt-4 ${showDelete ? "hidden" : ""}`}>
                         <button className="button answer_button w-full md:w-80 flex justify-center text-base"

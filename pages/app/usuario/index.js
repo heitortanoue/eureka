@@ -152,7 +152,7 @@ export default function PgUsuario ({ usuarioJSON, perguntasJSON, respostasJSON }
                 questions.map(quest => {
                   let newQuest = quest
                   newQuest.username = user.username
-                  newQuest.foto = user.foto
+                  newQuest.foto_user = user.foto
                   newQuest.id_user = user._id.toString()
                   return (
                     <div key={quest._id}>

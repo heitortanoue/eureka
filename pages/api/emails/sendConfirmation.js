@@ -53,13 +53,13 @@ const sendConfirmation = async (request, response) => {
         text:`Abra o html do email para ver seu conteúdo`
     }
 
-    transporter.sendMail(mailOptions, function(error, info){
+    await new Promise ((resolve, reject) => {
+      transporter.sendMail(mailOptions, function(error, info){
         if(error){
             return console.log(error);
         }
-    
         console.log('Message sent: ' + info.response);
-    });
+    })})
 
     return response.status(200).json({result: "Email de enviado com sucesso!" })
 }
