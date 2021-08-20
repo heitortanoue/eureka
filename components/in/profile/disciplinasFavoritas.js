@@ -29,7 +29,7 @@ export default function DisciplinasFavoritas ({ user, changeDisciplinas, setNewD
             }
         })
         .then (function (error) {
-            console.log(error)
+
         })
     }
 

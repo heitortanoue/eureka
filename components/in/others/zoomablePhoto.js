@@ -17,7 +17,7 @@ export default function ZoomablePhoto ({ src }) {
         </div>
         {
             onZoom ?
-            <div className="fixed w-screen h-screen bg-black-op-40 z-50 top-0 left-0 flex">
+            <div className="fixed w-screen h-screen bg-black-op-40 z-50 top-0 left-0 flex" onClick={() => setOnZoom(false)}>
             <i onClick={() => {setOnZoom(false)}} 
             className="fas absolute right-5 top-3 fa-times text-2xl cursor-pointer hover:bg-red-dark transition-all text-white bg-red rounded-full px-3 py-1"></i>
                 <div className="mx-auto my-auto w-10/12 relative h-3/4">

@@ -23,9 +23,10 @@ export const getStaticProps = async () => {
     let perguntas = await colPerguntas.find({}).sort({_id:-1}).limit(NUMEROPERGUNTAS).toArray();
     for (const quest of perguntas) {
         const obj_id = ObjectId(quest.id_user)
-        const obj = await colUsuarios.findOne({_id: obj_id}, {projection: {username: true, foto: true, _id: false}})
+        const obj = await colUsuarios.findOne({_id: obj_id}, {projection: {username: true, foto: true, _id: false, admin: true}})
         quest["username"] = await obj.username
         quest["foto_user"] = await obj.foto
+        quest["admin"] = await obj.admin
     }
 
     const data = await JSON.stringify(perguntas)
