@@ -1,9 +1,11 @@
 import Image from "next/image"
 import Party from "/public/illustrations/festa.svg"
+import Link from "next/link"
 
 export default function Banner () {
     return (
-        <div className="hidden lg:flex justify-between items-center rounded-3xl px-8 gap-5 bg-yellow-light h-40 overflow-visible">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.facebook.com%2Feureka.app.br" target="_blank">
+        <div className="hidden lg:flex justify-between items-center rounded-3xl px-8 gap-5 bg-yellow-light h-40 overflow-visible cursor-pointer">
             <div className="flex flex-col gap-2 py-4 w-7/12">
                 <div className="font-bold text-3xl">Convide seus colegas!</div>
                 <div>
@@ -17,5 +19,6 @@ export default function Banner () {
                 </div>
             </div>
         </div>
+        </a>
     )
 }

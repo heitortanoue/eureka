@@ -121,7 +121,7 @@ export default function Pergunte (props) {
                             </div>
                             <div className="flex gap-2 items-center">
                                 <div className="text-sm">{file ? "Foto anexada" : ""}</div>
-                                <input type="file" name="file" id="file" onChange={(e) => onFileChange(e)}/>
+                                <input type="file" accept="image/*" name="file" id="file" onChange={(e) => onFileChange(e)}/>
                                 <label htmlFor="file"><i className="fas fa-paperclip p-1 hover:bg-blue-dark rounded-full transition-all cursor-pointer"></i></label>
                                 {file ? <i className="fas fa-trash p-1 hover:bg-blue-dark rounded-full transition-all cursor-pointer" onClick={() => setFile(null)}></i> : null}
                             </div>

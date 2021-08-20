@@ -98,8 +98,8 @@ export default function ChangeProfile ({ user, closeChangeProfile, changeUser })
 
     return (
         <div className="bg-blue-op-60 flex w-full h-full fixed z-50 font-body">
-        <div className="bg-white w-full h-full lg:h-auto my-auto lg:w-2/3 m-2 lg:mx-auto rounded-3xl 
-            shadow-lg flex flex-col gap-6 p-8 relative lg:overflow-hidden overflow-y-auto">
+        <div className="bg-white w-full h-full 2xl:h-auto my-auto xl:w-2/3 m-2 xl:mx-auto rounded-3xl 
+            shadow-lg flex flex-col gap-6 p-8 relative overflow-y-auto">
             <i onClick={() => {closeChangeProfile(false); setPhoto(null)}} 
             className="fas absolute right-5 top-3 fa-times text-lg cursor-pointer hover:text-red p-2"></i>
             <div className="font-bold text-xl">Edite suas informações</div>
