@@ -14,15 +14,11 @@ export default function ForgotPassword ({ setShow }) {
         e.preventDefault()
         sendConfirmationEmail(emailCadastro)
         .then(function (value) {
-            console.log(value)
-            if (value) {
-                
+            if (value) {               
                 if (value.status == 200) {
                     const hash = value.hash
                     setSucess("Email enviado! Caso não o encontre, cheque sua caixa de Spam.")
-                    console.log(hash)
                 } else {
-                    console.log(value)
                     setError(value.result)
                 }
             }

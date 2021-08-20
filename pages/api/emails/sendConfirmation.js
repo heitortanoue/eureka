@@ -3,7 +3,6 @@ import dotenv from 'dotenv'
 dotenv.config({ path: '.env.local' })
 const fs = require('fs')
 const path = require("path");
-
 const user = 'contato@eureka.app.br';
 const pass = process.env.SENHA_ZOHO
 
