@@ -21,7 +21,6 @@ export default function Pergunta ({quest, full, showAnswering, user}) {
     const delQuestion = async () => {
         // axios.post("/api/aws/s3delete", {path: `imgPergunta/${quest.foto.split('/')[4]}`})
         // .then(function (res) {
-            // console.log(res)
             axios.post("/api/perguntas/deletarPergunta", {id: quest._id})
             .then(function (response) {
                 if (response.status == 200) {
@@ -52,6 +51,7 @@ export default function Pergunta ({quest, full, showAnswering, user}) {
                             <div className="flex flex-col">
                                 <div className="flex gap-3 items-center">
                                     <Link passHref href={"/app/usuario?username=" + quest.username}><div className="text-blue hover:underline font-bold cursor-pointer">{quest.username}</div></Link>
+                                    {quest.admin ? <i className="fas fa-crown text-yellow"></i> : null}
                                     <div className="text-cinza text-xs">
                                     {timeFromPost(quest.date)}
                                     </div> 
@@ -60,7 +60,7 @@ export default function Pergunta ({quest, full, showAnswering, user}) {
                             {full ?
                             <div className="flex gap-2">
                             <i className="fas fa-flag red-icon" onClick={() => {setShowReport(true)}}></i>
-                             {user && quest.id_user == user._id.toString() ? <i className="fas fa-trash-alt red-icon" onClick={() => {setShowDelete(true)}}></i> : null} 
+                             {user && (quest.id_user == user._id.toString() || user.admin) ? <i className="fas fa-trash-alt red-icon" onClick={() => {setShowDelete(true)}}></i> : null} 
                             </div>
                             : null}
                         </div>

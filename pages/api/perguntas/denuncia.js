@@ -15,7 +15,6 @@ const denuncia = async (request, response) => {
             const obj_id = ObjectId(id);
             const collectionPergunta = db.collection('pergunta');
             const pergunta = await collectionPergunta.findOne({'_id':obj_id}, {projection: {'qtd_denuncia': true}});
-            console.log(pergunta)
             if(pergunta.qtd_denuncia >= 9){
                 await collection.insertOne({'id_pergunta': id, 'motivo': texto, 'data': new Date()});
                 return response.status(200).json({result: "A pergunta foi mandada para análise"});

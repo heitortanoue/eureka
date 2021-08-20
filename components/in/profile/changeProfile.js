@@ -31,7 +31,7 @@ export default function ChangeProfile ({ user, closeChangeProfile, changeUser })
           reader.readAsDataURL(event.target.files[0]);
           setFile(compressed)
         } catch (error) {
-          console.log(error);
+
         } 
       
       }
@@ -82,7 +82,7 @@ export default function ChangeProfile ({ user, closeChangeProfile, changeUser })
                 .then(function (response) {
                 })
                 .catch(function (error) {
-                    console.log(error)
+
                 })
                 imageUrl = url.split('?')[0]
                 submitProfile(imageUrl)

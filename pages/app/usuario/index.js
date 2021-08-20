@@ -64,7 +64,7 @@ export default function PgUsuario ({ usuarioJSON, perguntasJSON, respostasJSON }
                   }
 
                 <div className="flex flex-col text-white">
-                      <div className="font-bold text-lg">{user.nome}</div>
+                      <div className="font-bold text-lg">{user.nome} {user.admin ? <i className="fas fa-crown text-yellow"></i> : null}</div>
                       <div className="font-semibold">{user.curso}</div>
                       <div className="font-semibold">({user.faculdade})</div>
                       <div className="bg-yellow-light font-bold px-2 w-min text-center mt-2 rounded-lg text-sm text-black">@{user.username}</div>
@@ -88,7 +88,7 @@ export default function PgUsuario ({ usuarioJSON, perguntasJSON, respostasJSON }
                     </div>
                   </div>
                   <div className="flex flex-col mt-5 items-center px-5">
-                      <div className="font-semibold">{user.nome}</div>
+                      <div className="font-semibold">{user.nome} {user.admin ? <i className="fas fa-crown text-yellow"></i> : null}</div>
                       <div className="w-min">
                         <div className="bg-yellow-light rounded-lg px-2 text-sm font-bold">@{user.username}</div>
                       </div>
@@ -207,7 +207,7 @@ export async function getServerSideProps(context) {
     const colUsuarios = db.collection('usuario');
     const colRespostas = db.collection('comentario');
     const colPerguntas = db.collection('pergunta');
-    const resUsuario = await colUsuarios.findOne({username: username}, {projection: {nome: true, username: true, faculdade: true, curso:true, bio: true, foto: true, fav_disciplinas: true}})
+    const resUsuario = await colUsuarios.findOne({username: username}, {projection: {nome: true, username: true, faculdade: true, curso:true, bio: true, foto: true, fav_disciplinas: true, admin: true}})
     const idUsuario = resUsuario._id.toString()
     const resPerguntas = await colPerguntas.find({id_user: idUsuario}, {projection: {qtd_denuncia: false, foto: false, id_user: false}}).sort({_id:-1}).toArray()
     const resRespostas = await colRespostas.find({id_user : idUsuario}, {projection: {date: true, texto: true, qtd_reacao: true, id_pergunta: true}}).sort({_id:-1}).toArray()

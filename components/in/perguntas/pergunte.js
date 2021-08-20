@@ -39,15 +39,15 @@ export default function Pergunte (props) {
 
 
     const sendPhoto = () => {
-        axios.post('/api/aws/s3', {path: `imgPergunta/`})
+        if (file) {
+            axios.post('/api/aws/s3', {path: `imgPergunta/`})
             .then((res) => {
                 const url = res.data.url
                 axios.put(url, file, {headers: {"Content-Type": "multipart/form-data"}})
                 .then(function (response) {
-                    console.log(response)
                 })
                 .catch(function (error) {
-                    console.log(error)
+
                 })
                 const imageUrl = url.split('?')[0]
                 submitQuestion(imageUrl)
@@ -55,6 +55,9 @@ export default function Pergunte (props) {
             .catch((error) => {
                 setError(error);
             })
+        } else {
+            submitQuestion(null)
+        }
     }
 
     const submitQuestion = (imgUrl) => {
@@ -94,7 +97,7 @@ export default function Pergunte (props) {
           reader.readAsDataURL(event.target.files[0]);
           setFile(compressed)
         } catch (error) {
-          console.log(error);
+
         }     
       }
 

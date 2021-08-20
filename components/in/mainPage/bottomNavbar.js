@@ -1,5 +1,6 @@
 import { useRouter } from "next/router"
 import Link from "next/link"
+import UserImage from "../profile/userImage"
 
 export default function BottomNavbar ({children, onChange, value, showLog, user}) {
     const router = useRouter()
@@ -28,13 +29,16 @@ export default function BottomNavbar ({children, onChange, value, showLog, user}
                 </div>
                 {user ?
                 <Link href={{pathname: "/app/usuario", query: {username: user.username}}} passHref>
-                    <div className="flex flex-col items-center gap-1">
-                        <i className={`fas fa-user-circle ${pageName == "/app/perfil" ? "text-black" : null}`}></i>
+                    <div className="flex flex-col items-center gap-1 cursor-pointer">                       
+                        <div className="relative rounded-full w-12 h-12 flex items-center justify-center">
+                        <UserImage src={user.foto} size="5xl"/>
+                        </div>
                         {pageName == "/app/perfil" ? <div className="h-1.5 bg-yellow w-full px-5"></div> : null}
                     </div>    
                 </Link>
                 : 
                 <div className="flex flex-col items-center gap-1" onClick={() => {showLog(true)}}>
+
                 <i className={`fas fa-user-circle ${pageName == "/app/perfil" ? "text-black" : null}`}></i>
                 {pageName == "/app/perfil" ? <div className="h-1.5 bg-yellow w-full px-5"></div> : null}
             </div>  }    

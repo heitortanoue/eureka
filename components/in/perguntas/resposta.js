@@ -97,7 +97,7 @@ export default function Resposta ({ answer, user, resps, onQtdChange }) {
                             </div>
                             <div className="flex gap-2">  
                                 <i className="fas fa-flag red-icon" onClick={() => setShowReport(true)}></i>
-                                {user && answer.id_user == user._id.toString() ? <i className="fas fa-trash-alt red-icon" onClick={() => {setShowDelete(true)}}></i> : null} 
+                                {user && (answer.id_user == user._id.toString() || user.admin) ? <i className="fas fa-trash-alt red-icon" onClick={() => {setShowDelete(true)}}></i> : null} 
                             </div>      
                         </div>
                 </div>  
@@ -119,7 +119,7 @@ export default function Resposta ({ answer, user, resps, onQtdChange }) {
                             <div className="flex items-center gap-3 break-all" key={el.texto}>
                                 <div className="w-7 h-7">
                                     <div className="relative w-6 h-6 flex">
-                                        <UserImage src={el.foto_user} size={"2xl"}/>
+                                        <UserImage src={el.foto} size={"2xl"}/>
                                     </div>                                   
                                 </div>
                                 {el.texto}
@@ -132,7 +132,7 @@ export default function Resposta ({ answer, user, resps, onQtdChange }) {
                 <form className="flex items-center gap-3">
                     <div className="w-8 h-8">
                         <div className="relative flex w-7 h-7">
-                            <UserImage src={user.foto_user} size={"3xl"}/>
+                            <UserImage src={user.foto} size={"3xl"}/>
                         </div>
                     </div>
                     <div className="relative w-full">

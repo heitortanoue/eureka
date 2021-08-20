@@ -36,22 +36,23 @@ export const getStaticProps = async (context) => {
     const obj_id_question = ObjectId(context.params.id)
     let pergunta = await colPerguntas.findOne({_id: obj_id_question});
     const obj_id_user = await ObjectId(pergunta.id_user)
-    const usuario = await colUsuarios.findOne({_id: obj_id_user}, {username: 1, foto: 1})
+    const usuario = await colUsuarios.findOne({_id: obj_id_user}, {projection: {username: true, foto: true, admin: true}})
     pergunta["username"] = await usuario.username
     pergunta["foto_user"] = await usuario.foto
+    pergunta["admin"] = await usuario.admin
 
     let comentarios = await colComentario.find({id_pergunta: context.params.id}).toArray();
     let allResps = []
     for (const quest of comentarios) {
         const obj_id = ObjectId(quest.id_user)
-        const obj = await colUsuarios.findOne({_id: obj_id}, {username: 1, foto: 1})
+        const obj = await colUsuarios.findOne({_id: obj_id}, {projection: {username: true, foto: true}})
         quest["username"] = await obj.username
         quest["foto_user"] = await obj.foto
 
         let resp_comen = await colRespComen.find({id_comentario: quest._id.toString()}).toArray();
         for (const comen of resp_comen) {
             const obj_id_comen = ObjectId(comen.id_user)
-            const obj_comen = await colUsuarios.findOne({_id: obj_id_comen}, {foto: 1})
+            const obj_comen = await colUsuarios.findOne({_id: obj_id_comen}, {projection: {foto: true}})
             comen["foto_user"] = await obj_comen.foto
         }
         allResps.push(resp_comen)
