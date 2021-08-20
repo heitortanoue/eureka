@@ -8,7 +8,7 @@ import Image from "next/image"
 
 export default function EsqueciMinhaSenha ({id_user}) {
     const [seePassword, setSeePassword] = useState(false)
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [newPass, setNewPass] = useState("")
     const [error, setError] = useState()
     const [sucess, setSucess] = useState()
