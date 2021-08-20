@@ -4,6 +4,7 @@ import timeFromPost from "../../../utils/functions/timeFromPost"
 import UserImage from "/components/in/profile/userImage"
 import DeleteConfirm from "../others/deleteConfirm"
 import Link from "next/link"
+import Report from "../others/report"
 
 export default function Resposta ({ answer, user, resps, onQtdChange }) {
     const [resp, setResp] = useState("")
@@ -13,6 +14,7 @@ export default function Resposta ({ answer, user, resps, onQtdChange }) {
     const [deleted, setDeleted] = useState(false)
 
     const [showDelete, setShowDelete] = useState(false)
+    const [showReport, setShowReport] = useState(false)
 
     const manageReaction = () => {
         let data = {
@@ -74,11 +76,13 @@ export default function Resposta ({ answer, user, resps, onQtdChange }) {
     }, [user, answer])
 
     return (
+        <>
+        {showReport ? <Report setReport={setShowReport} id={answer._id} type="comentario"/> : null}
         <div className={`ml-10 bg-white px-7 mt-4 py-4 flex flex-col text-black rounded-3xl ${deleted ? "hidden" : ""}`}>
             <div className="flex gap-3 items-center">
                 <Link href={`/app/usuario?username=${answer.username}`} passHref>
                     <div className="relative w-10 h-10 cursor-pointer">
-                        <UserImage src={answer.foto} size={"4xl"}/>
+                        <UserImage src={answer.foto_user} size={"4xl"}/>
                     </div>
                 </Link>
                 <div className="flex-1 flex flex-col gap-1">
@@ -92,7 +96,7 @@ export default function Resposta ({ answer, user, resps, onQtdChange }) {
                                 </div> 
                             </div>
                             <div className="flex gap-2">  
-                                <i className="fas fa-flag red-icon"></i>
+                                <i className="fas fa-flag red-icon" onClick={() => setShowReport(true)}></i>
                                 {user && answer.id_user == user._id.toString() ? <i className="fas fa-trash-alt red-icon" onClick={() => {setShowDelete(true)}}></i> : null} 
                             </div>      
                         </div>
@@ -115,7 +119,7 @@ export default function Resposta ({ answer, user, resps, onQtdChange }) {
                             <div className="flex items-center gap-3 break-all" key={el.texto}>
                                 <div className="w-7 h-7">
                                     <div className="relative w-6 h-6 flex">
-                                        <UserImage src={el.foto} size={"2xl"}/>
+                                        <UserImage src={el.foto_user} size={"2xl"}/>
                                     </div>                                   
                                 </div>
                                 {el.texto}
@@ -128,7 +132,7 @@ export default function Resposta ({ answer, user, resps, onQtdChange }) {
                 <form className="flex items-center gap-3">
                     <div className="w-8 h-8">
                         <div className="relative flex w-7 h-7">
-                            <UserImage src={user.foto} size={"3xl"}/>
+                            <UserImage src={user.foto_user} size={"3xl"}/>
                         </div>
                     </div>
                     <div className="relative w-full">
@@ -140,5 +144,6 @@ export default function Resposta ({ answer, user, resps, onQtdChange }) {
                 </form> : null}
             </div>
         </div>
+        </>
     )
 }

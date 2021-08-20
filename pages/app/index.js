@@ -25,7 +25,7 @@ export const getStaticProps = async () => {
         const obj_id = ObjectId(quest.id_user)
         const obj = await colUsuarios.findOne({_id: obj_id}, {projection: {username: true, foto: true, _id: false}})
         quest["username"] = await obj.username
-        quest["foto"] = await obj.foto
+        quest["foto_user"] = await obj.foto
     }
 
     const data = await JSON.stringify(perguntas)

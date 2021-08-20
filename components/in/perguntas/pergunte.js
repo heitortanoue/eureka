@@ -4,6 +4,7 @@ import {UserContext} from "/utils/contexts/userContext"
 import Error from "/components/in/others/error"
 import { useRouter } from "next/router"
 import materias from "../../../utils/data/materias"
+import imageCompression from 'browser-image-compression';
 
 export default function Pergunte (props) {
 
@@ -13,31 +14,8 @@ export default function Pergunte (props) {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState()
     const [sucess, setSucess] = useState(false)
+    const [file, setFile] = useState(null)
     const router = useRouter()
-
-    const submitQuestion = () => {
-        setLoading(true)
-        setTexto("")
-        setMateria("")
-        const data = {
-            texto: texto,
-            materia: materia,
-            foto: null,
-            user: USERCONTEXT.user[0]._id
-        }
-
-        axios.post("/api/perguntas/postPergunta", data)
-        .then(function (response) {
-            if (response.status == 200) {
-                setSucess(true)
-                setLoading(false)
-                router.push("/app/pergunta/" + response.data.id_question)
-            }
-        })
-        .catch(function (err) {
-            setLoading(false)
-        });
-    }
 
     const validate = () => {
         setError(false)
@@ -56,9 +34,69 @@ export default function Pergunte (props) {
             setError("Escolha uma matéria válida!")
             return
         }
-
-        submitQuestion()
+        sendPhoto()
     }
+
+
+    const sendPhoto = () => {
+        axios.post('/api/aws/s3', {path: `imgPergunta/`})
+            .then((res) => {
+                const url = res.data.url
+                axios.put(url, file, {headers: {"Content-Type": "multipart/form-data"}})
+                .then(function (response) {
+                    console.log(response)
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+                const imageUrl = url.split('?')[0]
+                submitQuestion(imageUrl)
+            })
+            .catch((error) => {
+                setError(error);
+            })
+    }
+
+    const submitQuestion = (imgUrl) => {
+        setLoading(true)
+        setTexto("")
+        setMateria("")
+        const data = {
+            texto: texto,
+            materia: materia,
+            foto: imgUrl,
+            user: USERCONTEXT.user[0]._id
+        }
+
+        axios.post("/api/perguntas/postPergunta", data)
+        .then(function (response) {
+            if (response.status == 200) {
+                setSucess(true)
+                setLoading(false)
+                router.push("/app/pergunta/" + response.data.id_question)
+            }
+        })
+        .catch(function (err) {
+            setLoading(false)
+        });
+    }
+
+    async function onFileChange(event) {
+        const imageFile = event.target.files[0];
+        const options = {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1920,
+          useWebWorker: true
+        }
+        try {
+          const compressed = await imageCompression(imageFile, options);
+          let reader = new FileReader();
+          reader.readAsDataURL(event.target.files[0]);
+          setFile(compressed)
+        } catch (error) {
+          console.log(error);
+        }     
+      }
 
     return (
         <div className="bg-blue-op-60 flex w-full h-full fixed z-50 font-body">
@@ -71,8 +109,22 @@ export default function Pergunte (props) {
                 {!sucess ?
                 <>
                     <div className="w-full h-full relative">
-                        <textarea className="inputfieldWhite h-full py-3" placeholder="Escreva sua pergunta aqui!" 
-                        onInput={(e) => {setTexto(e.target.value)}} value={texto}/>
+                        <div id="aloalo"></div>
+                        <div className="absolute bg-blue top-0 left-0 rounded-t-md w-full flex px-5 py-1 justify-between items-center text-xl text-white">
+                            <div className="flex gap-3 items-center">
+                                {/* <div className="font-black p-1 hover:bg-blue-dark rounded-full transition-all cursor-pointer">N</div>
+                                <div className="italic p-1 font-bold hover:bg-blue-dark rounded-full transition-all cursor-pointer">I</div>
+                                <div className="underline p-1 font-bold hover:bg-blue-dark rounded-full transition-all cursor-pointer">U</div> */}
+                            </div>
+                            <div className="flex gap-2 items-center">
+                                <div className="text-sm">{file ? "Foto anexada" : ""}</div>
+                                <input type="file" name="file" id="file" onChange={(e) => onFileChange(e)}/>
+                                <label htmlFor="file"><i className="fas fa-paperclip p-1 hover:bg-blue-dark rounded-full transition-all cursor-pointer"></i></label>
+                                {file ? <i className="fas fa-trash p-1 hover:bg-blue-dark rounded-full transition-all cursor-pointer" onClick={() => setFile(null)}></i> : null}
+                            </div>
+                        </div>
+                        <textarea className="inputfieldWhite h-full py-3 pt-12" placeholder="Escreva sua pergunta aqui!" 
+                        onInput={(e) => {setTexto(e.target.value)}} id="aloalo" />
                         <div className={`absolute bottom-3 right-4 ${texto.length <= 2000 ? "text-grey" : "text-red"} font-bold`}>{2000 - texto.length}</div>
                     </div>
                     <div className="flex gap-5">

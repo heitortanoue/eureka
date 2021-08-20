@@ -217,6 +217,11 @@ input[type="file"] {
     background-color: rgba(67, 97, 238, 0.6);
 }
 
+.bg-black-op-40 {
+    background-color: rgba(24, 25, 37, 0.6);
+}
+
+
 .blue_button {
     border-color: var(--def-blue);
     color: var(--white);

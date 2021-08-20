@@ -16,9 +16,9 @@ const deleteUser = async (request, response) => {
     //Remover curtidas que o user fez (decrementar em cada lugar a reação retirada)
     const allComen = await collectionComen.find().toArray();
     for(const comen of allComen){
-        const curtiu = await collection.findOne({'_id': ObjectId(comen._id)}, {projection: {pessoas_curtiram: true}})
+        const curtiu = await collectionComen.findOne({'_id': ObjectId(comen._id)}, {projection: {pessoas_curtiram: true}})
         if((curtiu.pessoas_curtiram.indexOf(id_user)) != -1){
-           await collectionComen.updateOne({'_id': ObjectId(comen._id)}, { $set : {'$pull': { 'pessoas_curtiram': id_user },  $inc : {'qtd_reacao' : -1}}});
+           await collectionComen.updateOne({'_id': ObjectId(comen._id)}, {'$pull': { 'pessoas_curtiram': id_user },  $inc : {'qtd_reacao' : -1}});
         }
 
         if(comen.id_user == id_user){
@@ -26,7 +26,7 @@ const deleteUser = async (request, response) => {
             await collectionResp.deleteMany({"id_comentario": id});
 
             const id_quest = await collectionComen.findOneAndDelete({"_id": ObjectId(comen._id)}, {projection:{"id_pergunta" : true}});
-            await collectionPerg.updateOne({"_id" : ObjectId(id_quest.value.id_pergunta)}, {$set: { $inc : {"qtd_respostas" : -1}}})
+            await collectionPerg.updateOne({"_id" : ObjectId(id_quest.value.id_pergunta)}, { $inc : {"qtd_respostas" : -1}})
         }
     } 
     

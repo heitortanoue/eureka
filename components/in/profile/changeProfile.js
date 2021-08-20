@@ -75,7 +75,7 @@ export default function ChangeProfile ({ user, closeChangeProfile, changeUser })
                 inputPhoto = user.foto.substring(n + 1);
             }
             let url
-            axios.post('/api/aws/s3', {link_foto: inputPhoto})
+            axios.post('/api/aws/s3', {link_foto: inputPhoto, path: `imgPerfil/`})
             .then((res) => {
                 url = res.data.url
                 axios.put(url, file, {headers: {"Content-Type": "multipart/form-data"}})
